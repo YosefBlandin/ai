@@ -1,16 +1,16 @@
-import { 
-  Distribution, 
-  DistributionFilters, 
-  DistributionsResponse, 
-  DistributionResponse 
+import {
+  DistributionFilters,
+  DistributionResponse,
+  DistributionsResponse,
 } from '@aidonic/shared-types';
 
 /**
- * Interface Segregation Principle (ISP)
- * Defines only the methods that clients need
+ * API service interfaces
  */
 export interface IApiService {
-  getDistributions(filters?: DistributionFilters): Promise<DistributionsResponse>;
+  getDistributions(
+    filters?: DistributionFilters
+  ): Promise<DistributionsResponse>;
   getDistributionById(id: string): Promise<DistributionResponse>;
 }
 
@@ -28,7 +28,9 @@ export interface IChartService {
  * Defines only the methods needed for distribution business logic
  */
 export interface IDistributionService {
-  getDistributions(filters?: DistributionFilters): Promise<DistributionsResponse>;
+  getDistributions(
+    filters?: DistributionFilters
+  ): Promise<DistributionsResponse>;
   getDistributionById(id: string): Promise<DistributionResponse>;
   getStatusDistribution(): Promise<StatusChartData[]>;
   getTimelineDistribution(): Promise<TimelineChartData[]>;

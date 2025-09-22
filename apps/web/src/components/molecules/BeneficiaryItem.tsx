@@ -9,16 +9,16 @@ interface BeneficiaryItemProps {
 }
 
 /**
- * Beneficiary item component for displaying individual beneficiaries
+ * Component for displaying individual beneficiaries
  */
-export const BeneficiaryItem: React.FC<BeneficiaryItemProps> = ({ 
-  name, 
-  id, 
+export const BeneficiaryItem: React.FC<BeneficiaryItemProps> = ({
+  name,
+  id: _id,
   onClick,
-  className = '' 
+  className = '',
 }) => {
   return (
-    <div 
+    <div
       className={`flex items-center py-3 px-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors ${className}`}
       onClick={onClick}
     >

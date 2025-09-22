@@ -1,18 +1,13 @@
-import { 
-  Distribution, 
-  DistributionFilters, 
-  DistributionsResponse, 
-  DistributionResponse 
+import {
+  DistributionFilters,
+  DistributionResponse,
+  DistributionsResponse,
 } from '@aidonic/shared-types';
-import { IApiService } from '../interfaces/api.interface';
 import { getApiBaseUrl, getApiTimeout } from '../config/api.config';
+import { IApiService } from '../interfaces/api.interface';
 
 /**
- * Single Responsibility Principle (SRP)
- * This class is only responsible for API operations
- * 
- * Dependency Inversion Principle (DIP)
- * Depends on abstractions (IApiService) not concretions
+ * Service for API operations
  */
 export class ApiService implements IApiService {
   private readonly baseUrl: string;
@@ -26,10 +21,12 @@ export class ApiService implements IApiService {
   /**
    * Get distributions with optional filtering and pagination
    */
-  public async getDistributions(filters?: DistributionFilters): Promise<DistributionsResponse> {
+  public async getDistributions(
+    filters?: DistributionFilters
+  ): Promise<DistributionsResponse> {
     try {
       const queryParams = new URLSearchParams();
-      
+
       if (filters?.region) {
         queryParams.append('region', filters.region);
       }
@@ -44,7 +41,7 @@ export class ApiService implements IApiService {
       }
 
       const url = `${this.baseUrl}/api/distributions${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
-      
+
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), this.timeout);
 
@@ -66,12 +63,18 @@ export class ApiService implements IApiService {
       return result;
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') {
-        throw new Error('Request timeout - please check your network connection');
+        throw new Error(
+          'Request timeout - please check your network connection'
+        );
       }
       if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new Error('Network error - please check if the JSON server is running and accessible');
+        throw new Error(
+          'Network error - please check if the JSON server is running and accessible'
+        );
       }
-      throw new Error(`Failed to fetch distributions: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to fetch distributions: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -81,7 +84,7 @@ export class ApiService implements IApiService {
   public async getDistributionById(id: string): Promise<DistributionResponse> {
     try {
       const url = `${this.baseUrl}/api/distributions/${id}`;
-      
+
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), this.timeout);
 
@@ -106,13 +109,18 @@ export class ApiService implements IApiService {
       return result;
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') {
-        throw new Error('Request timeout - please check your network connection');
+        throw new Error(
+          'Request timeout - please check your network connection'
+        );
       }
       if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new Error('Network error - please check if the JSON server is running and accessible');
+        throw new Error(
+          'Network error - please check if the JSON server is running and accessible'
+        );
       }
-      throw new Error(`Failed to fetch distribution ${id}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to fetch distribution ${id}: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
-
 }

@@ -1,15 +1,21 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
-import { LineChart, BarChart, PieChart } from 'react-native-chart-kit';
-import { Dimensions } from 'react-native';
-import { useCharts } from '@/hooks/useCharts';
-import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { useCharts } from '@/hooks/useCharts';
+import React from 'react';
+import {
+  Dimensions,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { LineChart, PieChart } from 'react-native-chart-kit';
 
 const screenWidth = Dimensions.get('window').width;
 
 /**
- * Charts screen displaying aid distribution analytics
+ * Charts screen for analytics
  */
 export const ChartsScreen: React.FC = () => {
   const { statusData, timelineData, loading, refresh } = useCharts();
@@ -53,18 +59,21 @@ export const ChartsScreen: React.FC = () => {
 
   const getAidTypeColor = (aidType: string) => {
     const colors = {
-      'Food': '#3B82F6',
-      'Medical': '#10B981', 
-      'Shelter': '#F59E0B',
-      'Clothing': '#EF4444',
-      'Education': '#8B5CF6'
+      Food: '#3B82F6',
+      Medical: '#10B981',
+      Shelter: '#F59E0B',
+      Clothing: '#EF4444',
+      Education: '#8B5CF6',
     };
     return colors[aidType as keyof typeof colors] || '#6B7280';
   };
 
   const pieData = statusData
-    .filter(item => item && item.aidType && typeof item.count === 'number' && item.count > 0)
-    .map((item) => {
+    .filter(
+      item =>
+        item && item.aidType && typeof item.count === 'number' && item.count > 0
+    )
+    .map(item => {
       const count = Math.max(0, Math.floor(item.count || 0));
       return {
         name: (item.aidType || 'Unknown').substring(0, 10),
@@ -76,16 +85,25 @@ export const ChartsScreen: React.FC = () => {
     });
 
   const fallbackPieData = [
-    { name: 'No Data', population: 1, color: '#6B7280', legendFontColor: '#7F7F7F', legendFontSize: 12 }
+    {
+      name: 'No Data',
+      population: 1,
+      color: '#6B7280',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 12,
+    },
   ];
-  
+
   const fallbackLineData = {
     labels: ['No Data'],
-    datasets: [{ data: [0], strokeWidth: 2 }]
+    datasets: [{ data: [0], strokeWidth: 2 }],
   };
 
   const validTimelineData = timelineData
-    .filter(item => item && item.date && typeof item.count === 'number' && item.count >= 0)
+    .filter(
+      item =>
+        item && item.date && typeof item.count === 'number' && item.count >= 0
+    )
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   const lineData = {
@@ -93,8 +111,11 @@ export const ChartsScreen: React.FC = () => {
       try {
         const date = new Date(item.date);
         if (isNaN(date.getTime())) return 'Invalid';
-        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-      } catch (error) {
+        return date.toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+        });
+      } catch {
         return 'Invalid';
       }
     }),
@@ -150,7 +171,6 @@ export const ChartsScreen: React.FC = () => {
             style={styles.chart}
           />
         </View>
-
       </ScrollView>
     </ErrorBoundary>
   );

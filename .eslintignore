@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+.expo/
+
+# Generated files
+*.d.ts
+*.js.map
+*.css.map
+
+# Logs
+*.log
+
+# Coverage
+coverage/
+
+# Cache
+.eslintcache
+
+# Environment files
+.env*
+
+# Server database
+server/db.json
+
+# Package lock files
+package-lock.json
+yarn.lock
+
+# Turbo cache
+.turbo/

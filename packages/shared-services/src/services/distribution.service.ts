@@ -1,22 +1,18 @@
-import { 
-  Distribution, 
-  DistributionFilters, 
-  DistributionsResponse, 
-  DistributionResponse 
+import {
+  DistributionFilters,
+  DistributionResponse,
+  DistributionsResponse,
 } from '@aidonic/shared-types';
-import { IDistributionService, StatusChartData, TimelineChartData } from '../interfaces/api.interface';
-import { IApiService } from '../interfaces/api.interface';
-import { IChartService } from '../interfaces/api.interface';
+import {
+  IApiService,
+  IChartService,
+  IDistributionService,
+  StatusChartData,
+  TimelineChartData,
+} from '../interfaces/api.interface';
 
 /**
- * Facade Pattern
- * Provides a simplified interface to complex subsystems
- * 
- * Single Responsibility Principle (SRP)
- * This class is responsible for orchestrating distribution-related operations
- * 
- * Dependency Inversion Principle (DIP)
- * Depends on abstractions (IApiService, IChartService) not concretions
+ * Service for orchestrating distribution-related operations
  */
 export class DistributionService implements IDistributionService {
   private readonly apiService: IApiService;
@@ -29,15 +25,15 @@ export class DistributionService implements IDistributionService {
 
   /**
    * Get distributions with optional filtering and pagination
-   * Delegates to API service
    */
-  public async getDistributions(filters?: DistributionFilters): Promise<DistributionsResponse> {
+  public async getDistributions(
+    filters?: DistributionFilters
+  ): Promise<DistributionsResponse> {
     return this.apiService.getDistributions(filters);
   }
 
   /**
    * Get a specific distribution by ID
-   * Delegates to API service
    */
   public async getDistributionById(id: string): Promise<DistributionResponse> {
     return this.apiService.getDistributionById(id);
@@ -61,7 +57,6 @@ export class DistributionService implements IDistributionService {
 
   /**
    * Get distribution statistics
-   * Business logic method that combines data from multiple sources
    */
   public async getDistributionStats(): Promise<{
     totalDistributions: number;
@@ -72,26 +67,29 @@ export class DistributionService implements IDistributionService {
     try {
       const [distributions, statusBreakdown] = await Promise.all([
         this.getDistributions(),
-        this.getStatusDistribution()
+        this.getStatusDistribution(),
       ]);
 
       const totalDistributions = distributions.total;
       const totalBeneficiaries = distributions.data.reduce(
-        (sum, dist) => sum + dist.beneficiaries, 
+        (sum, dist) => sum + dist.beneficiaries,
         0
       );
-      const averageBeneficiaries = totalDistributions > 0 
-        ? Math.round(totalBeneficiaries / totalDistributions) 
-        : 0;
+      const averageBeneficiaries =
+        totalDistributions > 0
+          ? Math.round(totalBeneficiaries / totalDistributions)
+          : 0;
 
       return {
         totalDistributions,
         totalBeneficiaries,
         averageBeneficiaries,
-        statusBreakdown
+        statusBreakdown,
       };
     } catch (error) {
-      throw new Error(`Failed to get distribution stats: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to get distribution stats: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 }

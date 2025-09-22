@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, RefreshControl } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  RefreshControl,
+} from 'react-native';
 import { useDistribution } from '@/hooks/useDistribution';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -9,9 +15,9 @@ interface DistributionDetailsContainerProps {
   distributionId: string;
 }
 
-export const DistributionDetailsContainer: React.FC<DistributionDetailsContainerProps> = ({
-  distributionId
-}) => {
+export const DistributionDetailsContainer: React.FC<
+  DistributionDetailsContainerProps
+> = ({ distributionId }) => {
   const { distribution, loading, refresh } = useDistribution(distributionId);
 
   if (loading.isLoading) {
@@ -57,7 +63,12 @@ export const DistributionDetailsContainer: React.FC<DistributionDetailsContainer
               <Text style={styles.id}>ID: {distribution.id}</Text>
             </View>
           </View>
-          <View style={[styles.statusBadge, { backgroundColor: statusColor + '20' }]}>
+          <View
+            style={[
+              styles.statusBadge,
+              { backgroundColor: `${statusColor}20` },
+            ]}
+          >
             <Text style={[styles.statusText, { color: statusColor }]}>
               {distribution.status}
             </Text>
@@ -95,7 +106,12 @@ export const DistributionDetailsContainer: React.FC<DistributionDetailsContainer
           <View style={styles.infoCard}>
             <View style={styles.infoRow}>
               <Text style={styles.label}>Current Status:</Text>
-              <View style={[styles.statusBadge, { backgroundColor: statusColor + '20' }]}>
+              <View
+                style={[
+                  styles.statusBadge,
+                  { backgroundColor: `${statusColor}20` },
+                ]}
+              >
                 <Text style={[styles.statusText, { color: statusColor }]}>
                   {distribution.status}
                 </Text>
@@ -108,21 +124,26 @@ export const DistributionDetailsContainer: React.FC<DistributionDetailsContainer
           </View>
         </View>
 
-        {distribution.beneficiaryList && distribution.beneficiaryList.length > 0 && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>
-              Beneficiaries ({distribution.beneficiaryList.length})
-            </Text>
-            <View style={styles.beneficiariesContainer}>
-              {distribution.beneficiaryList.map((beneficiary) => (
-                <View key={beneficiary.id} style={styles.beneficiaryCard}>
-                  <Text style={styles.beneficiaryName}>{beneficiary.name}</Text>
-                  <Text style={styles.beneficiaryId}>ID: {beneficiary.id}</Text>
-                </View>
-              ))}
+        {distribution.beneficiaryList &&
+          distribution.beneficiaryList.length > 0 && (
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>
+                Beneficiaries ({distribution.beneficiaryList.length})
+              </Text>
+              <View style={styles.beneficiariesContainer}>
+                {distribution.beneficiaryList.map(beneficiary => (
+                  <View key={beneficiary.id} style={styles.beneficiaryCard}>
+                    <Text style={styles.beneficiaryName}>
+                      {beneficiary.name}
+                    </Text>
+                    <Text style={styles.beneficiaryId}>
+                      ID: {beneficiary.id}
+                    </Text>
+                  </View>
+                ))}
+              </View>
             </View>
-          </View>
-        )}
+          )}
       </ScrollView>
     </ErrorBoundary>
   );

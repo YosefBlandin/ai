@@ -1,28 +1,30 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, RefreshControl, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { useDistributions } from '@/hooks/useDistributions';
 import { DistributionCard } from '@/components/DistributionCard';
-import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { useDistributions } from '@/hooks/useDistributions';
 import { Distribution, DistributionStatus } from '@/types';
+import React, { useState } from 'react';
+import {
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 interface DistributionListContainerProps {
   onViewDetails: (id: string) => void;
 }
 
 /**
- * Container component for managing distribution list state and logic
+ * Container for distribution list
  */
-export const DistributionListContainer: React.FC<DistributionListContainerProps> = ({
-  onViewDetails
-}) => {
-  const {
-    distributions,
-    loading,
-    filters,
-    updateFilters,
-    refresh
-  } = useDistributions();
+export const DistributionListContainer: React.FC<
+  DistributionListContainerProps
+> = ({ onViewDetails }) => {
+  const { distributions, loading, filters, updateFilters, refresh } =
+    useDistributions();
 
   const [showFilters, setShowFilters] = useState(false);
 
@@ -31,22 +33,23 @@ export const DistributionListContainer: React.FC<DistributionListContainerProps>
   };
 
   const handleRegionFilter = (region: string) => {
-    const newFilters = region === 'All' ? { ...filters, region: undefined } : { ...filters, region };
+    const newFilters =
+      region === 'All'
+        ? { ...filters, region: undefined }
+        : { ...filters, region };
     updateFilters(newFilters);
   };
 
   const handleStatusFilter = (status: string) => {
-    const newFilters = status === 'All' 
-      ? { ...filters, status: undefined } 
-      : { ...filters, status: status as DistributionStatus };
+    const newFilters =
+      status === 'All'
+        ? { ...filters, status: undefined }
+        : { ...filters, status: status as DistributionStatus };
     updateFilters(newFilters);
   };
 
   const renderDistribution = ({ item }: { item: Distribution }) => (
-    <DistributionCard
-      distribution={item}
-      onPress={onViewDetails}
-    />
+    <DistributionCard distribution={item} onPress={onViewDetails} />
   );
 
   if (loading.isLoading && distributions.length === 0) {
@@ -81,19 +84,33 @@ export const DistributionListContainer: React.FC<DistributionListContainerProps>
             <View style={styles.filterRow}>
               <Text style={styles.filterLabel}>Region</Text>
               <View style={styles.filterOptions}>
-                {['All', 'West Nile', 'Eastern Province', 'Northern Region', 'Central Region', 'Western Region', 'Southern Region'].map((region) => (
+                {[
+                  'All',
+                  'West Nile',
+                  'Eastern Province',
+                  'Northern Region',
+                  'Central Region',
+                  'Western Region',
+                  'Southern Region',
+                ].map(region => (
                   <TouchableOpacity
                     key={region}
                     style={[
                       styles.filterOption,
-                      (filters.region === region || (!filters.region && region === 'All')) && styles.filterOptionActive
+                      (filters.region === region ||
+                        (!filters.region && region === 'All')) &&
+                        styles.filterOptionActive,
                     ]}
                     onPress={() => handleRegionFilter(region)}
                   >
-                    <Text style={[
-                      styles.filterOptionText,
-                      (filters.region === region || (!filters.region && region === 'All')) && styles.filterOptionTextActive
-                    ]}>
+                    <Text
+                      style={[
+                        styles.filterOptionText,
+                        (filters.region === region ||
+                          (!filters.region && region === 'All')) &&
+                          styles.filterOptionTextActive,
+                      ]}
+                    >
                       {region}
                     </Text>
                   </TouchableOpacity>
@@ -103,19 +120,31 @@ export const DistributionListContainer: React.FC<DistributionListContainerProps>
             <View style={styles.filterRow}>
               <Text style={styles.filterLabel}>Status</Text>
               <View style={styles.filterOptions}>
-                {['All', 'Planned', 'In Progress', 'Completed', 'Cancelled'].map((status) => (
+                {[
+                  'All',
+                  'Planned',
+                  'In Progress',
+                  'Completed',
+                  'Cancelled',
+                ].map(status => (
                   <TouchableOpacity
                     key={status}
                     style={[
                       styles.filterOption,
-                      (filters.status === status || (!filters.status && status === 'All')) && styles.filterOptionActive
+                      (filters.status === status ||
+                        (!filters.status && status === 'All')) &&
+                        styles.filterOptionActive,
                     ]}
                     onPress={() => handleStatusFilter(status)}
                   >
-                    <Text style={[
-                      styles.filterOptionText,
-                      (filters.status === status || (!filters.status && status === 'All')) && styles.filterOptionTextActive
-                    ]}>
+                    <Text
+                      style={[
+                        styles.filterOptionText,
+                        (filters.status === status ||
+                          (!filters.status && status === 'All')) &&
+                          styles.filterOptionTextActive,
+                      ]}
+                    >
                       {status}
                     </Text>
                   </TouchableOpacity>
@@ -128,7 +157,7 @@ export const DistributionListContainer: React.FC<DistributionListContainerProps>
         <FlatList
           data={distributions}
           renderItem={renderDistribution}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           refreshControl={
             <RefreshControl
               refreshing={loading.isLoading}

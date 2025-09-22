@@ -1,8 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Distribution, DistributionFilters, DistributionsResponse, LoadingState, PaginationState } from '@/types';
+import {
+  Distribution,
+  DistributionFilters,
+  LoadingState,
+  PaginationState,
+} from '@/types';
 import { distributionService } from '@aidonic/shared-services';
+import { useCallback, useEffect, useState } from 'react';
 
-// Custom hook following Single Responsibility Principle
+// Custom hook for managing distributions
 export const useDistributions = (initialFilters?: DistributionFilters) => {
   const [distributions, setDistributions] = useState<Distribution[]>([]);
   const [loading, setLoading] = useState<LoadingState>({ isLoading: false });
@@ -10,40 +15,52 @@ export const useDistributions = (initialFilters?: DistributionFilters) => {
     currentPage: 1,
     totalPages: 0,
     totalItems: 0,
-    itemsPerPage: 10
+    itemsPerPage: 10,
   });
-  const [filters, setFilters] = useState<DistributionFilters>(initialFilters || {});
+  const [filters, setFilters] = useState<DistributionFilters>(
+    initialFilters || {}
+  );
 
-  const fetchDistributions = useCallback(async (newFilters?: DistributionFilters) => {
-    setLoading({ isLoading: true });
-    try {
-      const currentFilters = { ...filters, ...newFilters };
-      const response = await distributionService.getDistributions(currentFilters);
-      
-      setDistributions(response.data);
-      setPagination({
-        currentPage: response.page,
-        totalPages: Math.ceil(response.total / response.limit),
-        totalItems: response.total,
-        itemsPerPage: response.limit
-      });
-      setFilters(currentFilters);
-      setLoading({ isLoading: false });
-    } catch (error) {
-      setLoading({ 
-        isLoading: false, 
-        error: error instanceof Error ? error.message : 'An error occurred' 
-      });
-    }
-  }, [filters]);
+  const fetchDistributions = useCallback(
+    async (newFilters?: DistributionFilters) => {
+      setLoading({ isLoading: true });
+      try {
+        const currentFilters = { ...filters, ...newFilters };
+        const response =
+          await distributionService.getDistributions(currentFilters);
 
-  const updateFilters = useCallback((newFilters: Partial<DistributionFilters>) => {
-    fetchDistributions({ ...filters, ...newFilters, page: 1 });
-  }, [filters, fetchDistributions]);
+        setDistributions(response.data);
+        setPagination({
+          currentPage: response.page,
+          totalPages: Math.ceil(response.total / response.limit),
+          totalItems: response.total,
+          itemsPerPage: response.limit,
+        });
+        setFilters(currentFilters);
+        setLoading({ isLoading: false });
+      } catch (error) {
+        setLoading({
+          isLoading: false,
+          error: error instanceof Error ? error.message : 'An error occurred',
+        });
+      }
+    },
+    [filters]
+  );
 
-  const changePage = useCallback((page: number) => {
-    fetchDistributions({ ...filters, page });
-  }, [filters, fetchDistributions]);
+  const updateFilters = useCallback(
+    (newFilters: Partial<DistributionFilters>) => {
+      fetchDistributions({ ...filters, ...newFilters, page: 1 });
+    },
+    [filters, fetchDistributions]
+  );
+
+  const changePage = useCallback(
+    (page: number) => {
+      fetchDistributions({ ...filters, page });
+    },
+    [filters, fetchDistributions]
+  );
 
   const refresh = useCallback(() => {
     fetchDistributions(filters);
@@ -60,6 +77,6 @@ export const useDistributions = (initialFilters?: DistributionFilters) => {
     filters,
     updateFilters,
     changePage,
-    refresh
+    refresh,
   };
 };

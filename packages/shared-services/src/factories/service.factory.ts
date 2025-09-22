@@ -1,25 +1,23 @@
-import { IApiService, IChartService, IDistributionService } from '../interfaces/api.interface';
+import {
+  IApiService,
+  IChartService,
+  IDistributionService,
+} from '../interfaces/api.interface';
 import { ApiService } from '../services/api.service';
 import { ChartService } from '../services/chart.service';
 import { DistributionService } from '../services/distribution.service';
 
 /**
- * Factory Pattern
- * Creates service instances with proper dependencies
- * 
- * Single Responsibility Principle (SRP)
- * This class is only responsible for creating service instances
- * 
- * Dependency Inversion Principle (DIP)
- * Depends on abstractions, not concrete implementations
+ * Factory for creating service instances
  */
 export class ServiceFactory {
   private static apiServiceInstance: IApiService | null = null;
   private static chartServiceInstance: IChartService | null = null;
-  private static distributionServiceInstance: IDistributionService | null = null;
+  private static distributionServiceInstance: IDistributionService | null =
+    null;
 
   /**
-   * Get or create API service instance (Singleton pattern)
+   * Get or create API service instance
    */
   public static getApiService(baseUrl?: string): IApiService {
     if (!this.apiServiceInstance) {
@@ -29,7 +27,7 @@ export class ServiceFactory {
   }
 
   /**
-   * Get or create chart service instance (Singleton pattern)
+   * Get or create chart service instance
    */
   public static getChartService(): IChartService {
     if (!this.chartServiceInstance) {
@@ -39,14 +37,16 @@ export class ServiceFactory {
   }
 
   /**
-   * Get or create distribution service instance (Singleton pattern)
-   * Automatically injects dependencies
+   * Get or create distribution service instance
    */
   public static getDistributionService(baseUrl?: string): IDistributionService {
     if (!this.distributionServiceInstance) {
       const apiService = this.getApiService(baseUrl);
       const chartService = this.getChartService();
-      this.distributionServiceInstance = new DistributionService(apiService, chartService);
+      this.distributionServiceInstance = new DistributionService(
+        apiService,
+        chartService
+      );
     }
     return this.distributionServiceInstance;
   }

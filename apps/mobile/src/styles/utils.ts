@@ -1,5 +1,13 @@
-import { StyleSheet, Platform } from 'react-native';
-import { colors, spacing, typography, radius, shadows, statusColors, componentTokens } from './tokens';
+import { StyleSheet } from 'react-native';
+import {
+  colors,
+  componentTokens,
+  radius,
+  shadows,
+  spacing,
+  statusColors,
+  typography,
+} from './tokens';
 
 // Mobile-specific style utilities using React Native StyleSheet
 export const createMobileStyles = {
@@ -42,7 +50,7 @@ export const createMobileStyles = {
       paddingVertical: componentTokens.button.padding.lg.vertical,
     },
   }),
-  
+
   // Card styles
   card: StyleSheet.create({
     base: {
@@ -57,7 +65,7 @@ export const createMobileStyles = {
       ...shadows.lg,
     },
   }),
-  
+
   // Input styles
   input: StyleSheet.create({
     base: {
@@ -75,7 +83,7 @@ export const createMobileStyles = {
       borderColor: colors.error[500],
     },
   }),
-  
+
   // Status badge styles
   statusBadge: StyleSheet.create({
     base: {
@@ -101,7 +109,7 @@ export const createMobileStyles = {
       borderColor: statusColors.cancelled.border,
     },
   }),
-  
+
   // Layout styles
   container: StyleSheet.create({
     base: {
@@ -117,7 +125,7 @@ export const createMobileStyles = {
       alignItems: 'center',
     },
   }),
-  
+
   // Typography styles
   text: StyleSheet.create({
     h1: {
@@ -158,22 +166,23 @@ export const createMobileStyles = {
 
 // Status color helper
 export const getStatusColor = (status: string) => {
-  const statusMap: Record<string, keyof typeof createMobileStyles.statusBadge> = {
-    'Planned': 'planned',
-    'In Progress': 'in-progress',
-    'Completed': 'completed',
-    'Cancelled': 'cancelled',
-  };
+  const statusMap: Record<string, keyof typeof createMobileStyles.statusBadge> =
+    {
+      Planned: 'planned',
+      'In Progress': 'in-progress',
+      Completed: 'completed',
+      Cancelled: 'cancelled',
+    };
   return statusMap[status] || 'base';
 };
 
 // Status text color helper
 export const getStatusTextColor = (status: string) => {
   const statusMap: Record<string, string> = {
-    'Planned': statusColors.planned.text,
+    Planned: statusColors.planned.text,
     'In Progress': statusColors['in-progress'].text,
-    'Completed': statusColors.completed.text,
-    'Cancelled': statusColors.cancelled.text,
+    Completed: statusColors.completed.text,
+    Cancelled: statusColors.cancelled.text,
   };
   return statusMap[status] || colors.text.primary;
 };

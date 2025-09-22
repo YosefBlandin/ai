@@ -10,15 +10,20 @@ interface DistributionCardProps {
 // Presentation component following Single Responsibility Principle
 export const DistributionCard: React.FC<DistributionCardProps> = ({
   distribution,
-  onPress
+  onPress,
 }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Completed': return '#10B981';
-      case 'In Progress': return '#F59E0B';
-      case 'Planned': return '#3B82F6';
-      case 'Cancelled': return '#EF4444';
-      default: return '#6B7280';
+      case 'Completed':
+        return '#10B981';
+      case 'In Progress':
+        return '#F59E0B';
+      case 'Planned':
+        return '#3B82F6';
+      case 'Cancelled':
+        return '#EF4444';
+      default:
+        return '#6B7280';
     }
   };
 
@@ -26,7 +31,7 @@ export const DistributionCard: React.FC<DistributionCardProps> = ({
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
 
@@ -41,8 +46,18 @@ export const DistributionCard: React.FC<DistributionCardProps> = ({
           <Text style={styles.region}>{distribution.region}</Text>
           <Text style={styles.date}>{formatDate(distribution.date)}</Text>
         </View>
-        <View style={[styles.statusBadge, { backgroundColor: getStatusColor(distribution.status) + '20' }]}>
-          <Text style={[styles.statusText, { color: getStatusColor(distribution.status) }]}>
+        <View
+          style={[
+            styles.statusBadge,
+            { backgroundColor: `${getStatusColor(distribution.status)}20` },
+          ]}
+        >
+          <Text
+            style={[
+              styles.statusText,
+              { color: getStatusColor(distribution.status) },
+            ]}
+          >
             {distribution.status}
           </Text>
         </View>
@@ -51,7 +66,9 @@ export const DistributionCard: React.FC<DistributionCardProps> = ({
       <View style={styles.content}>
         <View style={styles.infoRow}>
           <Text style={styles.label}>Beneficiaries</Text>
-          <Text style={styles.value}>{distribution.beneficiaries.toLocaleString()}</Text>
+          <Text style={styles.value}>
+            {distribution.beneficiaries.toLocaleString()}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

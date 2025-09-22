@@ -1,9 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { LoadingState } from '@aidonic/shared-types';
-import { chartService, StatusChartData, TimelineChartData } from '@aidonic/shared-services';
+import {
+  chartService,
+  StatusChartData,
+  TimelineChartData,
+} from '@aidonic/shared-services';
 
 /**
- * Hook for managing chart data state
+ * Hook for managing chart data
  */
 export const useCharts = () => {
   const [statusData, setStatusData] = useState<StatusChartData[]>([]);
@@ -34,9 +38,10 @@ export const useCharts = () => {
       await Promise.all([fetchStatusData(), fetchTimelineData()]);
       setLoading({ isLoading: false });
     } catch (error) {
-      setLoading({ 
-        isLoading: false, 
-        error: error instanceof Error ? error.message : 'Failed to fetch chart data' 
+      setLoading({
+        isLoading: false,
+        error:
+          error instanceof Error ? error.message : 'Failed to fetch chart data',
       });
     }
   }, [fetchStatusData, fetchTimelineData]);
@@ -53,6 +58,6 @@ export const useCharts = () => {
     statusData,
     timelineData,
     loading,
-    refresh
+    refresh,
   };
 };

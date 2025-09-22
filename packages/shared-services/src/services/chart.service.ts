@@ -1,9 +1,13 @@
-import { Distribution, DistributionStatus } from '@aidonic/shared-types';
-import { IChartService, StatusChartData, TimelineChartData } from '../interfaces/api.interface';
+import { Distribution } from '@aidonic/shared-types';
 import { ServiceFactory } from '../factories/service.factory';
+import {
+  IChartService,
+  StatusChartData,
+  TimelineChartData,
+} from '../interfaces/api.interface';
 
 /**
- * Service for processing chart data from distributions
+ * Service for processing chart data
  */
 export class ChartService implements IChartService {
   constructor() {}
@@ -19,10 +23,12 @@ export class ChartService implements IChartService {
       return aidTypeCounts.map(({ aidType, count }) => ({
         status: aidType,
         count,
-        percentage: total > 0 ? Math.round((count / total) * 100) : 0
+        percentage: total > 0 ? Math.round((count / total) * 100) : 0,
       }));
     } catch (error) {
-      throw new Error(`Failed to get aid type distribution: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to get aid type distribution: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -33,13 +39,19 @@ export class ChartService implements IChartService {
       const distributions = response.data;
       const timelineData = this.calculateTimelineData(distributions);
 
-      return timelineData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      return timelineData.sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      );
     } catch (error) {
-      throw new Error(`Failed to get timeline distribution: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to get timeline distribution: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
-  private calculateAidTypeCounts(distributions: Distribution[]): Array<{ aidType: string; count: number }> {
+  private calculateAidTypeCounts(
+    distributions: Distribution[]
+  ): Array<{ aidType: string; count: number }> {
     const aidTypeCounts = new Map<string, number>();
 
     distributions.forEach(distribution => {
@@ -49,22 +61,27 @@ export class ChartService implements IChartService {
 
     return Array.from(aidTypeCounts.entries()).map(([aidType, count]) => ({
       aidType,
-      count
+      count,
     }));
   }
 
-  private calculateTimelineData(distributions: Distribution[]): TimelineChartData[] {
+  private calculateTimelineData(
+    distributions: Distribution[]
+  ): TimelineChartData[] {
     const dateBeneficiaries = new Map<string, number>();
 
     distributions.forEach(distribution => {
       const date = distribution.date;
       const currentBeneficiaries = dateBeneficiaries.get(date) || 0;
-      dateBeneficiaries.set(date, currentBeneficiaries + distribution.beneficiaries);
+      dateBeneficiaries.set(
+        date,
+        currentBeneficiaries + distribution.beneficiaries
+      );
     });
 
     return Array.from(dateBeneficiaries.entries()).map(([date, count]) => ({
       date,
-      count
+      count,
     }));
   }
 }
