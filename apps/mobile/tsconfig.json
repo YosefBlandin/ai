@@ -1,0 +1,66 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/containers/*": [
+        "./src/containers/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@/services/*": [
+        "./src/services/*"
+      ],
+      "@/types/*": [
+        "./src/types/*"
+      ],
+      "@/utils/*": [
+        "./src/utils/*"
+      ],
+      "@/styles/*": [
+        "./src/styles/*"
+      ],
+      "@/design-tokens/*": [
+        "./src/design-tokens/*"
+      ],
+      "@/screens/*": [
+        "./src/screens/*"
+      ],
+      "@aidonic/shared-types": [
+        "../../packages/shared-types/src"
+      ],
+      "@aidonic/shared-utils": [
+        "../../packages/shared-utils/src"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js",
+    "../../apps/web/**/*",
+    "../../components/**/*",
+    "../../containers/**/*",
+    "../../services/**/*",
+    "../../src/**/*",
+    "../../utils/**/*",
+    "../../types/**/*",
+    "../../styles/**/*",
+    "../../features/**/*",
+    "../../hooks/**/*",
+    "../../mocks/**/*"
+  ]
+}

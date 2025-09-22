@@ -2,22 +2,50 @@
   "name": "aidonic",
   "version": "0.1.0",
   "private": true,
+  "description": "Aid Distribution Dashboard - Web and Mobile Applications",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start"
-  },
-  "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.3"
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean && rm -rf node_modules/.cache",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "dev:web": "turbo run dev --filter=@aidonic/web",
+    "dev:mobile": "turbo run dev --filter=@aidonic/mobile",
+    "build:web": "turbo run build --filter=@aidonic/web",
+    "build:mobile": "turbo run build --filter=@aidonic/mobile",
+    "test:web": "turbo run test --filter=@aidonic/web",
+    "test:mobile": "turbo run test --filter=@aidonic/mobile",
+    "lint:web": "turbo run lint --filter=@aidonic/web",
+    "lint:mobile": "turbo run lint --filter=@aidonic/mobile",
+    "type-check:web": "turbo run type-check --filter=@aidonic/web",
+    "type-check:mobile": "turbo run type-check --filter=@aidonic/mobile",
+    "install:all": "npm install && npm run install:packages",
+    "install:packages": "turbo run install",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=!@aidonic/shared-* && changeset publish"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@changesets/cli": "^2.27.1",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
-  }
+    "prettier": "^3.2.5",
+    "turbo": "^1.10.0",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@aidonic/shared-types": "file:./packages/shared-types",
+    "@aidonic/shared-utils": "file:./packages/shared-utils"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "packageManager": "npm@10.2.4"
 }
