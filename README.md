@@ -95,14 +95,43 @@ aidonic/
 - npm or yarn
 - For mobile development: Expo CLI
 
-### Web Application
+### Quick Start (All Applications)
+
+```bash
+# Install all dependencies (including JSON server)
+npm run install:all
+
+# Start JSON server and all applications
+npm run dev:all
+```
+
+This will start:
+- JSON Server on `http://localhost:3001`
+- Web application on `http://localhost:3000`
+- Mobile development server
+
+### Individual Setup
+
+#### 1. JSON Server (Required First)
+
+```bash
+# Install server dependencies
+npm run dev:server:install
+
+# Start JSON server
+npm run dev:server
+```
+
+The JSON server provides the mock API for both web and mobile applications.
+
+#### 2. Web Application
 
 ```bash
 # Install dependencies
 npm install
 
-# Run development server
-npm run dev
+# Run development server (requires JSON server running)
+npm run dev:web
 
 # Run tests
 npm test
@@ -111,23 +140,20 @@ npm test
 npm run test:coverage
 
 # Build for production
-npm run build
+npm run build:web
 
 # Start production server
 npm start
 ```
 
-### Mobile Application
+#### 3. Mobile Application
 
 ```bash
-# Navigate to mobile directory
-cd mobile
-
 # Install dependencies
 npm install
 
-# Start Expo development server
-npm start
+# Start Expo development server (requires JSON server running)
+npm run dev:mobile
 
 # Run on iOS simulator
 npm run ios
@@ -138,6 +164,33 @@ npm run android
 # Run on web
 npm run web
 ```
+
+### Development Workflow
+
+1. **Start JSON Server**: `npm run dev:server`
+2. **Start Applications**: `npm run dev` (in separate terminal)
+3. **Make Changes**: Edit code in web or mobile apps
+4. **Test**: Both apps will automatically reload with changes
+
+### Mobile Development Setup
+
+**Important**: Mobile apps need special configuration to access the JSON server.
+
+1. **Get your computer's IP address:**
+   ```bash
+   npm run get-ip
+   ```
+
+2. **Update mobile configuration** (if needed):
+   - Edit `packages/shared-services/src/config/api.config.ts`
+   - Replace the IP address with your actual IP
+
+3. **Start mobile development:**
+   ```bash
+   npm run dev:mobile
+   ```
+
+**Troubleshooting**: If you get "Network request failed" errors, see [MOBILE_SETUP.md](./MOBILE_SETUP.md) for detailed troubleshooting steps.
 
 ## 🧪 Testing
 

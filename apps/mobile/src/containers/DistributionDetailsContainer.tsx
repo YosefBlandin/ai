@@ -9,7 +9,6 @@ interface DistributionDetailsContainerProps {
   distributionId: string;
 }
 
-// Container component following Container/Presentation pattern
 export const DistributionDetailsContainer: React.FC<DistributionDetailsContainerProps> = ({
   distributionId
 }) => {
@@ -50,7 +49,6 @@ export const DistributionDetailsContainer: React.FC<DistributionDetailsContainer
           />
         }
       >
-        {/* Header */}
         <View style={styles.header}>
           <View style={styles.titleContainer}>
             <Text style={styles.icon}>{aidTypeIcon}</Text>
@@ -66,7 +64,6 @@ export const DistributionDetailsContainer: React.FC<DistributionDetailsContainer
           </View>
         </View>
 
-        {/* Basic Information */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Basic Information</Text>
           <View style={styles.infoCard}>
@@ -93,7 +90,6 @@ export const DistributionDetailsContainer: React.FC<DistributionDetailsContainer
           </View>
         </View>
 
-        {/* Status Information */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Status Information</Text>
           <View style={styles.infoCard}>
@@ -112,7 +108,6 @@ export const DistributionDetailsContainer: React.FC<DistributionDetailsContainer
           </View>
         </View>
 
-        {/* Beneficiaries List */}
         {distribution.beneficiaryList && distribution.beneficiaryList.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>

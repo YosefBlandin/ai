@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Distribution, DistributionFilters, LoadingState, PaginationState } from '@/types';
+import { distributionService } from '@aidonic/shared-services';
 
-export const useDistributions = (filters: DistributionFilters = {}) => {
+
+export const useDistributions = (initialFilters: DistributionFilters = {}) => {
   const [distributions, setDistributions] = useState<Distribution[]>([]);
   const [loading, setLoading] = useState<LoadingState>({ isLoading: true });
   const [pagination, setPagination] = useState<PaginationState>({
@@ -10,37 +12,48 @@ export const useDistributions = (filters: DistributionFilters = {}) => {
     totalItems: 0,
     itemsPerPage: 10
   });
+  const [filters, setFilters] = useState<DistributionFilters>(initialFilters);
 
-  const updateFilters = (newFilters: Partial<DistributionFilters>) => {
-    // Implementation would update filters and refetch data
-  };
+  const fetchDistributions = useCallback(async () => {
+    try {
+      setLoading({ isLoading: true });
+      const response = await distributionService.getDistributions({
+        ...filters,
+        page: pagination.currentPage,
+        limit: pagination.itemsPerPage
+      });
+      
+      setDistributions(response.data);
+      setPagination(prev => ({
+        ...prev,
+        totalPages: Math.ceil(response.total / prev.itemsPerPage),
+        totalItems: response.total
+      }));
+      setLoading({ isLoading: false });
+    } catch (error) {
+      setLoading({ 
+        isLoading: false, 
+        error: error instanceof Error ? error.message : 'Failed to fetch distributions' 
+      });
+    }
+  }, [filters, pagination.currentPage, pagination.itemsPerPage]);
 
-  const changePage = (page: number) => {
+  const updateFilters = useCallback((newFilters: Partial<DistributionFilters>) => {
+    setFilters(prev => ({ ...prev, ...newFilters }));
+    setPagination(prev => ({ ...prev, currentPage: 1 }));
+  }, []);
+
+  const changePage = useCallback((page: number) => {
     setPagination(prev => ({ ...prev, currentPage: page }));
-  };
+  }, []);
 
-  const refresh = () => {
-    setLoading({ isLoading: true });
-    // Implementation would refetch data
-  };
+  const refresh = useCallback(() => {
+    fetchDistributions();
+  }, [fetchDistributions]);
 
   useEffect(() => {
-    // Mock data for now
-    const mockDistributions: Distribution[] = [
-      {
-        id: '1',
-        region: 'West Nile',
-        date: '2025-06-15',
-        status: 'Planned',
-        beneficiaries: 1200,
-        aidType: 'Food',
-        deliveryChannel: 'Vouchers'
-      }
-    ];
-    
-    setDistributions(mockDistributions);
-    setLoading({ isLoading: false });
-  }, [filters]);
+    fetchDistributions();
+  }, [fetchDistributions]);
 
   return {
     distributions,

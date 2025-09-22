@@ -5,11 +5,12 @@ import { Dimensions } from 'react-native';
 import { useCharts } from '@/hooks/useCharts';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { chartService } from '@/services/chart.service';
 
 const screenWidth = Dimensions.get('window').width;
 
-// Screen component following Single Responsibility Principle
+/**
+ * Charts screen displaying aid distribution analytics
+ */
 export const ChartsScreen: React.FC = () => {
   const { statusData, timelineData, loading, refresh } = useCharts();
 
@@ -36,27 +37,73 @@ export const ChartsScreen: React.FC = () => {
       borderRadius: 16,
     },
     propsForDots: {
-      r: '6',
-      strokeWidth: '2',
+      r: 6,
+      strokeWidth: 2,
       stroke: '#3B82F6',
+    },
+    formatYLabel: (value: string) => {
+      const num = parseFloat(value);
+      if (isNaN(num)) return '0';
+      return num.toString();
+    },
+    formatXLabel: (value: string) => {
+      return value || '';
     },
   };
 
-  const pieData = statusData.map((item, index) => ({
-    name: item.status,
-    population: item.count,
-    color: chartService.getStatusColor(item.status),
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 12,
-  }));
+  const getAidTypeColor = (aidType: string) => {
+    const colors = {
+      'Food': '#3B82F6',
+      'Medical': '#10B981', 
+      'Shelter': '#F59E0B',
+      'Clothing': '#EF4444',
+      'Education': '#8B5CF6'
+    };
+    return colors[aidType as keyof typeof colors] || '#6B7280';
+  };
+
+  const pieData = statusData
+    .filter(item => item && item.aidType && typeof item.count === 'number' && item.count > 0)
+    .map((item) => {
+      const count = Math.max(0, Math.floor(item.count || 0));
+      return {
+        name: (item.aidType || 'Unknown').substring(0, 10),
+        population: isNaN(count) ? 0 : count,
+        color: getAidTypeColor(item.aidType),
+        legendFontColor: '#7F7F7F',
+        legendFontSize: 12,
+      };
+    });
+
+  const fallbackPieData = [
+    { name: 'No Data', population: 1, color: '#6B7280', legendFontColor: '#7F7F7F', legendFontSize: 12 }
+  ];
+  
+  const fallbackLineData = {
+    labels: ['No Data'],
+    datasets: [{ data: [0], strokeWidth: 2 }]
+  };
+
+  const validTimelineData = timelineData
+    .filter(item => item && item.date && typeof item.count === 'number' && item.count >= 0)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   const lineData = {
-    labels: timelineData.map(item => 
-      new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-    ),
+    labels: validTimelineData.map(item => {
+      try {
+        const date = new Date(item.date);
+        if (isNaN(date.getTime())) return 'Invalid';
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      } catch (error) {
+        return 'Invalid';
+      }
+    }),
     datasets: [
       {
-        data: timelineData.map(item => item.count),
+        data: validTimelineData.map(item => {
+          const count = Math.max(0, Math.floor(item.count || 0));
+          return isNaN(count) ? 0 : count;
+        }),
         strokeWidth: 2,
       },
     ],
@@ -78,11 +125,10 @@ export const ChartsScreen: React.FC = () => {
           <Text style={styles.title}>Distribution Analytics</Text>
         </View>
 
-        {/* Status Distribution Pie Chart */}
         <View style={styles.chartContainer}>
-          <Text style={styles.chartTitle}>Distributions by Status</Text>
+          <Text style={styles.chartTitle}>Aid Distribution by Type</Text>
           <PieChart
-            data={pieData}
+            data={pieData.length > 0 ? pieData : fallbackPieData}
             width={screenWidth - 32}
             height={220}
             chartConfig={chartConfig}
@@ -93,11 +139,10 @@ export const ChartsScreen: React.FC = () => {
           />
         </View>
 
-        {/* Timeline Line Chart */}
         <View style={styles.chartContainer}>
-          <Text style={styles.chartTitle}>Distributions Over Time</Text>
+          <Text style={styles.chartTitle}>Beneficiaries Over Time</Text>
           <LineChart
-            data={lineData}
+            data={validTimelineData.length > 0 ? lineData : fallbackLineData}
             width={screenWidth - 32}
             height={220}
             chartConfig={chartConfig}
@@ -106,20 +151,6 @@ export const ChartsScreen: React.FC = () => {
           />
         </View>
 
-        {/* Summary Cards */}
-        <View style={styles.summaryContainer}>
-          <Text style={styles.chartTitle}>Summary</Text>
-          <View style={styles.summaryGrid}>
-            {statusData.map((item) => (
-              <View key={item.status} style={styles.summaryCard}>
-                <View style={[styles.statusIndicator, { backgroundColor: chartService.getStatusColor(item.status) }]} />
-                <Text style={styles.summaryLabel}>{item.status}</Text>
-                <Text style={styles.summaryValue}>{item.count}</Text>
-                <Text style={styles.summaryPercentage}>{item.percentage}%</Text>
-              </View>
-            ))}
-          </View>
-        </View>
       </ScrollView>
     </ErrorBoundary>
   );
@@ -165,54 +196,6 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderRadius: 16,
   },
-  summaryContainer: {
-    backgroundColor: '#ffffff',
-    margin: 16,
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  summaryGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  summaryCard: {
-    width: '48%',
-    backgroundColor: '#F9FAFB',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 8,
-    alignItems: 'center',
-  },
-  statusIndicator: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginBottom: 8,
-  },
-  summaryLabel: {
-    fontSize: 12,
-    color: '#6B7280',
-    marginBottom: 4,
-  },
-  summaryValue: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 2,
-  },
-  summaryPercentage: {
-    fontSize: 12,
-    color: '#6B7280',
-  },
   errorContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -222,6 +205,16 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 16,
     color: '#EF4444',
+    textAlign: 'center',
+  },
+  noDataContainer: {
+    height: 220,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noDataText: {
+    fontSize: 14,
+    color: '#6B7280',
     textAlign: 'center',
   },
 });

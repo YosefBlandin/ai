@@ -45,7 +45,7 @@ export interface LoadingSpinnerProps extends BaseComponentProps {
 
 export interface ErrorBoundaryProps extends BaseComponentProps {
   fallback?: React.ReactNode;
-  onError?: (error: Error, errorInfo: any) => void;
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
 }
 
 // Shared component configurations

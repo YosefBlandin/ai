@@ -58,9 +58,37 @@ export interface StatusChartData {
   percentage: number;
 }
 
+export interface AidTypeChartData {
+  aidType: AidType;
+  count: number;
+  percentage: number;
+}
+
 export interface TimelineChartData {
   date: string;
   count: number;
+}
+
+// Navigation types (React Navigation specific)
+export type RootStackParamList = {
+  DistributionList: undefined;
+  DistributionDetails: { distributionId: string };
+  Charts: undefined;
+};
+
+// React Navigation types
+export interface NavigationProp {
+  navigate: <T extends keyof RootStackParamList>(
+    screen: T, 
+    params?: RootStackParamList[T] extends undefined ? undefined : RootStackParamList[T]
+  ) => void;
+  goBack: () => void;
+}
+
+export interface RouteProp {
+  params: {
+    distributionId: string;
+  };
 }
 
 // API Service interfaces

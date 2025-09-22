@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Distribution } from '@/types';
-import { distributionService } from '@/services/distribution.service';
-import { createMobileStyles, getStatusColor, getStatusTextColor } from '@/styles/utils';
 
 interface DistributionCardProps {
   distribution: Distribution;
@@ -14,28 +12,37 @@ export const DistributionCard: React.FC<DistributionCardProps> = ({
   distribution,
   onPress
 }) => {
-  const statusColorKey = getStatusColor(distribution.status);
-  const statusTextColor = getStatusTextColor(distribution.status);
-  const aidTypeIcon = distributionService.getAidTypeIcon(distribution.aidType);
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Completed': return '#10B981';
+      case 'In Progress': return '#F59E0B';
+      case 'Planned': return '#3B82F6';
+      case 'Cancelled': return '#EF4444';
+      default: return '#6B7280';
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
 
   return (
     <TouchableOpacity
-      style={[createMobileStyles.card.base, styles.card]}
+      style={styles.card}
       onPress={() => onPress(distribution.id)}
       activeOpacity={0.7}
     >
       <View style={styles.header}>
         <View style={styles.titleContainer}>
-          <Text style={styles.icon}>{aidTypeIcon}</Text>
-          <View>
-            <Text style={[createMobileStyles.text.h3, styles.region]}>{distribution.region}</Text>
-            <Text style={[createMobileStyles.text.secondary, styles.date]}>
-              {distributionService.formatDate(distribution.date)}
-            </Text>
-          </View>
+          <Text style={styles.region}>{distribution.region}</Text>
+          <Text style={styles.date}>{formatDate(distribution.date)}</Text>
         </View>
-        <View style={[createMobileStyles.statusBadge.base, createMobileStyles.statusBadge[statusColorKey]]}>
-          <Text style={[createMobileStyles.text.body, { color: statusTextColor }]}>
+        <View style={[styles.statusBadge, { backgroundColor: getStatusColor(distribution.status) + '20' }]}>
+          <Text style={[styles.statusText, { color: getStatusColor(distribution.status) }]}>
             {distribution.status}
           </Text>
         </View>
@@ -43,25 +50,9 @@ export const DistributionCard: React.FC<DistributionCardProps> = ({
 
       <View style={styles.content}>
         <View style={styles.infoRow}>
-          <Text style={[createMobileStyles.text.secondary, styles.label]}>Aid Type:</Text>
-          <Text style={[createMobileStyles.text.body, styles.value]}>{distribution.aidType}</Text>
+          <Text style={styles.label}>Beneficiaries</Text>
+          <Text style={styles.value}>{distribution.beneficiaries.toLocaleString()}</Text>
         </View>
-        <View style={styles.infoRow}>
-          <Text style={[createMobileStyles.text.secondary, styles.label]}>Delivery:</Text>
-          <Text style={[createMobileStyles.text.body, styles.value]}>{distribution.deliveryChannel}</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={[createMobileStyles.text.secondary, styles.label]}>Beneficiaries:</Text>
-          <Text style={[createMobileStyles.text.body, styles.value]}>
-            {distributionService.formatNumber(distribution.beneficiaries)}
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.footer}>
-        <Text style={[createMobileStyles.text.body, { color: '#3B82F6', textAlign: 'center' }]}>
-          Tap to view details →
-        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -70,43 +61,37 @@ export const DistributionCard: React.FC<DistributionCardProps> = ({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#ffffff',
-    borderRadius: 12,
+    borderRadius: 8,
     padding: 16,
-    marginVertical: 6,
+    marginVertical: 4,
     marginHorizontal: 16,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 12,
+    marginBottom: 8,
   },
   titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
     flex: 1,
   },
-  icon: {
-    fontSize: 24,
-    marginRight: 12,
-  },
   region: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
     color: '#111827',
+    marginBottom: 2,
   },
   date: {
     fontSize: 14,
     color: '#6B7280',
-    marginTop: 2,
   },
   statusBadge: {
     paddingHorizontal: 8,
@@ -118,12 +103,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   content: {
-    marginBottom: 12,
+    marginTop: 8,
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 4,
+    alignItems: 'center',
   },
   label: {
     fontSize: 14,
@@ -131,18 +116,7 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '600',
     color: '#111827',
-  },
-  footer: {
-    borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
-    paddingTop: 8,
-  },
-  viewDetails: {
-    fontSize: 14,
-    color: '#3B82F6',
-    textAlign: 'center',
-    fontWeight: '500',
   },
 });

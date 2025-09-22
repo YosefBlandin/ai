@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, RefreshControl, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, RefreshControl, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useDistributions } from '@/hooks/useDistributions';
 import { DistributionCard } from '@/components/DistributionCard';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { DistributionFilters } from '@/components/DistributionFilters';
+import { Distribution, DistributionStatus } from '@/types';
 
 interface DistributionListContainerProps {
   onViewDetails: (id: string) => void;
 }
 
-// Container component following Container/Presentation pattern
+/**
+ * Container component for managing distribution list state and logic
+ */
 export const DistributionListContainer: React.FC<DistributionListContainerProps> = ({
   onViewDetails
 }) => {
   const {
     distributions,
     loading,
-    pagination,
     filters,
     updateFilters,
     refresh
@@ -29,11 +30,19 @@ export const DistributionListContainer: React.FC<DistributionListContainerProps>
     refresh();
   };
 
-  const handleFilterChange = (newFilters: any) => {
+  const handleRegionFilter = (region: string) => {
+    const newFilters = region === 'All' ? { ...filters, region: undefined } : { ...filters, region };
     updateFilters(newFilters);
   };
 
-  const renderDistribution = ({ item }: { item: any }) => (
+  const handleStatusFilter = (status: string) => {
+    const newFilters = status === 'All' 
+      ? { ...filters, status: undefined } 
+      : { ...filters, status: status as DistributionStatus };
+    updateFilters(newFilters);
+  };
+
+  const renderDistribution = ({ item }: { item: Distribution }) => (
     <DistributionCard
       distribution={item}
       onPress={onViewDetails}
@@ -59,7 +68,6 @@ export const DistributionListContainer: React.FC<DistributionListContainerProps>
     <ErrorBoundary>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Aid Distributions</Text>
           <TouchableOpacity
             style={styles.filterButton}
             onPress={() => setShowFilters(!showFilters)}
@@ -69,11 +77,52 @@ export const DistributionListContainer: React.FC<DistributionListContainerProps>
         </View>
 
         {showFilters && (
-          <DistributionFilters
-            filters={filters}
-            onFiltersChange={handleFilterChange}
-            onClose={() => setShowFilters(false)}
-          />
+          <View style={styles.filtersContainer}>
+            <View style={styles.filterRow}>
+              <Text style={styles.filterLabel}>Region</Text>
+              <View style={styles.filterOptions}>
+                {['All', 'West Nile', 'Eastern Province', 'Northern Region', 'Central Region', 'Western Region', 'Southern Region'].map((region) => (
+                  <TouchableOpacity
+                    key={region}
+                    style={[
+                      styles.filterOption,
+                      (filters.region === region || (!filters.region && region === 'All')) && styles.filterOptionActive
+                    ]}
+                    onPress={() => handleRegionFilter(region)}
+                  >
+                    <Text style={[
+                      styles.filterOptionText,
+                      (filters.region === region || (!filters.region && region === 'All')) && styles.filterOptionTextActive
+                    ]}>
+                      {region}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+            <View style={styles.filterRow}>
+              <Text style={styles.filterLabel}>Status</Text>
+              <View style={styles.filterOptions}>
+                {['All', 'Planned', 'In Progress', 'Completed', 'Cancelled'].map((status) => (
+                  <TouchableOpacity
+                    key={status}
+                    style={[
+                      styles.filterOption,
+                      (filters.status === status || (!filters.status && status === 'All')) && styles.filterOptionActive
+                    ]}
+                    onPress={() => handleStatusFilter(status)}
+                  >
+                    <Text style={[
+                      styles.filterOptionText,
+                      (filters.status === status || (!filters.status && status === 'All')) && styles.filterOptionTextActive
+                    ]}>
+                      {status}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+          </View>
         )}
 
         <FlatList
@@ -108,18 +157,13 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
     backgroundColor: '#ffffff',
     borderBottomWidth: 1,
     borderBottomColor: '#E5E7EB',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#111827',
   },
   filterButton: {
     paddingHorizontal: 12,
@@ -167,5 +211,46 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 14,
     fontWeight: '500',
+  },
+  filtersContainer: {
+    backgroundColor: '#ffffff',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+  },
+  filterRow: {
+    marginBottom: 12,
+  },
+  filterLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#374151',
+    marginBottom: 8,
+  },
+  filterOptions: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  filterOption: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: '#F3F4F6',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+  },
+  filterOptionActive: {
+    backgroundColor: '#3B82F6',
+    borderColor: '#3B82F6',
+  },
+  filterOptionText: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#6B7280',
+  },
+  filterOptionTextActive: {
+    color: '#ffffff',
   },
 });

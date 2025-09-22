@@ -1,0 +1,18 @@
+{
+  "name": "@aidonic/shared-services",
+  "version": "0.1.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@aidonic/shared-types": "file:../shared-types",
+    "@aidonic/shared-utils": "file:../shared-utils"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "private": true
+}

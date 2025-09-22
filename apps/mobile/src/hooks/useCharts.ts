@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { StatusChartData, TimelineChartData, LoadingState } from '@/types';
+import { AidTypeChartData, TimelineChartData, LoadingState } from '@/types';
 import { chartService } from '@/services/chart.service';
 
-// Custom hook for chart data following Single Responsibility Principle
+/**
+ * Hook for managing chart data
+ */
 export const useCharts = () => {
-  const [statusData, setStatusData] = useState<StatusChartData[]>([]);
+  const [statusData, setStatusData] = useState<AidTypeChartData[]>([]);
   const [timelineData, setTimelineData] = useState<TimelineChartData[]>([]);
   const [loading, setLoading] = useState<LoadingState>({ isLoading: false });
 

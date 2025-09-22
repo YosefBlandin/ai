@@ -1,29 +1,25 @@
 import { Distribution, DistributionFilters, DistributionsResponse, DistributionResponse, DistributionStatus } from '@/types';
-import { ApiService, apiService } from './api.service';
+import { distributionService as sharedDistributionService } from '@aidonic/shared-services';
 
-// Business logic service following Single Responsibility Principle
 export class DistributionService {
-  constructor(private apiService: ApiService) {}
-
   async getDistributions(filters?: DistributionFilters): Promise<DistributionsResponse> {
-    return this.apiService.getDistributions(filters);
+    return sharedDistributionService.getDistributions(filters);
   }
 
   async getDistributionById(id: string): Promise<DistributionResponse> {
-    return this.apiService.getDistributionById(id);
+    return sharedDistributionService.getDistributionById(id);
   }
 
   async getDistributionsByRegion(region: string): Promise<Distribution[]> {
-    const response = await this.apiService.getDistributions({ region });
+    const response = await sharedDistributionService.getDistributions({ region });
     return response.data;
   }
 
   async getDistributionsByStatus(status: DistributionStatus): Promise<Distribution[]> {
-    const response = await this.apiService.getDistributions({ status });
+    const response = await sharedDistributionService.getDistributions({ status });
     return response.data;
   }
 
-  // Business logic methods
   getStatusColor(status: DistributionStatus): string {
     const statusColors = {
       'Planned': '#3B82F6',
@@ -58,5 +54,4 @@ export class DistributionService {
   }
 }
 
-// Singleton instance
-export const distributionService = new DistributionService(apiService);
+export const distributionService = new DistributionService();

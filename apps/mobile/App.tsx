@@ -5,8 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TouchableOpacity, Text } from 'react-native';
 import { RootStackParamList } from '@/types';
-import { DistributionListContainer } from '@/containers/DistributionListContainer';
-import { DistributionDetailsContainer } from '@/containers/DistributionDetailsContainer';
+import { DistributionListScreen } from '@/screens/DistributionListScreen';
+import { DistributionDetailsScreen } from '@/screens/DistributionDetailsScreen';
 import { ChartsScreen } from '@/screens/ChartsScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -63,18 +63,4 @@ export default function App() {
       </NavigationContainer>
     </SafeAreaProvider>
   );
-}
-
-// Screen components
-function DistributionListScreen({ navigation }: any) {
-  const handleViewDetails = (id: string) => {
-    navigation.navigate('DistributionDetails', { distributionId: id });
-  };
-
-  return <DistributionListContainer onViewDetails={handleViewDetails} />;
-}
-
-function DistributionDetailsScreen({ route }: any) {
-  const { distributionId } = route.params;
-  return <DistributionDetailsContainer distributionId={distributionId} />;
 }

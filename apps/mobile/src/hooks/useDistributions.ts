@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Distribution, DistributionFilters, DistributionsResponse, LoadingState, PaginationState } from '@/types';
-import { distributionService } from '@/services/distribution.service';
+import { distributionService } from '@aidonic/shared-services';
 
 // Custom hook following Single Responsibility Principle
 export const useDistributions = (initialFilters?: DistributionFilters) => {

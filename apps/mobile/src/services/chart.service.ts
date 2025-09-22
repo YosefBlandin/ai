@@ -1,4 +1,4 @@
-import { StatusChartData, TimelineChartData } from '@/types';
+import { AidTypeChartData, TimelineChartData, AidType } from '@/types';
 
 // Mock data for charts
 const mockDistributions = [
@@ -76,21 +76,23 @@ const mockDistributions = [
   }
 ];
 
-// Chart service following Single Responsibility Principle
+/**
+ * Service for processing chart data
+ */
 export class ChartService {
-  async getStatusDistribution(): Promise<StatusChartData[]> {
+  async getStatusDistribution(): Promise<AidTypeChartData[]> {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 200));
 
-    const statusCounts = mockDistributions.reduce((acc, dist) => {
-      acc[dist.status] = (acc[dist.status] || 0) + 1;
+    const aidTypeCounts = mockDistributions.reduce((acc, dist) => {
+      acc[dist.aidType] = (acc[dist.aidType] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
     const total = mockDistributions.length;
     
-    return Object.entries(statusCounts).map(([status, count]) => ({
-      status: status as any,
+    return Object.entries(aidTypeCounts).map(([aidType, count]) => ({
+      aidType: aidType as AidType,
       count,
       percentage: Math.round((count / total) * 100)
     }));
@@ -102,7 +104,7 @@ export class ChartService {
 
     const timelineData = mockDistributions.reduce((acc, dist) => {
       const date = dist.date;
-      acc[date] = (acc[date] || 0) + 1;
+      acc[date] = (acc[date] || 0) + dist.beneficiaries;
       return acc;
     }, {} as Record<string, number>);
 
@@ -113,10 +115,11 @@ export class ChartService {
 
   getStatusColor(status: string): string {
     const colors = {
-      'Planned': '#3B82F6',
-      'In Progress': '#F59E0B',
-      'Completed': '#10B981',
-      'Cancelled': '#EF4444'
+      'Food': '#3B82F6',
+      'Medical': '#10B981',
+      'Shelter': '#F59E0B',
+      'Clothing': '#EF4444',
+      'Education': '#8B5CF6'
     };
     return colors[status as keyof typeof colors] || '#6B7280';
   }

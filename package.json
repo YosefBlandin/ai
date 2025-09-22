@@ -9,6 +9,10 @@
   ],
   "scripts": {
     "dev": "turbo run dev --parallel",
+    "dev:server": "cd server && npm start",
+    "dev:server:install": "cd server && npm install",
+    "dev:all": "concurrently \"npm run dev:server\" \"npm run dev\"",
+    "get-ip": "node scripts/get-ip.js",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
@@ -26,7 +30,7 @@
     "lint:mobile": "turbo run lint --filter=@aidonic/mobile",
     "type-check:web": "turbo run type-check --filter=@aidonic/web",
     "type-check:mobile": "turbo run type-check --filter=@aidonic/mobile",
-    "install:all": "npm install && npm run install:packages",
+    "install:all": "npm install && npm run install:packages && npm run dev:server:install",
     "install:packages": "turbo run install",
     "changeset": "changeset",
     "version-packages": "changeset version",
@@ -35,13 +39,16 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@types/node": "^20",
+    "concurrently": "^8.2.2",
     "prettier": "^3.2.5",
     "turbo": "^1.10.0",
     "typescript": "^5"
   },
   "dependencies": {
     "@aidonic/shared-types": "file:./packages/shared-types",
-    "@aidonic/shared-utils": "file:./packages/shared-utils"
+    "@aidonic/shared-utils": "file:./packages/shared-utils",
+    "@types/jest": "^30.0.0",
+    "node-fetch": "^3.3.2"
   },
   "engines": {
     "node": ">=18.0.0",
