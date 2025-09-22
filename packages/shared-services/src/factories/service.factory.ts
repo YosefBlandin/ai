@@ -1,3 +1,4 @@
+import { getApiConfig } from '../config/api.config';
 import {
   IApiService,
   IChartService,
@@ -6,6 +7,7 @@ import {
 import { ApiService } from '../services/api.service';
 import { ChartService } from '../services/chart.service';
 import { DistributionService } from '../services/distribution.service';
+import { MockApiService } from '../services/mock-api.service';
 
 /**
  * Factory for creating service instances
@@ -21,7 +23,13 @@ export class ServiceFactory {
    */
   public static getApiService(baseUrl?: string): IApiService {
     if (!this.apiServiceInstance) {
-      this.apiServiceInstance = new ApiService(baseUrl);
+      const config = getApiConfig();
+
+      if (config.useMockData) {
+        this.apiServiceInstance = new MockApiService();
+      } else {
+        this.apiServiceInstance = new ApiService(baseUrl);
+      }
     }
     return this.apiServiceInstance;
   }
@@ -29,9 +37,10 @@ export class ServiceFactory {
   /**
    * Get or create chart service instance
    */
-  public static getChartService(): IChartService {
+  public static getChartService(baseUrl?: string): IChartService {
     if (!this.chartServiceInstance) {
-      this.chartServiceInstance = new ChartService();
+      const apiService = this.getApiService(baseUrl);
+      this.chartServiceInstance = new ChartService(apiService);
     }
     return this.chartServiceInstance;
   }
@@ -42,7 +51,7 @@ export class ServiceFactory {
   public static getDistributionService(baseUrl?: string): IDistributionService {
     if (!this.distributionServiceInstance) {
       const apiService = this.getApiService(baseUrl);
-      const chartService = this.getChartService();
+      const chartService = this.getChartService(baseUrl);
       this.distributionServiceInstance = new DistributionService(
         apiService,
         chartService

@@ -1,366 +1,207 @@
-# Aidonic - Aid Distribution Dashboard
+# Aid distribution management system built with Next.js (Web) and React Native/Expo (Mobile).
 
-A comprehensive aid distribution management system built with Next.js (Web) and React Native/Expo (Mobile), following clean architecture principles and SOLID design patterns.
+## Setup and Run Instructions
 
-## 🏗️ Architecture Overview
+### Prerequisites
 
-This project implements a **vertical slicing architecture** with **Container/Presentation pattern**, ensuring separation of concerns and maintainability across both web and mobile platforms.
+- Node.js (v18 or higher)
+- npm (v8 or higher)
+- Git
 
-### Key Architectural Principles
+### Quick Start
 
-1. **Container/Presentation Pattern**: Clear separation between business logic (containers) and UI components (presentations)
-2. **SOLID Principles**: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion
-3. **Clean Code**: Readable, maintainable, and testable code structure
-4. **Vertical Slicing**: Feature-based organization rather than technical layers
-5. **Dependency Injection**: Services are injected rather than directly instantiated
+**Option 1: Traditional Setup**
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd aidonic
+
+# Install all dependencies
+npm run install:all
+npm i -g @expo/ngrok
+# Start JSON server and all applications
+npm run dev:all
+
+```
+
+### Individual Setup
+
+**1. JSON Server (Required First)**
+
+```bash
+# Start the JSON server
+npm run dev:server
+```
+
+**2. Web Application**
+
+```bash
+# In a new terminal
+npm run dev:web
+# Access at http://localhost:3000
+```
+
+**3. Mobile Application**
+
+```bash
+# In a new terminal
+npm run dev:mobile
+# Use Expo Go app or simulator
+```
+
+### Access Applications
+
+- **Web App**: http://localhost:3000
+- **Mobile Dev Tools**: http://localhost:19002
+- **JSON Server API**: http://localhost:3001
+
+## Architecture Overview
+
+### Container/Presentation Pattern
+
+The project implements a clear separation between business logic (containers) and UI components (presentations):
+
+### SOLID Principles Applied
+
+- **Single Responsibility**: Each class/component has one reason to change
+- **Open/Closed**: Open for extension, closed for modification
+- **Liskov Substitution**: Derived classes are substitutable for base classes
+- **Interface Segregation**: Clients depend only on interfaces they use
+- **Dependency Inversion**: Depend on abstractions, not concretions
 
 ### Project Structure
 
 ```
 aidonic/
-├── src/                          # Web application (Next.js)
-│   ├── app/                      # Next.js app directory
-│   ├── components/               # Presentation components
-│   │   ├── shared/              # Reusable UI components
-│   │   ├── distributions/       # Distribution-specific components
-│   │   └── charts/              # Chart components
-│   ├── containers/              # Container components (business logic)
-│   ├── hooks/                   # Custom React hooks
-│   ├── services/                # Business logic services
-│   ├── types/                   # TypeScript type definitions
-│   ├── utils/                   # Utility functions
-│   └── mocks/                   # Mock data
-├── mobile/                      # Mobile application (React Native/Expo)
-│   ├── src/
-│   │   ├── components/          # Mobile presentation components
-│   │   ├── containers/          # Mobile container components
-│   │   ├── hooks/               # Mobile custom hooks
-│   │   ├── services/            # Mobile services
-│   │   ├── types/               # Shared types
-│   │   └── screens/             # Mobile screens
-│   └── App.tsx                  # Mobile app entry point
-└── README.md
+├── apps/
+│   ├── web/                    # Next.js web application
+│   └── mobile/                 # React Native mobile application
+├── packages/
+│   ├── shared-types/           # Shared TypeScript types
+│   ├── shared-services/        # Shared business logic
+│   ├── shared-hooks/           # Shared React hooks
+│   ├── shared-components/      # Shared UI components
+│   └── shared-utils/           # Shared utility functions
+├── server/                     # JSON server for mock data
+└── tools/                      # Build and development tools
 ```
 
-## 🚀 Features
+### Key Architectural Decisions
 
-### Web Dashboard (Next.js)
-- **Distribution List**: Table view with filtering and pagination
-- **Distribution Details**: Comprehensive view of individual distributions
-- **Analytics Dashboard**: Interactive charts showing distribution statistics
-- **Responsive Design**: Works on desktop and tablet devices
+1. **Monorepo Structure**: Shared code between web and mobile platforms to prevent duplicating code across repositories, in this way we can foster consistency between apps
+2. **TypeScript**: Full type safety across all platforms
+3. **Shared Services**: Centralized business logic for consistency
+4. **Error Boundaries**: Comprehensive error handling and graceful degradation
+5. **Custom Hooks**: Reusable state management logic
+6. **Code Quality Tools**: ESLint, Prettier, and Husky for maintaining code standards
+7. **Automated Validation**: Pre-commit hooks ensure code quality before commits
+8. **Consistent Formatting**: Prettier enforces uniform code style across the project
 
-### Mobile App (React Native/Expo)
-- **Distribution List**: Card-based list with pull-to-refresh
-- **Distribution Details**: Mobile-optimized detail view
-- **Charts Screen**: Touch-friendly analytics
-- **Cross-platform**: Works on iOS and Android
+## Assumptions and Trade-offs
 
-### Core Features
-- **Filtering**: By region and status
-- **Pagination**: Efficient data loading
-- **Real-time Updates**: Pull-to-refresh functionality
-- **Error Handling**: Comprehensive error boundaries
-- **Loading States**: User-friendly loading indicators
-- **Responsive Design**: Optimized for all screen sizes
+### Assumptions Made
 
-## 🛠️ Technology Stack
+1. **Mock Data**: Used realistic but fictional data for demonstration purposes
+2. **Network Configuration**: Assumed local development environment with JSON server
+3. **User Experience**: Designed for both desktop and mobile users with responsive design
+4. **Data Structure**: Assumed specific distribution data model with beneficiaries
+5. **Chart Library**: Chose Recharts for web and react-native-chart-kit for mobile
 
-### Web (Next.js)
-- **Framework**: Next.js 15.5.3 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS 4
-- **Charts**: Recharts
-- **Testing**: Jest + React Testing Library
-- **Icons**: Lucide React
+### Trade-offs Considered
 
-### Mobile (React Native/Expo)
-- **Framework**: React Native with Expo
-- **Language**: TypeScript
-- **Navigation**: React Navigation 6
-- **Charts**: React Native Chart Kit
-- **Icons**: Expo Vector Icons
-- **UI**: Custom components with React Native
+1. **Monorepo vs Separate Repos**: Chose monorepo for code sharing but added complexity, it could be problematic if too many developers are working on the same project, but it can be solved by using github submodules
+2. **Testing Strategy**: Focused on unit tests over E2E tests for faster development
+3. **Mobile Development**: Used Expo for faster development vs native development
 
-### Shared
-- **State Management**: Custom hooks with React Context
-- **API Layer**: Mock services with realistic delays
-- **Type Safety**: Shared TypeScript interfaces
-- **Architecture**: Container/Presentation pattern
+### Design Decisions
 
-## 📦 Installation & Setup
+1. **Container/Presentation Pattern**: Chosen for clear separation of concerns
+2. **TypeScript**: Used throughout for type safety and better developer experience
+3. **Shared Services**: Centralized business logic for consistency across platforms
+4. **Error Boundaries**: Implemented for graceful error handling
 
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-- For mobile development: Expo CLI
+## API Response Examples
 
-### Quick Start (All Applications)
+**GET /api/distributions**
 
-```bash
-# Install all dependencies (including JSON server)
-npm run install:all
-
-# Start JSON server and all applications
-npm run dev:all
+```json
+[
+  {
+    "id": "dst--001",
+    "region": "West Nile",
+    "date": "2025-06-15",
+    "status": "Planned",
+    "beneficiaries": 1200,
+    "aidType": "Food",
+    "deliveryChannel": "Vouchers"
+  },
+  {
+    "id": "dst--002",
+    "region": "Eastern Province",
+    "date": "2025-06-10",
+    "status": "Completed",
+    "beneficiaries": 850,
+    "aidType": "Medical",
+    "deliveryChannel": "Direct Distribution"
+  }
+]
 ```
 
-This will start:
-- JSON Server on `http://localhost:3001`
-- Web application on `http://localhost:3000`
-- Mobile development server
+**GET /api/distributions/dst--001**
 
-### Individual Setup
-
-#### 1. JSON Server (Required First)
-
-```bash
-# Install server dependencies
-npm run dev:server:install
-
-# Start JSON server
-npm run dev:server
+```json
+{
+  "id": "dst--001",
+  "region": "West Nile",
+  "date": "2025-06-15",
+  "status": "Planned",
+  "beneficiaries": 1200,
+  "aidType": "Food",
+  "deliveryChannel": "Vouchers",
+  "beneficiaryList": [
+    { "id": "bnf--001", "name": "Jane Doe" },
+    { "id": "bnf--002", "name": "John Smith" }
+  ]
+}
 ```
 
-The JSON server provides the mock API for both web and mobile applications.
-
-#### 2. Web Application
+## Development Commands
 
 ```bash
-# Install dependencies
-npm install
-
-# Run development server (requires JSON server running)
-npm run dev:web
-
-# Run tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Build for production
-npm run build:web
-
-# Start production server
-npm start
-```
-
-#### 3. Mobile Application
-
-```bash
-# Install dependencies
-npm install
-
-# Start Expo development server (requires JSON server running)
-npm run dev:mobile
-
-# Run on iOS simulator
-npm run ios
-
-# Run on Android emulator
-npm run android
-
-# Run on web
-npm run web
-```
-
-### Development Workflow
-
-1. **Start JSON Server**: `npm run dev:server`
-2. **Start Applications**: `npm run dev` (in separate terminal)
-3. **Make Changes**: Edit code in web or mobile apps
-4. **Test**: Both apps will automatically reload with changes
-
-### Mobile Development Setup
-
-**Important**: Mobile apps need special configuration to access the JSON server.
-
-1. **Get your computer's IP address:**
-   ```bash
-   npm run get-ip
-   ```
-
-2. **Update mobile configuration** (if needed):
-   - Edit `packages/shared-services/src/config/api.config.ts`
-   - Replace the IP address with your actual IP
-
-3. **Start mobile development:**
-   ```bash
-   npm run dev:mobile
-   ```
-
-**Troubleshooting**: If you get "Network request failed" errors, see [MOBILE_SETUP.md](./MOBILE_SETUP.md) for detailed troubleshooting steps.
-
-## 🧪 Testing
-
-The project includes comprehensive testing setup:
-
-```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:coverage
+# Linting and code quality
+npm run lint          # Run ESLint on all packages
+npm run lint:fix      # Fix ESLint issues automatically
+npm run format        # Format code with Prettier
+npm run format:check  # Check if code is properly formatted
 
 # Type checking
-npm run type-check
+npm run type-check    # Check TypeScript types across all packages
+
+# Testing
+npm run test          # Run tests for all packages
+
+# Building
+npm run build         # Build all packages
+npm run build:web     # Build only web application
+npm run build:mobile  # Build only mobile application
 ```
 
-### Test Coverage
-- **Unit Tests**: Services, utilities, and custom hooks
-- **Component Tests**: Presentation components
-- **Integration Tests**: Container components
-- **Coverage Threshold**: 70% minimum
+## Troubleshooting
 
-## 🏛️ Architectural Decisions
+### Common Issues
 
-### 1. Container/Presentation Pattern
-**Decision**: Separate business logic from UI components
-**Rationale**: 
-- Clear separation of concerns
-- Easier testing and maintenance
-- Reusable presentation components
-- Business logic centralization
+1. **Port Conflicts**: Ensure ports 3000, 3001, and 19000-19002 are available
+2. **Dependencies**: Run `npm run install:all` if packages are missing
+3. **Mobile Connection**: Ensure mobile device and computer are on the same network
+4. **TypeScript Errors**: Run `npm run type-check` to identify type issues
 
-**Implementation**:
-```typescript
-// Container (business logic)
-export const DistributionListContainer = ({ onViewDetails }) => {
-  const { distributions, loading, filters, updateFilters } = useDistributions();
-  // ... business logic
-  return <DistributionList distributions={distributions} onViewDetails={onViewDetails} />;
-};
+### Mobile Development
 
-// Presentation (UI only)
-export const DistributionList = ({ distributions, onViewDetails }) => {
-  // ... UI rendering only
-};
-```
+For mobile development, ensure your device and computer are on the same network. The mobile app will connect to the JSON server running on your computer.
 
-### 2. Custom Hooks for State Management
-**Decision**: Use custom hooks instead of external state management
-**Rationale**:
-- Simpler than Redux for this use case
-- Better TypeScript integration
-- Easier testing
-- Follows React best practices
+## License
 
-### 3. Service Layer Architecture
-**Decision**: Implement service layer with dependency injection
-**Rationale**:
-- Single Responsibility Principle
-- Easy to mock for testing
-- Clear API boundaries
-- Business logic encapsulation
-
-### 4. Vertical Slicing
-**Decision**: Organize code by features rather than technical layers
-**Rationale**:
-- Easier to find related code
-- Better team collaboration
-- Clearer feature boundaries
-- Reduced coupling
-
-### 5. Shared Types
-**Decision**: Share TypeScript interfaces between web and mobile
-**Rationale**:
-- Type safety across platforms
-- Single source of truth
-- Easier maintenance
-- Better developer experience
-
-## 🔧 Development Guidelines
-
-### Code Quality Standards
-- **TypeScript**: Strict mode enabled
-- **ESLint**: Configured for React and TypeScript
-- **Prettier**: Consistent code formatting
-- **Husky**: Pre-commit hooks for quality checks
-
-### Component Guidelines
-- **Single Responsibility**: Each component has one clear purpose
-- **Props Interface**: All props are typed
-- **Error Boundaries**: Wrap containers with error boundaries
-- **Loading States**: Always show loading indicators
-- **Accessibility**: Follow WCAG guidelines
-
-### Testing Guidelines
-- **Test Coverage**: Minimum 70% coverage
-- **Unit Tests**: Test individual functions and components
-- **Integration Tests**: Test component interactions
-- **Mock Services**: Use mock data for consistent testing
-
-## 📱 Mobile-Specific Considerations
-
-### Performance
-- **FlatList**: Used for efficient list rendering
-- **Image Optimization**: Lazy loading and caching
-- **Memory Management**: Proper cleanup in useEffect
-
-### User Experience
-- **Pull-to-Refresh**: Native mobile interaction
-- **Touch Feedback**: Proper touchable components
-- **Navigation**: Stack navigation with proper back handling
-- **Responsive Design**: Adapts to different screen sizes
-
-### Platform Differences
-- **iOS**: Proper safe area handling
-- **Android**: Material Design guidelines
-- **Cross-platform**: Shared business logic, platform-specific UI
-
-## 🚀 Deployment
-
-### Web Application
-- **Vercel**: Recommended for Next.js deployment
-- **Environment Variables**: Configure API endpoints
-- **Build Optimization**: Automatic code splitting and optimization
-
-### Mobile Application
-- **Expo**: Easy deployment with Expo Application Services (EAS)
-- **App Stores**: Build for iOS App Store and Google Play Store
-- **Over-the-Air Updates**: Update JavaScript without app store approval
-
-## 🔮 Future Enhancements
-
-### Planned Features
-- **Real API Integration**: Replace mock services
-- **Authentication**: User login and role-based access
-- **Offline Support**: Cache data for offline usage
-- **Push Notifications**: Real-time updates
-- **Advanced Analytics**: More detailed reporting
-- **Export Functionality**: PDF and Excel export
-
-### Technical Improvements
-- **Performance Monitoring**: Add analytics and monitoring
-- **Error Tracking**: Implement error reporting
-- **Automated Testing**: CI/CD pipeline
-- **Documentation**: API documentation with Swagger
-- **Internationalization**: Multi-language support
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Follow the coding standards
-4. Write tests for new features
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👥 Team
-
-- **Architecture**: Clean Architecture with SOLID principles
-- **Frontend**: React/Next.js and React Native
-- **Backend**: Mock services (ready for real API integration)
-- **Testing**: Comprehensive test coverage
-- **Documentation**: Detailed README and code comments
+This project is licensed under the MIT License.
 
 ---
-
-**Note**: This is a demonstration project showcasing modern web and mobile development practices with clean architecture principles. The mock data and services can be easily replaced with real API integrations.

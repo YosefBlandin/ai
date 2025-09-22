@@ -1,6 +1,6 @@
 import { Distribution } from '@aidonic/shared-types';
-import { ServiceFactory } from '../factories/service.factory';
 import {
+  IApiService,
   IChartService,
   StatusChartData,
   TimelineChartData,
@@ -10,12 +10,11 @@ import {
  * Service for processing chart data
  */
 export class ChartService implements IChartService {
-  constructor() {}
+  constructor(private apiService: IApiService) {}
 
   async getStatusDistribution(): Promise<StatusChartData[]> {
     try {
-      const distributionService = ServiceFactory.getDistributionService();
-      const response = await distributionService.getDistributions();
+      const response = await this.apiService.getDistributions();
       const distributions = response.data;
       const aidTypeCounts = this.calculateAidTypeCounts(distributions);
       const total = distributions.length;
@@ -34,8 +33,7 @@ export class ChartService implements IChartService {
 
   async getTimelineDistribution(): Promise<TimelineChartData[]> {
     try {
-      const distributionService = ServiceFactory.getDistributionService();
-      const response = await distributionService.getDistributions();
+      const response = await this.apiService.getDistributions();
       const distributions = response.data;
       const timelineData = this.calculateTimelineData(distributions);
 

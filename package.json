@@ -23,6 +23,7 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "dev:web": "turbo run dev --filter=@aidonic/web",
     "dev:mobile": "turbo run dev --filter=@aidonic/mobile",
+    "dev:mobile:ip": "MOBILE_API_IP=$(node scripts/get-ip.js | grep 'Your local IP address:' | cut -d' ' -f5) turbo run dev --filter=@aidonic/mobile",
     "build:web": "turbo run build --filter=@aidonic/web",
     "build:mobile": "turbo run build --filter=@aidonic/mobile",
     "test:web": "turbo run test --filter=@aidonic/web",

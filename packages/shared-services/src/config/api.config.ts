@@ -6,36 +6,29 @@
 export interface ApiConfig {
   baseUrl: string;
   timeout: number;
+  useMockData?: boolean;
 }
-
-// Common IP addresses to try for mobile development
-const MOBILE_IP_CANDIDATES = [
-  '192.168.100.7',  // Current detected IP
-  '192.168.1.100',  // Common home router range
-  '192.168.0.100',  // Common home router range
-  '10.0.0.100',     // Common office network range
-  '172.16.0.100',   // Common office network range
-];
 
 /**
  * Get the appropriate API configuration based on the environment
  */
 export function getApiConfig(): ApiConfig {
   // Check if we're in a React Native environment
-  const isReactNative = typeof navigator !== 'undefined' && 
-    navigator.product === 'ReactNative';
+  const isReactNative =
+    typeof navigator !== 'undefined' &&
+    (navigator as unknown as { product: string }).product === 'ReactNative';
 
   // Check if we're in a web environment
-  const isWeb = typeof window !== 'undefined' && typeof document !== 'undefined';
+  const isWeb =
+    typeof window !== 'undefined' && typeof document !== 'undefined';
 
   if (isReactNative) {
-    // For React Native, try to use the first available IP
-    // In a real app, you might want to implement IP discovery
-    const mobileIP = MOBILE_IP_CANDIDATES[0];
-    
+    // For React Native, use mock data to avoid network issues with Expo tunnel
+    // In production, you would use a real API endpoint
     return {
-      baseUrl: `http://${mobileIP}:3001`,
-      timeout: 10000
+      baseUrl: 'http://localhost:3001', // Not used when useMockData is true
+      timeout: 10000,
+      useMockData: true,
     };
   }
 
@@ -43,14 +36,14 @@ export function getApiConfig(): ApiConfig {
     // For web, localhost works fine
     return {
       baseUrl: 'http://localhost:3001',
-      timeout: 10000
+      timeout: 10000,
     };
   }
 
   // Fallback for Node.js environments (testing, etc.)
   return {
     baseUrl: 'http://localhost:3001',
-    timeout: 10000
+    timeout: 10000,
   };
 }
 
