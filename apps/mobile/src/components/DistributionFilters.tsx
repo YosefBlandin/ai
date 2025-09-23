@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { DistributionFilters as DistributionFiltersType, DistributionStatus } from '@/types';
+import {
+  DistributionFilters as DistributionFiltersType,
+  DistributionStatus,
+} from '@aidonic/shared-types';
 
 interface DistributionFiltersProps {
   filters: DistributionFiltersType;
@@ -11,24 +14,24 @@ interface DistributionFiltersProps {
 
 const regions = [
   'West Nile',
-  'Eastern Province', 
+  'Eastern Province',
   'Northern Region',
   'Central Region',
-  'Western Region'
+  'Western Region',
 ];
 
 const statusOptions: DistributionStatus[] = [
   'Planned',
-  'In Progress', 
+  'In Progress',
   'Completed',
-  'Cancelled'
+  'Cancelled',
 ];
 
 // Presentation component following Single Responsibility Principle
 export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
   filters,
   onFiltersChange,
-  onClose
+  onClose,
 }) => {
   const hasActiveFilters = filters.region || filters.status;
 
@@ -37,11 +40,7 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
   };
 
   return (
-    <Modal
-      visible={true}
-      animationType="slide"
-      presentationStyle="pageSheet"
-    >
+    <Modal visible={true} animationType="slide" presentationStyle="pageSheet">
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>Filters</Text>
@@ -56,11 +55,13 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
             <View style={styles.pickerContainer}>
               <Picker
                 selectedValue={filters.region || ''}
-                onValueChange={(value) => onFiltersChange({ region: value || undefined })}
+                onValueChange={value =>
+                  onFiltersChange({ region: value || undefined })
+                }
                 style={styles.picker}
               >
                 <Picker.Item label="All Regions" value="" />
-                {regions.map((region) => (
+                {regions.map(region => (
                   <Picker.Item key={region} label={region} value={region} />
                 ))}
               </Picker>
@@ -72,11 +73,15 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
             <View style={styles.pickerContainer}>
               <Picker
                 selectedValue={filters.status || ''}
-                onValueChange={(value) => onFiltersChange({ status: value as DistributionStatus || undefined })}
+                onValueChange={value =>
+                  onFiltersChange({
+                    status: (value as DistributionStatus) || undefined,
+                  })
+                }
                 style={styles.picker}
               >
                 <Picker.Item label="All Statuses" value="" />
-                {statusOptions.map((status) => (
+                {statusOptions.map(status => (
                   <Picker.Item key={status} label={status} value={status} />
                 ))}
               </Picker>

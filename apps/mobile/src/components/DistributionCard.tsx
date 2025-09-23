@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Distribution } from '@/types';
+import { Distribution } from '@aidonic/shared-types';
 import {
   getStatusBackgroundColor,
   getStatusTextColor,

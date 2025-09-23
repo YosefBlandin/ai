@@ -4,7 +4,7 @@ import {
   DistributionsResponse,
   DistributionResponse,
   DistributionStatus,
-} from '@/types';
+} from '@aidonic/shared-types';
 import { distributionService as sharedDistributionService } from '@aidonic/shared-services';
 import { formatDate, formatNumber } from '@aidonic/shared-utils';
 

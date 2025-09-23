@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TouchableOpacity, Text } from 'react-native';
-import { RootStackParamList } from '@/types';
+import { RootStackParamList } from '@aidonic/shared-types';
 import { DistributionListScreen } from '@/screens/DistributionListScreen';
 import { DistributionDetailsScreen } from '@/screens/DistributionDetailsScreen';
 import { ChartsScreen } from '@/screens/ChartsScreen';

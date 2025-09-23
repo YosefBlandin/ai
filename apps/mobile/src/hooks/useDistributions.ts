@@ -3,7 +3,7 @@ import {
   DistributionFilters,
   LoadingState,
   PaginationState,
-} from '@/types';
+} from '@aidonic/shared-types';
 import { distributionService } from '@aidonic/shared-services';
 import { useCallback, useEffect, useState } from 'react';
 

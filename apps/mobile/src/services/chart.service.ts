@@ -1,4 +1,8 @@
-import { AidTypeChartData, TimelineChartData, AidType } from '@/types';
+import {
+  AidTypeChartData,
+  TimelineChartData,
+  AidType,
+} from '@aidonic/shared-types';
 
 // Mock data for charts
 const mockDistributions = [

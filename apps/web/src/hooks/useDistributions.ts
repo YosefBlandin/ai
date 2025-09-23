@@ -1,7 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Distribution, DistributionFilters, LoadingState, PaginationState } from '@/types';
+import {
+  Distribution,
+  DistributionFilters,
+  LoadingState,
+  PaginationState,
+} from '@aidonic/shared-types';
 import { distributionService } from '@aidonic/shared-services';
-
 
 export const useDistributions = (initialFilters: DistributionFilters = {}) => {
   const [distributions, setDistributions] = useState<Distribution[]>([]);
@@ -10,7 +14,7 @@ export const useDistributions = (initialFilters: DistributionFilters = {}) => {
     currentPage: 1,
     totalPages: 1,
     totalItems: 0,
-    itemsPerPage: 10
+    itemsPerPage: 10,
   });
   const [filters, setFilters] = useState<DistributionFilters>(initialFilters);
 
@@ -20,28 +24,34 @@ export const useDistributions = (initialFilters: DistributionFilters = {}) => {
       const response = await distributionService.getDistributions({
         ...filters,
         page: pagination.currentPage,
-        limit: pagination.itemsPerPage
+        limit: pagination.itemsPerPage,
       });
-      
+
       setDistributions(response.data);
       setPagination(prev => ({
         ...prev,
         totalPages: Math.ceil(response.total / prev.itemsPerPage),
-        totalItems: response.total
+        totalItems: response.total,
       }));
       setLoading({ isLoading: false });
     } catch (error) {
-      setLoading({ 
-        isLoading: false, 
-        error: error instanceof Error ? error.message : 'Failed to fetch distributions' 
+      setLoading({
+        isLoading: false,
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Failed to fetch distributions',
       });
     }
   }, [filters, pagination.currentPage, pagination.itemsPerPage]);
 
-  const updateFilters = useCallback((newFilters: Partial<DistributionFilters>) => {
-    setFilters(prev => ({ ...prev, ...newFilters }));
-    setPagination(prev => ({ ...prev, currentPage: 1 }));
-  }, []);
+  const updateFilters = useCallback(
+    (newFilters: Partial<DistributionFilters>) => {
+      setFilters(prev => ({ ...prev, ...newFilters }));
+      setPagination(prev => ({ ...prev, currentPage: 1 }));
+    },
+    []
+  );
 
   const changePage = useCallback((page: number) => {
     setPagination(prev => ({ ...prev, currentPage: page }));
@@ -62,6 +72,6 @@ export const useDistributions = (initialFilters: DistributionFilters = {}) => {
     filters,
     updateFilters,
     changePage,
-    refresh
+    refresh,
   };
 };

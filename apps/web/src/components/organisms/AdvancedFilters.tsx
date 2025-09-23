@@ -1,4 +1,4 @@
-import { DistributionFilters } from '@/types';
+import { DistributionFilters } from '@aidonic/shared-types';
 import React from 'react';
 
 interface AdvancedFiltersProps {

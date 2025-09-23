@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatNumber } from '@aidonic/shared-utils';
-import { Distribution } from '@/types';
+import { Distribution } from '@aidonic/shared-types';
 
 interface DataTableProps {
   data: Distribution[];

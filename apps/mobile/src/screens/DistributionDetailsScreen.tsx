@@ -1,6 +1,6 @@
 import React from 'react';
 import { DistributionDetailsContainer } from '@/containers/DistributionDetailsContainer';
-import { RouteProp } from '@/types';
+import { RouteProp } from '@aidonic/shared-types';
 
 interface DistributionDetailsScreenProps {
   route: RouteProp;
@@ -9,7 +9,9 @@ interface DistributionDetailsScreenProps {
 /**
  * Screen component for displaying distribution details
  */
-export const DistributionDetailsScreen: React.FC<DistributionDetailsScreenProps> = ({ route }) => {
+export const DistributionDetailsScreen: React.FC<
+  DistributionDetailsScreenProps
+> = ({ route }) => {
   const { distributionId } = route.params;
   return <DistributionDetailsContainer distributionId={distributionId} />;
 };

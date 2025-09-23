@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { DistributionDetailsContainer } from '@/containers/DistributionDetailsContainer';
 import { useDistributions } from '@/hooks/useDistributions';
-import { DistributionFilters, DistributionStatus } from '@/types';
+import { DistributionFilters, DistributionStatus } from '@aidonic/shared-types';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { FilterSection } from '@/components/organisms';

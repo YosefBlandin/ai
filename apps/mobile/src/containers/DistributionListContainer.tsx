@@ -2,7 +2,7 @@ import { DistributionCard } from '@/components/DistributionCard';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { useDistributions } from '@/hooks/useDistributions';
-import { Distribution, DistributionStatus } from '@/types';
+import { Distribution, DistributionStatus } from '@aidonic/shared-types';
 import React, { useState } from 'react';
 import {
   FlatList,

@@ -1,5 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { AidTypeChartData, TimelineChartData, LoadingState } from '@/types';
+import {
+  AidTypeChartData,
+  TimelineChartData,
+  LoadingState,
+} from '@aidonic/shared-types';
 import { chartService } from '@/services/chart.service';
 import { useChartConfig } from './useChartConfig';
 import { usePieChartData } from './usePieChartData';

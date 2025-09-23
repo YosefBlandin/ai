@@ -1,6 +1,6 @@
 import React from 'react';
 import { DistributionListContainer } from '@/containers/DistributionListContainer';
-import { NavigationProp } from '@/types';
+import { NavigationProp } from '@aidonic/shared-types';
 
 interface DistributionListScreenProps {
   navigation: NavigationProp;
@@ -9,7 +9,9 @@ interface DistributionListScreenProps {
 /**
  * Screen component for displaying the list of distributions
  */
-export const DistributionListScreen: React.FC<DistributionListScreenProps> = ({ navigation }) => {
+export const DistributionListScreen: React.FC<DistributionListScreenProps> = ({
+  navigation,
+}) => {
   const handleViewDetails = (id: string) => {
     navigation.navigate('DistributionDetails', { distributionId: id });
   };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Distribution } from '@/types';
+import { Distribution } from '@aidonic/shared-types';
 import { formatNumber } from '@aidonic/shared-utils';
 
 interface StatsOverviewProps {
