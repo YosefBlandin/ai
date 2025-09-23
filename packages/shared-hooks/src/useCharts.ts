@@ -18,8 +18,9 @@ export const useCharts = () => {
     try {
       const data = await chartService.getStatusDistribution();
       setStatusData(data);
-    } catch (error) {
-      console.error('Failed to fetch status data:', error);
+    } catch {
+      // Error handling can be implemented here if needed
+      // console.error('Failed to fetch status data:', error);
     }
   }, []);
 
@@ -27,8 +28,9 @@ export const useCharts = () => {
     try {
       const data = await chartService.getTimelineDistribution();
       setTimelineData(data);
-    } catch (error) {
-      console.error('Failed to fetch timeline data:', error);
+    } catch {
+      // Error handling can be implemented here if needed
+      // console.error('Failed to fetch timeline data:', error);
     }
   }, []);
 

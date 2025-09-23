@@ -22,25 +22,30 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+  componentDidCatch(_error: Error, _errorInfo: React.ErrorInfo) {
+    // Error logging can be implemented here if needed
+    // console.error('ErrorBoundary caught an error:', error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback || (
-        <View style={styles.container}>
-          <Text style={styles.title}>Something went wrong</Text>
-          <Text style={styles.message}>
-            {this.state.error?.message || 'An unexpected error occurred'}
-          </Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.setState({ hasError: false, error: undefined })}
-          >
-            <Text style={styles.buttonText}>Try again</Text>
-          </TouchableOpacity>
-        </View>
+      return (
+        this.props.fallback || (
+          <View style={styles.container}>
+            <Text style={styles.title}>Something went wrong</Text>
+            <Text style={styles.message}>
+              {this.state.error?.message || 'An unexpected error occurred'}
+            </Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() =>
+                this.setState({ hasError: false, error: undefined })
+              }
+            >
+              <Text style={styles.buttonText}>Try again</Text>
+            </TouchableOpacity>
+          </View>
+        )
       );
     }
 

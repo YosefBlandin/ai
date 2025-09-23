@@ -1,3 +1,9 @@
+/**
+ * @fileoverview DistributionCard component for displaying distribution information
+ * @author Aidonic Team
+ * @created 2024
+ */
+
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Distribution } from '@aidonic/shared-types';
@@ -14,51 +20,52 @@ interface DistributionCardProps {
 }
 
 // Presentation component following Single Responsibility Principle
-export const DistributionCard: React.FC<DistributionCardProps> = ({
-  distribution,
-  onPress,
-}) => {
-  // Using centralized utilities
+export const DistributionCard: React.FC<DistributionCardProps> = React.memo(
+  ({ distribution, onPress }) => {
+    // Using centralized utilities
 
-  return (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => onPress(distribution.id)}
-      activeOpacity={0.7}
-    >
-      <View style={styles.header}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.region}>{distribution.region}</Text>
-          <Text style={styles.date}>{formatDate(distribution.date)}</Text>
-        </View>
-        <View
-          style={[
-            styles.statusBadge,
-            { backgroundColor: getStatusBackgroundColor(distribution.status) },
-          ]}
-        >
-          <Text
+    return (
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => onPress(distribution.id)}
+        activeOpacity={0.7}
+      >
+        <View style={styles.header}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.region}>{distribution.region}</Text>
+            <Text style={styles.date}>{formatDate(distribution.date)}</Text>
+          </View>
+          <View
             style={[
-              styles.statusText,
-              { color: getStatusTextColor(distribution.status) },
+              styles.statusBadge,
+              {
+                backgroundColor: getStatusBackgroundColor(distribution.status),
+              },
             ]}
           >
-            {distribution.status}
-          </Text>
+            <Text
+              style={[
+                styles.statusText,
+                { color: getStatusTextColor(distribution.status) },
+              ]}
+            >
+              {distribution.status}
+            </Text>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.content}>
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Beneficiaries</Text>
-          <Text style={styles.value}>
-            {formatNumber(distribution.beneficiaries)}
-          </Text>
+        <View style={styles.content}>
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Beneficiaries</Text>
+            <Text style={styles.value}>
+              {formatNumber(distribution.beneficiaries)}
+            </Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
-};
+      </TouchableOpacity>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   card: {
