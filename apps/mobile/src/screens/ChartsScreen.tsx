@@ -3,7 +3,6 @@ import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { useCharts } from '@/hooks/useCharts';
 import React from 'react';
 import {
-  Dimensions,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -12,13 +11,12 @@ import {
 } from 'react-native';
 import { LineChart, PieChart } from 'react-native-chart-kit';
 
-const screenWidth = Dimensions.get('window').width;
-
 /**
  * Charts screen for analytics
  */
 export const ChartsScreen: React.FC = () => {
-  const { statusData, timelineData, loading, refresh } = useCharts();
+  const { loading, refresh, chartConfig, chartDimensions, pieData, lineData } =
+    useCharts();
 
   if (loading.isLoading) {
     return <LoadingSpinner message="Loading charts..." />;
@@ -31,104 +29,6 @@ export const ChartsScreen: React.FC = () => {
       </View>
     );
   }
-
-  const chartConfig = {
-    backgroundColor: '#ffffff',
-    backgroundGradientFrom: '#ffffff',
-    backgroundGradientTo: '#ffffff',
-    decimalPlaces: 0,
-    color: (opacity = 1) => `rgba(59, 130, 246, ${opacity})`,
-    labelColor: (opacity = 1) => `rgba(107, 114, 128, ${opacity})`,
-    style: {
-      borderRadius: 16,
-    },
-    propsForDots: {
-      r: 6,
-      strokeWidth: 2,
-      stroke: '#3B82F6',
-    },
-    formatYLabel: (value: string) => {
-      const num = parseFloat(value);
-      if (isNaN(num)) return '0';
-      return num.toString();
-    },
-    formatXLabel: (value: string) => {
-      return value || '';
-    },
-  };
-
-  const getAidTypeColor = (aidType: string) => {
-    const colors = {
-      Food: '#3B82F6',
-      Medical: '#10B981',
-      Shelter: '#F59E0B',
-      Clothing: '#EF4444',
-      Education: '#8B5CF6',
-    };
-    return colors[aidType as keyof typeof colors] || '#6B7280';
-  };
-
-  const pieData = statusData
-    .filter(
-      item =>
-        item && item.aidType && typeof item.count === 'number' && item.count > 0
-    )
-    .map(item => {
-      const count = Math.max(0, Math.floor(item.count || 0));
-      return {
-        name: (item.aidType || 'Unknown').substring(0, 10),
-        population: isNaN(count) ? 0 : count,
-        color: getAidTypeColor(item.aidType),
-        legendFontColor: '#7F7F7F',
-        legendFontSize: 12,
-      };
-    });
-
-  const fallbackPieData = [
-    {
-      name: 'No Data',
-      population: 1,
-      color: '#6B7280',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 12,
-    },
-  ];
-
-  const fallbackLineData = {
-    labels: ['No Data'],
-    datasets: [{ data: [0], strokeWidth: 2 }],
-  };
-
-  const validTimelineData = timelineData
-    .filter(
-      item =>
-        item && item.date && typeof item.count === 'number' && item.count >= 0
-    )
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-  const lineData = {
-    labels: validTimelineData.map(item => {
-      try {
-        const date = new Date(item.date);
-        if (isNaN(date.getTime())) return 'Invalid';
-        return date.toLocaleDateString('en-US', {
-          month: 'short',
-          day: 'numeric',
-        });
-      } catch {
-        return 'Invalid';
-      }
-    }),
-    datasets: [
-      {
-        data: validTimelineData.map(item => {
-          const count = Math.max(0, Math.floor(item.count || 0));
-          return isNaN(count) ? 0 : count;
-        }),
-        strokeWidth: 2,
-      },
-    ],
-  };
 
   return (
     <ErrorBoundary>
@@ -149,9 +49,9 @@ export const ChartsScreen: React.FC = () => {
         <View style={styles.chartContainer}>
           <Text style={styles.chartTitle}>Aid Distribution by Type</Text>
           <PieChart
-            data={pieData.length > 0 ? pieData : fallbackPieData}
-            width={screenWidth - 32}
-            height={220}
+            data={pieData}
+            width={chartDimensions.width}
+            height={chartDimensions.height}
             chartConfig={chartConfig}
             accessor="population"
             backgroundColor="transparent"
@@ -163,9 +63,9 @@ export const ChartsScreen: React.FC = () => {
         <View style={styles.chartContainer}>
           <Text style={styles.chartTitle}>Beneficiaries Over Time</Text>
           <LineChart
-            data={validTimelineData.length > 0 ? lineData : fallbackLineData}
-            width={screenWidth - 32}
-            height={220}
+            data={lineData}
+            width={chartDimensions.width}
+            height={chartDimensions.height}
             chartConfig={chartConfig}
             bezier
             style={styles.chart}
