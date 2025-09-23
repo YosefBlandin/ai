@@ -4,6 +4,8 @@ import { Distribution } from '@/types';
 import {
   getStatusBackgroundColor,
   getStatusTextColor,
+  formatDate,
+  formatNumber,
 } from '@aidonic/shared-utils';
 
 interface DistributionCardProps {
@@ -16,15 +18,7 @@ export const DistributionCard: React.FC<DistributionCardProps> = ({
   distribution,
   onPress,
 }) => {
-  // Using centralized color utilities
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
-  };
+  // Using centralized utilities
 
   return (
     <TouchableOpacity
@@ -58,7 +52,7 @@ export const DistributionCard: React.FC<DistributionCardProps> = ({
         <View style={styles.infoRow}>
           <Text style={styles.label}>Beneficiaries</Text>
           <Text style={styles.value}>
-            {distribution.beneficiaries.toLocaleString()}
+            {formatNumber(distribution.beneficiaries)}
           </Text>
         </View>
       </View>

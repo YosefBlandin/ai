@@ -7,6 +7,7 @@ import { DistributionFilters, DistributionStatus } from '@/types';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { FilterSection } from '@/components/organisms';
+import { formatNumber } from '@aidonic/shared-utils';
 
 export default function Home() {
   const [selectedDistributionId, setSelectedDistributionId] = useState<
@@ -159,7 +160,7 @@ export default function Home() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {distribution.beneficiaries.toLocaleString()}
+                        {formatNumber(distribution.beneficiaries)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <button

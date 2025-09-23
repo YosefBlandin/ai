@@ -1,5 +1,8 @@
 import { AidType } from '@aidonic/shared-types';
-import { getAidTypeColor as getCentralizedAidTypeColor } from '@aidonic/shared-utils';
+import {
+  getAidTypeColor as getCentralizedAidTypeColor,
+  formatDate as formatCentralizedDate,
+} from '@aidonic/shared-utils';
 
 /**
  * Get color for a specific aid type
@@ -11,18 +14,10 @@ export const getAidTypeColor = (aidType: string): string => {
 
 /**
  * Format date for chart labels
+ * Re-exported from centralized formatters
  */
 export const formatChartDate = (dateString: string): string => {
-  try {
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) return 'Invalid';
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-    });
-  } catch {
-    return 'Invalid';
-  }
+  return formatCentralizedDate(dateString, 'short');
 };
 
 /**
