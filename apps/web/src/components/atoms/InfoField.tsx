@@ -1,3 +1,7 @@
+/**
+ * @fileoverview InfoField component for displaying key-value information
+ */
+
 import React from 'react';
 
 interface InfoFieldProps {
@@ -11,12 +15,12 @@ interface InfoFieldProps {
 /**
  * Information field component for displaying label-value pairs
  */
-export const InfoField: React.FC<InfoFieldProps> = ({ 
-  label, 
-  value, 
+export const InfoField: React.FC<InfoFieldProps> = ({
+  label,
+  value,
   valueClassName = 'text-lg font-semibold text-gray-900',
   labelClassName = 'text-sm font-medium text-gray-500 mb-2',
-  className = ''
+  className = '',
 }) => {
   return (
     <div className={className}>

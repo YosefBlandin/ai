@@ -1,3 +1,7 @@
+/**
+ * @fileoverview PageHeader component for displaying page titles and actions
+ */
+
 import React from 'react';
 
 interface PageHeaderProps {
@@ -10,11 +14,11 @@ interface PageHeaderProps {
 /**
  * Page header component with title, optional icon, and action button
  */
-export const PageHeader: React.FC<PageHeaderProps> = ({ 
-  title, 
-  icon, 
-  action, 
-  className = '' 
+export const PageHeader: React.FC<PageHeaderProps> = ({
+  title,
+  icon,
+  action,
+  className = '',
 }) => {
   return (
     <div className={`flex items-center justify-between mb-8 ${className}`}>

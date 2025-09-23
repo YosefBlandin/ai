@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Root layout component for web application
+ */
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -6,7 +10,8 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Aidonic - Aid Distribution Dashboard',
-  description: 'A comprehensive dashboard for managing aid distribution operations',
+  description:
+    'A comprehensive dashboard for managing aid distribution operations',
 };
 
 export default function RootLayout({
@@ -16,9 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        {children}
-      </body>
+      <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );
 }

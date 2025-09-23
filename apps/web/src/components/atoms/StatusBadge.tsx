@@ -1,3 +1,7 @@
+/**
+ * @fileoverview StatusBadge component for displaying distribution status
+ */
+
 import React from 'react';
 
 interface StatusBadgeProps {
@@ -8,7 +12,10 @@ interface StatusBadgeProps {
 /**
  * Status badge component for displaying distribution status
  */
-export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => {
+export const StatusBadge: React.FC<StatusBadgeProps> = ({
+  status,
+  className = '',
+}) => {
   const getStatusStyles = (status: string) => {
     switch (status) {
       case 'Completed':
@@ -25,7 +32,9 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = ''
   };
 
   return (
-    <span className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full ${getStatusStyles(status)} ${className}`}>
+    <span
+      className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full ${getStatusStyles(status)} ${className}`}
+    >
       {status}
     </span>
   );

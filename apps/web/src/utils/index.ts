@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Web-specific utility functions
+ */
+
 // Re-export shared utilities and add web-specific utilities
 export * from '@aidonic/shared-utils';
 
