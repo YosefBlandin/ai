@@ -10,6 +10,7 @@ import { useDistribution } from '@/hooks/useDistribution';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { distributionService } from '@/services/distribution.service';
+import { getStatusColor } from '@aidonic/shared-utils';
 
 interface DistributionDetailsContainerProps {
   distributionId: string;
@@ -40,7 +41,7 @@ export const DistributionDetailsContainer: React.FC<
     );
   }
 
-  const statusColor = distributionService.getStatusColor(distribution.status);
+  const statusColor = getStatusColor(distribution.status);
   const aidTypeIcon = distributionService.getAidTypeIcon(distribution.aidType);
 
   return (

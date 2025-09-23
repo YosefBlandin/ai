@@ -35,15 +35,7 @@ export class DistributionService {
     return response.data;
   }
 
-  getStatusColor(status: DistributionStatus): string {
-    const statusColors = {
-      Planned: '#3B82F6',
-      'In Progress': '#F59E0B',
-      Completed: '#10B981',
-      Cancelled: '#EF4444',
-    };
-    return statusColors[status];
-  }
+  // Using centralized color utilities from @aidonic/shared-utils
 
   getAidTypeIcon(aidType: string): string {
     const icons = {

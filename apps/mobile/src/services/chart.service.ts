@@ -1,5 +1,4 @@
 import { AidTypeChartData, TimelineChartData, AidType } from '@/types';
-import { getAidTypeColor } from '@aidonic/shared-utils';
 
 // Mock data for charts
 const mockDistributions = [
@@ -120,9 +119,7 @@ export class ChartService {
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }
 
-  getStatusColor(status: string): string {
-    return getAidTypeColor(status as AidType);
-  }
+  // Using centralized color utilities from @aidonic/shared-utils
 }
 
 // Singleton instance
