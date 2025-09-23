@@ -1,3 +1,7 @@
+/**
+ * @fileoverview ChartsContainer component for managing charts logic
+ */
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChartsPresenter } from '@/components/ChartsPresenter';
 import {

@@ -1,3 +1,7 @@
+/**
+ * @fileoverview LoadingSpinner component for displaying loading state
+ */
+
 import React from 'react';
 import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
 

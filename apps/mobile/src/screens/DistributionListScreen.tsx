@@ -1,3 +1,7 @@
+/**
+ * @fileoverview DistributionListScreen component for displaying the list of distributions
+ */
+
 import React from 'react';
 import { DistributionListContainer } from '@/containers/DistributionListContainer';
 import { NavigationProp } from '@aidonic/shared-types';

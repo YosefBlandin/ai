@@ -1,3 +1,7 @@
+/**
+ * @fileoverview useDistribution hook for managing single distribution data
+ */
+
 import { useState, useEffect, useCallback } from 'react';
 import { Distribution, LoadingState } from '@aidonic/shared-types';
 import { distributionService } from '@aidonic/shared-services';

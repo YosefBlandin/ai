@@ -1,3 +1,7 @@
+/**
+ * @fileoverview DistributionFilters component for filtering distributions
+ */
+
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import { Picker } from '@react-native-picker/picker';

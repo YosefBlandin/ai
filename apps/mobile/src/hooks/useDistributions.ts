@@ -1,3 +1,7 @@
+/**
+ * @fileoverview useDistributions hook for managing distributions data
+ */
+
 import {
   Distribution,
   DistributionFilters,

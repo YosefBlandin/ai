@@ -1,3 +1,7 @@
+/**
+ * @fileoverview DistributionDetailsContainer component for managing distribution details logic
+ */
+
 import React from 'react';
 import { useDistribution } from '@/hooks/useDistribution';
 import { DistributionDetailsPresenter } from '@/components/DistributionDetailsPresenter';

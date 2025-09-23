@@ -1,3 +1,7 @@
+/**
+ * @fileoverview DistributionListContainer component for managing distribution list logic
+ */
+
 import { DistributionListPresenter } from '@/components/DistributionListPresenter';
 import { useDistributions } from '@/hooks/useDistributions';
 import { DistributionStatus } from '@aidonic/shared-types';

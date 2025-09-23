@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Centralized color utilities for all color mappings
+ */
+
 import { DistributionStatus, AidType } from '@aidonic/shared-types';
 
 /**

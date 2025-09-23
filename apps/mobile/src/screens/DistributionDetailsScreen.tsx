@@ -1,3 +1,7 @@
+/**
+ * @fileoverview DistributionDetailsScreen component for displaying distribution details
+ */
+
 import React from 'react';
 import { DistributionDetailsContainer } from '@/containers/DistributionDetailsContainer';
 import { RouteProp } from '@aidonic/shared-types';

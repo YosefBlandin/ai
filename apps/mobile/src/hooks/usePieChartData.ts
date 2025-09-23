@@ -1,3 +1,7 @@
+/**
+ * @fileoverview usePieChartData hook for pie chart data transformation
+ */
+
 import { useMemo } from 'react';
 import { AidTypeChartData } from '@aidonic/shared-types';
 import {

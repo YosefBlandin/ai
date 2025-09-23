@@ -1,4 +1,8 @@
 /**
+ * @fileoverview Centralized data formatting utilities for all data formatting
+ */
+
+/**
  * Centralized data formatting utilities to eliminate duplication across components
  * This is the single source of truth for all data formatting in the application
  */

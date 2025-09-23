@@ -1,3 +1,7 @@
+/**
+ * @fileoverview ChartsScreen component for displaying charts
+ */
+
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { useCharts } from '@/hooks/useCharts';

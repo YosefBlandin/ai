@@ -1,3 +1,7 @@
+/**
+ * @fileoverview StatsOverview component for displaying key statistics
+ */
+
 import React from 'react';
 import { Distribution } from '@aidonic/shared-types';
 import { formatNumber } from '@aidonic/shared-utils';

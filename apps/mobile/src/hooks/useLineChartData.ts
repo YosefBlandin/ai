@@ -1,3 +1,7 @@
+/**
+ * @fileoverview useLineChartData hook for line chart data transformation
+ */
+
 import { useMemo } from 'react';
 import { TimelineChartData } from '@aidonic/shared-types';
 import {

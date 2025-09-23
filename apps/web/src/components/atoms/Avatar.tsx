@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Avatar component for displaying user initials
+ */
+
 import React from 'react';
 
 interface AvatarProps {
@@ -9,10 +13,10 @@ interface AvatarProps {
 /**
  * Avatar component for displaying user initials
  */
-export const Avatar: React.FC<AvatarProps> = ({ 
-  name, 
-  size = 'md', 
-  className = '' 
+export const Avatar: React.FC<AvatarProps> = ({
+  name,
+  size = 'md',
+  className = '',
 }) => {
   const getSizeClasses = () => {
     switch (size) {
@@ -30,10 +34,10 @@ export const Avatar: React.FC<AvatarProps> = ({
   const initials = name.charAt(0).toUpperCase();
 
   return (
-    <div className={`${getSizeClasses()} bg-blue-100 rounded-full flex items-center justify-center ${className}`}>
-      <span className="font-medium text-blue-600">
-        {initials}
-      </span>
+    <div
+      className={`${getSizeClasses()} bg-blue-100 rounded-full flex items-center justify-center ${className}`}
+    >
+      <span className="font-medium text-blue-600">{initials}</span>
     </div>
   );
 };

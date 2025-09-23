@@ -1,3 +1,7 @@
+/**
+ * @fileoverview useCharts hook for managing chart data and configurations
+ */
+
 import { useState, useEffect, useCallback } from 'react';
 import {
   AidTypeChartData,

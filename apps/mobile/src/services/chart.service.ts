@@ -1,3 +1,7 @@
+/**
+ * @fileoverview ChartService for managing chart data
+ */
+
 import {
   AidTypeChartData,
   TimelineChartData,

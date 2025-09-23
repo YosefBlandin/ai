@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Card component for consistent container styling
+ */
+
 import React from 'react';
 
 interface CardProps {
@@ -9,10 +13,10 @@ interface CardProps {
 /**
  * Card component for consistent container styling
  */
-export const Card: React.FC<CardProps> = ({ 
-  children, 
+export const Card: React.FC<CardProps> = ({
+  children,
   className = '',
-  padding = 'md'
+  padding = 'md',
 }) => {
   const getPaddingClasses = () => {
     switch (padding) {
@@ -28,7 +32,9 @@ export const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <div className={`bg-white rounded-lg shadow-sm border border-gray-200 ${getPaddingClasses()} ${className}`}>
+    <div
+      className={`bg-white rounded-lg shadow-sm border border-gray-200 ${getPaddingClasses()} ${className}`}
+    >
       {children}
     </div>
   );

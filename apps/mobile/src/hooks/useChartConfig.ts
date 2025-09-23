@@ -1,3 +1,7 @@
+/**
+ * @fileoverview useChartConfig hook for chart configuration
+ */
+
 import { useMemo } from 'react';
 import { Dimensions } from 'react-native';
 

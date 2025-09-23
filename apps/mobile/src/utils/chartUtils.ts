@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Chart utilities for chart-related operations
+ */
+
 import { AidType } from '@aidonic/shared-types';
 import {
   getAidTypeColor as getCentralizedAidTypeColor,

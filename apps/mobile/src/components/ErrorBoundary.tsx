@@ -1,3 +1,7 @@
+/**
+ * @fileoverview ErrorBoundary component for handling React errors
+ */
+
 import React, { Component, ReactNode } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 

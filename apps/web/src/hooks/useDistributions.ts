@@ -1,3 +1,7 @@
+/**
+ * @fileoverview useDistributions hook for managing distributions data
+ */
+
 import { useState, useEffect, useCallback } from 'react';
 import {
   Distribution,

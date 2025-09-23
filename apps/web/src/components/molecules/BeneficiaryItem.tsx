@@ -1,3 +1,7 @@
+/**
+ * @fileoverview BeneficiaryItem component for displaying individual beneficiaries
+ */
+
 import React from 'react';
 import { Avatar } from '../atoms/Avatar';
 

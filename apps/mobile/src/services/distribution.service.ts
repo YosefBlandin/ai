@@ -1,3 +1,7 @@
+/**
+ * @fileoverview DistributionService for managing distribution data
+ */
+
 import {
   Distribution,
   DistributionFilters,
