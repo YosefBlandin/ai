@@ -6,9 +6,7 @@ import {
   TimelineChartData,
 } from '@aidonic/shared-services';
 
-/**
- * Container for charts - handles data fetching and business logic
- */
+// Container for charts - handles data fetching and business logic
 export const ChartsContainer: React.FC = () => {
   const [statusData, setStatusData] = useState<StatusChartData[]>([]);
   const [timelineData, setTimelineData] = useState<TimelineChartData[]>([]);

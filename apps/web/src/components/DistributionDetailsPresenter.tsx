@@ -1,7 +1,5 @@
 /**
  * @fileoverview DistributionDetailsPresenter component for displaying distribution details UI
- * @author Aidonic Team
- * @created 2024
  */
 
 import React from 'react';
@@ -20,9 +18,7 @@ interface DistributionDetailsPresenterProps {
   onRefresh?: () => void;
 }
 
-/**
- * Presenter component for distribution details display
- */
+// Presenter component for distribution details display
 export const DistributionDetailsPresenter: React.FC<
   DistributionDetailsPresenterProps
 > = ({ distribution, loading, headerIcon, onRefresh }) => {

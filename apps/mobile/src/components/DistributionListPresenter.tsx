@@ -1,7 +1,5 @@
 /**
  * @fileoverview DistributionListPresenter component for displaying distribution list UI
- * @author Aidonic Team
- * @created 2024
  */
 
 import React from 'react';
@@ -36,9 +34,7 @@ interface DistributionListPresenterProps {
   onViewDetails: (id: string) => void;
 }
 
-/**
- * Presenter component for distribution list display
- */
+// Presenter component for distribution list display
 export const DistributionListPresenter: React.FC<
   DistributionListPresenterProps
 > = ({

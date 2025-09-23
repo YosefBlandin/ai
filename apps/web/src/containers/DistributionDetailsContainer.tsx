@@ -6,9 +6,7 @@ interface DistributionDetailsContainerProps {
   distributionId: string;
 }
 
-/**
- * Container for distribution details - handles data fetching and business logic
- */
+// Container for distribution details - handles data fetching and business logic
 export const DistributionDetailsContainer: React.FC<
   DistributionDetailsContainerProps
 > = ({ distributionId }) => {

@@ -1,7 +1,5 @@
 /**
  * @fileoverview ChartsPresenter component for displaying charts UI
- * @author Aidonic Team
- * @created 2024
  */
 
 import React from 'react';
@@ -17,9 +15,7 @@ interface ChartsPresenterProps {
   onRefresh: () => void;
 }
 
-/**
- * Presenter component for charts display
- */
+// Presenter component for charts display
 export const ChartsPresenter: React.FC<ChartsPresenterProps> = ({
   statusData,
   timelineData,

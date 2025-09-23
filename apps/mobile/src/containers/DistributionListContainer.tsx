@@ -7,9 +7,7 @@ interface DistributionListContainerProps {
   onViewDetails: (id: string) => void;
 }
 
-/**
- * Container for distribution list - handles data fetching and business logic
- */
+// Container for distribution list - handles data fetching and business logic
 export const DistributionListContainer: React.FC<
   DistributionListContainerProps
 > = ({ onViewDetails }) => {
