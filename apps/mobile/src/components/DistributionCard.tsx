@@ -1,6 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Distribution } from '@/types';
+import {
+  getStatusBackgroundColor,
+  getStatusTextColor,
+} from '@aidonic/shared-utils';
 
 interface DistributionCardProps {
   distribution: Distribution;
@@ -12,20 +16,7 @@ export const DistributionCard: React.FC<DistributionCardProps> = ({
   distribution,
   onPress,
 }) => {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Completed':
-        return '#10B981';
-      case 'In Progress':
-        return '#F59E0B';
-      case 'Planned':
-        return '#3B82F6';
-      case 'Cancelled':
-        return '#EF4444';
-      default:
-        return '#6B7280';
-    }
-  };
+  // Using centralized color utilities
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -49,13 +40,13 @@ export const DistributionCard: React.FC<DistributionCardProps> = ({
         <View
           style={[
             styles.statusBadge,
-            { backgroundColor: `${getStatusColor(distribution.status)}20` },
+            { backgroundColor: getStatusBackgroundColor(distribution.status) },
           ]}
         >
           <Text
             style={[
               styles.statusText,
-              { color: getStatusColor(distribution.status) },
+              { color: getStatusTextColor(distribution.status) },
             ]}
           >
             {distribution.status}

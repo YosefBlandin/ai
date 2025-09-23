@@ -5,29 +5,8 @@ export * from './typography';
 export * from './shadows';
 export * from './radius';
 
-// Status color mappings
-export const statusColors = {
-  planned: {
-    background: '#eff6ff',
-    text: '#1e40af',
-    border: '#dbeafe',
-  },
-  'in-progress': {
-    background: '#fffbeb',
-    text: '#92400e',
-    border: '#fef3c7',
-  },
-  completed: {
-    background: '#f0fdf4',
-    text: '#166534',
-    border: '#dcfce7',
-  },
-  cancelled: {
-    background: '#fef2f2',
-    text: '#991b1b',
-    border: '#fee2e2',
-  },
-} as const;
+// Status color mappings moved to @aidonic/shared-utils/colorUtils
+// Use getStatusColorSet() for comprehensive color access
 
 // Component-specific tokens
 export const componentTokens = {

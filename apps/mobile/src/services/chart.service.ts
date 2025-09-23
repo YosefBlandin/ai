@@ -1,4 +1,5 @@
 import { AidTypeChartData, TimelineChartData, AidType } from '@/types';
+import { getAidTypeColor } from '@aidonic/shared-utils';
 
 // Mock data for charts
 const mockDistributions = [
@@ -120,14 +121,7 @@ export class ChartService {
   }
 
   getStatusColor(status: string): string {
-    const colors = {
-      Food: '#3B82F6',
-      Medical: '#10B981',
-      Shelter: '#F59E0B',
-      Clothing: '#EF4444',
-      Education: '#8B5CF6',
-    };
-    return colors[status as keyof typeof colors] || '#6B7280';
+    return getAidTypeColor(status as AidType);
   }
 }
 

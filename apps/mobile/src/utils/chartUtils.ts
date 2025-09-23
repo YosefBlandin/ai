@@ -1,21 +1,12 @@
 import { AidType } from '@aidonic/shared-types';
-
-/**
- * Color mapping for different aid types
- */
-const AID_TYPE_COLORS: Record<AidType, string> = {
-  Food: '#3B82F6',
-  Medical: '#10B981',
-  Shelter: '#F59E0B',
-  Clothing: '#EF4444',
-  Education: '#8B5CF6',
-};
+import { getAidTypeColor as getCentralizedAidTypeColor } from '@aidonic/shared-utils';
 
 /**
  * Get color for a specific aid type
+ * Re-exported from centralized color utilities
  */
 export const getAidTypeColor = (aidType: string): string => {
-  return AID_TYPE_COLORS[aidType as AidType] || '#6B7280';
+  return getCentralizedAidTypeColor(aidType as AidType);
 };
 
 /**

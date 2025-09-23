@@ -1,8 +1,7 @@
-import {
-  AidType,
-  DeliveryChannel,
-  DistributionStatus,
-} from '@aidonic/shared-types';
+import { AidType, DeliveryChannel } from '@aidonic/shared-types';
+
+// Re-export color utilities
+export * from './colorUtils';
 
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -35,25 +34,7 @@ export const formatCurrency = (amount: number, currency = 'USD'): string => {
   }).format(amount);
 };
 
-export const getStatusColor = (status: DistributionStatus): string => {
-  const statusColors = {
-    Planned: 'blue',
-    'In Progress': 'yellow',
-    Completed: 'green',
-    Cancelled: 'red',
-  };
-  return statusColors[status] || 'gray';
-};
-
-export const getStatusTextColor = (status: DistributionStatus): string => {
-  const textColors = {
-    Planned: '#1d4ed8',
-    'In Progress': '#d97706',
-    Completed: '#16a34a',
-    Cancelled: '#dc2626',
-  };
-  return textColors[status] || '#6b7280';
-};
+// Color functions moved to colorUtils.ts
 
 export const getAidTypeIcon = (aidType: AidType): string => {
   const iconMap = {
