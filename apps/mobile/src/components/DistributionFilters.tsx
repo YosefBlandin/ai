@@ -27,7 +27,7 @@ const statusOptions: DistributionStatus[] = [
   'Cancelled',
 ];
 
-// Presentation component following Single Responsibility Principle
+// Component for filtering distributions
 export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
   filters,
   onFiltersChange,

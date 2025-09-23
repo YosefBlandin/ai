@@ -19,7 +19,7 @@ interface DistributionCardProps {
   onPress: (id: string) => void;
 }
 
-// Presentation component following Single Responsibility Principle
+// Component for displaying distribution information
 export const DistributionCard: React.FC<DistributionCardProps> = React.memo(
   ({ distribution, onPress }) => {
     // Using centralized utilities

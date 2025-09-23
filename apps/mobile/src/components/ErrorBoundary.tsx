@@ -11,7 +11,7 @@ interface State {
   error?: Error;
 }
 
-// Error boundary component following Single Responsibility Principle
+// Error boundary component for handling React errors
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);

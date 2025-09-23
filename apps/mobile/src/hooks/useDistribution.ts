@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Distribution, LoadingState } from '@aidonic/shared-types';
 import { distributionService } from '@/services/distribution.service';
 
-// Custom hook for single distribution following Single Responsibility Principle
+// Custom hook for managing single distribution data
 export const useDistribution = (id: string) => {
   const [distribution, setDistribution] = useState<Distribution | null>(null);
   const [loading, setLoading] = useState<LoadingState>({ isLoading: false });

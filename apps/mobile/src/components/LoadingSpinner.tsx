@@ -6,10 +6,10 @@ interface LoadingSpinnerProps {
   message?: string;
 }
 
-// Presentation component following Single Responsibility Principle
-export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
-  size = 'large', 
-  message 
+// Component for displaying loading state
+export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
+  size = 'large',
+  message,
 }) => {
   return (
     <View style={styles.container}>

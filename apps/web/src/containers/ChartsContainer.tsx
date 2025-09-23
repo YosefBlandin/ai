@@ -1,21 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { ChartsPresenter } from '@/components/ChartsPresenter';
+import {
+  chartService,
+  StatusChartData,
+  TimelineChartData,
+} from '@aidonic/shared-services';
 
+/**
+ * Container for charts - handles data fetching and business logic
+ */
 export const ChartsContainer: React.FC = () => {
+  const [statusData, setStatusData] = useState<StatusChartData[]>([]);
+  const [timelineData, setTimelineData] = useState<TimelineChartData[]>([]);
+  const [loading, setLoading] = useState({
+    isLoading: true,
+    error: undefined as string | undefined,
+  });
+
+  const fetchChartData = useCallback(async () => {
+    setLoading({ isLoading: true, error: undefined });
+    try {
+      const [status, timeline] = await Promise.all([
+        chartService.getStatusDistribution(),
+        chartService.getTimelineDistribution(),
+      ]);
+      setStatusData(status);
+      setTimelineData(timeline);
+      setLoading({ isLoading: false, error: undefined });
+    } catch (error) {
+      setLoading({
+        isLoading: false,
+        error:
+          error instanceof Error ? error.message : 'Failed to fetch chart data',
+      });
+    }
+  }, []);
+
+  const handleRefresh = useCallback(() => {
+    fetchChartData();
+  }, [fetchChartData]);
+
+  useEffect(() => {
+    fetchChartData();
+  }, [fetchChartData]);
+
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Distribution Analytics</h2>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg p-6">
-          <h3 className="text-lg font-semibold mb-4">Status Distribution</h3>
-          <p className="text-gray-500">Chart placeholder</p>
-        </div>
-        <div className="bg-white rounded-lg p-6">
-          <h3 className="text-lg font-semibold mb-4">Timeline</h3>
-          <p className="text-gray-500">Chart placeholder</p>
-        </div>
-      </div>
-    </div>
+    <ChartsPresenter
+      statusData={statusData}
+      timelineData={timelineData}
+      loading={loading}
+      onRefresh={handleRefresh}
+    />
   );
 };
