@@ -5,9 +5,9 @@ import {
   radius,
   shadows,
   spacing,
-  statusColors,
   typography,
 } from './tokens';
+import { getStatusColorSet } from '@aidonic/shared-utils';
 
 // Mobile-specific style utilities using React Native StyleSheet
 export const createMobileStyles = {
@@ -93,20 +93,20 @@ export const createMobileStyles = {
       borderWidth: 1,
     },
     planned: {
-      backgroundColor: statusColors.planned.background,
-      borderColor: statusColors.planned.border,
+      backgroundColor: getStatusColorSet('Planned').background,
+      borderColor: getStatusColorSet('Planned').border,
     },
     'in-progress': {
-      backgroundColor: statusColors['in-progress'].background,
-      borderColor: statusColors['in-progress'].border,
+      backgroundColor: getStatusColorSet('In Progress').background,
+      borderColor: getStatusColorSet('In Progress').border,
     },
     completed: {
-      backgroundColor: statusColors.completed.background,
-      borderColor: statusColors.completed.border,
+      backgroundColor: getStatusColorSet('Completed').background,
+      borderColor: getStatusColorSet('Completed').border,
     },
     cancelled: {
-      backgroundColor: statusColors.cancelled.background,
-      borderColor: statusColors.cancelled.border,
+      backgroundColor: getStatusColorSet('Cancelled').background,
+      borderColor: getStatusColorSet('Cancelled').border,
     },
   }),
 
@@ -164,7 +164,7 @@ export const createMobileStyles = {
   }),
 } as const;
 
-// Status color helper
+// Status color helper - using centralized color utilities
 export const getStatusColor = (status: string) => {
   const statusMap: Record<string, keyof typeof createMobileStyles.statusBadge> =
     {
@@ -176,13 +176,13 @@ export const getStatusColor = (status: string) => {
   return statusMap[status] || 'base';
 };
 
-// Status text color helper
+// Status text color helper - using centralized color utilities
 export const getStatusTextColor = (status: string) => {
   const statusMap: Record<string, string> = {
-    Planned: statusColors.planned.text,
-    'In Progress': statusColors['in-progress'].text,
-    Completed: statusColors.completed.text,
-    Cancelled: statusColors.cancelled.text,
+    Planned: getStatusColorSet('Planned').text,
+    'In Progress': getStatusColorSet('In Progress').text,
+    Completed: getStatusColorSet('Completed').text,
+    Cancelled: getStatusColorSet('Cancelled').text,
   };
   return statusMap[status] || colors.text.primary;
 };
