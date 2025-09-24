@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Shared components package exports
+ */
+
 // Shared component interfaces and types
 export interface BaseComponentProps {
   className?: string;
@@ -55,21 +59,21 @@ export const componentConfig = {
       primary: 'bg-blue-600 text-white hover:bg-blue-700',
       secondary: 'bg-gray-600 text-white hover:bg-gray-700',
       outline: 'border border-gray-300 text-gray-700 hover:bg-gray-50',
-      ghost: 'text-gray-700 hover:bg-gray-100'
+      ghost: 'text-gray-700 hover:bg-gray-100',
     },
     sizes: {
       sm: 'px-3 py-1.5 text-sm',
       md: 'px-4 py-2 text-base',
-      lg: 'px-6 py-3 text-lg'
-    }
+      lg: 'px-6 py-3 text-lg',
+    },
   },
   input: {
     base: 'block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
-    error: 'border-red-300 focus:ring-red-500 focus:border-red-500'
+    error: 'border-red-300 focus:ring-red-500 focus:border-red-500',
   },
   card: {
     base: 'bg-white rounded-lg shadow-sm border border-gray-200',
     padding: 'p-6',
-    hover: 'hover:shadow-md transition-shadow'
-  }
+    hover: 'hover:shadow-md transition-shadow',
+  },
 } as const;

@@ -12,9 +12,15 @@ import {
   View,
 } from 'react-native';
 import { Distribution, DistributionStatus } from '@aidonic/shared-types';
+import {
+  APP_TEXT,
+  getRegionOptions,
+  getStatusOptions,
+} from '@aidonic/shared-utils';
 import { DistributionCard } from './DistributionCard';
 import { ErrorBoundary } from './ErrorBoundary';
 import { LoadingSpinner } from './LoadingSpinner';
+import { colors } from '@/styles/tokens';
 
 interface DistributionListPresenterProps {
   distributions: Distribution[];
@@ -53,7 +59,7 @@ export const DistributionListPresenter: React.FC<
   );
 
   if (loading.isLoading && distributions.length === 0) {
-    return <LoadingSpinner message="Loading distributions..." />;
+    return <LoadingSpinner message={APP_TEXT.loading.distributions} />;
   }
 
   if (loading.error) {
@@ -61,7 +67,9 @@ export const DistributionListPresenter: React.FC<
       <View style={styles.errorContainer}>
         <Text style={styles.errorText}>{loading.error}</Text>
         <TouchableOpacity style={styles.retryButton} onPress={onRefresh}>
-          <Text style={styles.retryButtonText}>Try Again</Text>
+          <Text style={styles.retryButtonText}>
+            {APP_TEXT.navigation.tryAgain}
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -75,77 +83,65 @@ export const DistributionListPresenter: React.FC<
             style={styles.filterButton}
             onPress={onToggleFilters}
           >
-            <Text style={styles.filterButtonText}>Filters</Text>
+            <Text style={styles.filterButtonText}>
+              {APP_TEXT.navigation.filters}
+            </Text>
           </TouchableOpacity>
         </View>
 
         {showFilters && (
           <View style={styles.filtersContainer}>
             <View style={styles.filterRow}>
-              <Text style={styles.filterLabel}>Region</Text>
+              <Text style={styles.filterLabel}>{APP_TEXT.labels.region}</Text>
               <View style={styles.filterOptions}>
-                {[
-                  'All',
-                  'West Nile',
-                  'Eastern Province',
-                  'Northern Region',
-                  'Central Region',
-                  'Western Region',
-                  'Southern Region',
-                ].map(region => (
+                {getRegionOptions().map(region => (
                   <TouchableOpacity
-                    key={region}
+                    key={region.value}
                     style={[
                       styles.filterOption,
-                      (filters.region === region ||
-                        (!filters.region && region === 'All')) &&
+                      (filters.region === region.value ||
+                        (!filters.region && region.value === 'All')) &&
                         styles.filterOptionActive,
                     ]}
-                    onPress={() => onRegionFilter(region)}
+                    onPress={() => onRegionFilter(region.value)}
                   >
                     <Text
                       style={[
                         styles.filterOptionText,
-                        (filters.region === region ||
-                          (!filters.region && region === 'All')) &&
+                        (filters.region === region.value ||
+                          (!filters.region && region.value === 'All')) &&
                           styles.filterOptionTextActive,
                       ]}
                     >
-                      {region}
+                      {region.label}
                     </Text>
                   </TouchableOpacity>
                 ))}
               </View>
             </View>
             <View style={styles.filterRow}>
-              <Text style={styles.filterLabel}>Status</Text>
+              <Text style={styles.filterLabel}>{APP_TEXT.labels.status}</Text>
               <View style={styles.filterOptions}>
-                {[
-                  'All',
-                  'Planned',
-                  'In Progress',
-                  'Completed',
-                  'Cancelled',
-                ].map(status => (
+                {getStatusOptions().map(status => (
                   <TouchableOpacity
-                    key={status}
+                    key={status.value}
                     style={[
                       styles.filterOption,
-                      (filters.status === status ||
-                        (!filters.status && status === 'All')) &&
+                      (filters.status === status.value ||
+                        (!filters.status && status.value === 'All')) &&
                         styles.filterOptionActive,
                     ]}
-                    onPress={() => onStatusFilter(status)}
+                    onPress={() => onStatusFilter(status.value)}
                   >
                     <Text
                       style={[
                         styles.filterOptionText,
-                        (filters.status === status ||
-                          (!filters.status && status === 'All')) &&
+                        (filters.status === status.value ||
+                          (!filters.status && status.value === 'All')) &&
                           styles.filterOptionTextActive,
                       ]}
                     >
-                      {status}
+                      {status.label}
                     </Text>
                   </TouchableOpacity>
                 ))}
@@ -162,7 +158,7 @@ export const DistributionListPresenter: React.FC<
             <RefreshControl
               refreshing={loading.isLoading}
               onRefresh={onRefresh}
-              colors={['#3B82F6']}
+              colors={[colors.primary[500]]}
             />
           }
           contentContainerStyle={styles.listContainer}
@@ -171,7 +167,9 @@ export const DistributionListPresenter: React.FC<
 
         {distributions.length === 0 && !loading.isLoading && (
           <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No distributions found</Text>
+            <Text style={styles.emptyText}>
+              {APP_TEXT.empty.noDistributionsFound}
+            </Text>
           </View>
         )}
       </View>
@@ -182,7 +180,7 @@ export const DistributionListPresenter: React.FC<
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background.secondary,
   },
   header: {
     flexDirection: 'row',
@@ -190,18 +188,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.primary,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: colors.border.light,
   },
   filterButton: {
     paddingHorizontal: 12,
     paddingVertical: 6,
-    backgroundColor: '#3B82F6',
+    backgroundColor: colors.primary[500],
     borderRadius: 6,
   },
   filterButtonText: {
-    color: '#ffffff',
+    color: colors.text.inverse,
     fontSize: 14,
     fontWeight: '500',
   },
@@ -216,7 +214,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: '#6B7280',
+    color: colors.text.secondary,
   },
   errorContainer: {
     flex: 1,
@@ -226,27 +224,27 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 16,
-    color: '#EF4444',
+    color: colors.error[500],
     textAlign: 'center',
     marginBottom: 16,
   },
   retryButton: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: colors.primary[500],
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 6,
   },
   retryButtonText: {
-    color: '#ffffff',
+    color: colors.text.inverse,
     fontSize: 14,
     fontWeight: '500',
   },
   filtersContainer: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.primary,
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: colors.border.light,
   },
   filterRow: {
     marginBottom: 12,
@@ -254,7 +252,7 @@ const styles = StyleSheet.create({
   filterLabel: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#374151',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   filterOptions: {
@@ -265,21 +263,21 @@ const styles = StyleSheet.create({
   filterOption: {
     paddingHorizontal: 12,
     paddingVertical: 6,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: colors.background.tertiary,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#D1D5DB',
+    borderColor: colors.border.medium,
   },
   filterOptionActive: {
-    backgroundColor: '#3B82F6',
-    borderColor: '#3B82F6',
+    backgroundColor: colors.primary[500],
+    borderColor: colors.primary[500],
   },
   filterOptionText: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#6B7280',
+    color: colors.text.secondary,
   },
   filterOptionTextActive: {
-    color: '#ffffff',
+    color: colors.text.inverse,
   },
 });

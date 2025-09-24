@@ -11,8 +11,10 @@ import {
   RefreshControl,
 } from 'react-native';
 import { Distribution } from '@aidonic/shared-types';
+import { APP_TEXT } from '@aidonic/shared-utils';
 import { LoadingSpinner } from './LoadingSpinner';
 import { ErrorBoundary } from './ErrorBoundary';
+import { colors } from '@/styles/tokens';
 
 interface DistributionDetailsPresenterProps {
   distribution: Distribution | null;
@@ -40,7 +42,7 @@ export const DistributionDetailsPresenter: React.FC<
   onRefresh,
 }) => {
   if (loading.isLoading) {
-    return <LoadingSpinner message="Loading distribution details..." />;
+    return <LoadingSpinner message={APP_TEXT.loading.distributionDetails} />;
   }
 
   if (loading.error) {
@@ -54,7 +56,9 @@ export const DistributionDetailsPresenter: React.FC<
   if (!distribution) {
     return (
       <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>Distribution not found</Text>
+        <Text style={styles.errorText}>
+          {APP_TEXT.errors.distributionNotFound}
+        </Text>
       </View>
     );
   }
@@ -92,22 +96,28 @@ export const DistributionDetailsPresenter: React.FC<
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Basic Information</Text>
+          <Text style={styles.sectionTitle}>
+            {APP_TEXT.labels.basicInformation}
+          </Text>
           <View style={styles.infoCard}>
             <View style={styles.infoRow}>
-              <Text style={styles.label}>Date:</Text>
+              <Text style={styles.label}>{APP_TEXT.labels.date}:</Text>
               <Text style={styles.value}>{formattedDate}</Text>
             </View>
             <View style={styles.infoRow}>
-              <Text style={styles.label}>Aid Type:</Text>
+              <Text style={styles.label}>{APP_TEXT.labels.aidType}:</Text>
               <Text style={styles.value}>{distribution.aidType}</Text>
             </View>
             <View style={styles.infoRow}>
-              <Text style={styles.label}>Delivery Channel:</Text>
+              <Text style={styles.label}>
+                {APP_TEXT.labels.deliveryChannel}:
+              </Text>
               <Text style={styles.value}>{distribution.deliveryChannel}</Text>
             </View>
             <View style={styles.infoRow}>
-              <Text style={styles.label}>Total Beneficiaries:</Text>
+              <Text style={styles.label}>
+                {APP_TEXT.labels.totalBeneficiaries}:
+              </Text>
               <Text style={[styles.value, styles.beneficiariesCount]}>
                 {formattedBeneficiaries}
               </Text>
@@ -116,10 +126,12 @@ export const DistributionDetailsPresenter: React.FC<
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Status Information</Text>
+          <Text style={styles.sectionTitle}>
+            {APP_TEXT.labels.statusInformation}
+          </Text>
           <View style={styles.infoCard}>
             <View style={styles.infoRow}>
-              <Text style={styles.label}>Current Status:</Text>
+              <Text style={styles.label}>{APP_TEXT.labels.currentStatus}:</Text>
               <View
                 style={[
                   styles.statusBadge,
@@ -132,7 +144,7 @@ export const DistributionDetailsPresenter: React.FC<
               </View>
             </View>
             <View style={styles.infoRow}>
-              <Text style={styles.label}>Region:</Text>
+              <Text style={styles.label}>{APP_TEXT.labels.region}:</Text>
               <Text style={styles.value}>{distribution.region}</Text>
             </View>
           </View>
@@ -212,14 +224,14 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#111827',
+    color: colors.text.primary,
     marginBottom: 12,
   },
   infoCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.primary,
     borderRadius: 12,
     padding: 16,
-    shadowColor: '#000',
+    shadowColor: colors.neutral[900],
     shadowOffset: {
       width: 0,
       height: 1,
@@ -236,20 +248,20 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.text.secondary,
     flex: 1,
   },
   value: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#111827',
+    color: colors.text.primary,
     flex: 1,
     textAlign: 'right',
   },
   beneficiariesCount: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#3B82F6',
+    color: colors.primary[500],
   },
   beneficiariesContainer: {
     flexDirection: 'row',
@@ -257,11 +269,11 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   beneficiaryCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.primary,
     borderRadius: 8,
     padding: 12,
     minWidth: '45%',
-    shadowColor: '#000',
+    shadowColor: colors.neutral[900],
     shadowOffset: {
       width: 0,
       height: 1,
@@ -273,12 +285,12 @@ const styles = StyleSheet.create({
   beneficiaryName: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#111827',
+    color: colors.text.primary,
     marginBottom: 4,
   },
   beneficiaryId: {
     fontSize: 12,
-    color: '#6B7280',
+    color: colors.text.secondary,
   },
   errorContainer: {
     flex: 1,
@@ -288,7 +300,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 16,
-    color: '#EF4444',
+    color: colors.error[500],
     textAlign: 'center',
   },
 });

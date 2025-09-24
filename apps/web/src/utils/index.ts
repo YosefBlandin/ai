@@ -12,5 +12,4 @@ export const cn = (
   return classes.filter(Boolean).join(' ');
 };
 
-// Web-specific color utilities
-export * from './colors';
+// Web-specific color utilities are now in shared-utils

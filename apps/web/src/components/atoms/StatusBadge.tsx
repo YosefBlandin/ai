@@ -3,7 +3,8 @@
  */
 
 import React from 'react';
-import { getStatusColors } from '@/utils';
+import { getStatusColorClass } from '@aidonic/shared-utils';
+import { DistributionStatus } from '@aidonic/shared-types';
 
 interface StatusBadgeProps {
   status: string;
@@ -19,7 +20,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({
 }) => {
   return (
     <span
-      className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full ${getStatusColors(status)} ${className}`}
+      className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full ${getStatusColorClass(status as DistributionStatus)} ${className}`}
     >
       {status}
     </span>

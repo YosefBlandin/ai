@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Distribution } from '@aidonic/shared-types';
-import { formatNumber } from '@aidonic/shared-utils';
+import { formatNumber, APP_TEXT } from '@aidonic/shared-utils';
 
 interface StatsOverviewProps {
   distributions: Distribution[];
@@ -30,7 +30,7 @@ export const StatsOverview: React.FC<StatsOverviewProps> = React.memo(
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">
-                Total Distributions
+                {APP_TEXT.stats.totalDistributions}
               </p>
               <p className="text-2xl font-bold text-gray-900">
                 {totalDistributions}
@@ -42,7 +42,7 @@ export const StatsOverview: React.FC<StatsOverviewProps> = React.memo(
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">
-                Completed
+                {APP_TEXT.stats.completed}
               </p>
               <p className="text-2xl font-bold text-gray-900">
                 {completedDistributions}
@@ -54,7 +54,7 @@ export const StatsOverview: React.FC<StatsOverviewProps> = React.memo(
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 mb-1">
-                Total Beneficiaries
+                {APP_TEXT.stats.totalBeneficiaries}
               </p>
               <p className="text-2xl font-bold text-gray-900">
                 {formatNumber(totalBeneficiaries)}

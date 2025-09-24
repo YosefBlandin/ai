@@ -7,7 +7,7 @@ import { Distribution } from '@aidonic/shared-types';
 import { Card } from './atoms';
 import { PageHeader } from './molecules';
 import { DistributionDetailsGrid, BeneficiariesList } from './organisms';
-import { COLORS } from '@/utils';
+import { APP_TEXT } from '@aidonic/shared-utils';
 
 interface DistributionDetailsPresenterProps {
   distribution: Distribution | null;
@@ -28,19 +28,11 @@ export const DistributionDetailsPresenter: React.FC<
       <div className="max-w-4xl mx-auto">
         <Card padding="lg">
           <div className="animate-pulse">
-            <div
-              className={`h-8 ${COLORS.background.loading} rounded mb-6`}
-            ></div>
+            <div className="h-8 bg-gray-200 rounded mb-6"></div>
             <div className="space-y-4">
-              <div
-                className={`h-4 ${COLORS.background.loading} rounded w-1/2`}
-              ></div>
-              <div
-                className={`h-4 ${COLORS.background.loading} rounded w-1/3`}
-              ></div>
-              <div
-                className={`h-4 ${COLORS.background.loading} rounded w-1/4`}
-              ></div>
+              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+              <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
             </div>
           </div>
         </Card>
@@ -52,16 +44,16 @@ export const DistributionDetailsPresenter: React.FC<
     return (
       <div className="max-w-4xl mx-auto">
         <Card padding="lg">
-          <h1 className={`text-2xl font-bold ${COLORS.text.primary} mb-4`}>
-            Error Loading Distribution
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            {APP_TEXT.errors.loadingDistribution}
           </h1>
-          <p className={`${COLORS.text.error} mb-4`}>{loading.error}</p>
+          <p className="text-red-600 mb-4">{loading.error}</p>
           {onRefresh && (
             <button
               onClick={onRefresh}
-              className={`px-4 py-2 ${COLORS.button.primary} rounded-md`}
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
             >
-              Try Again
+              {APP_TEXT.navigation.tryAgain}
             </button>
           )}
         </Card>
@@ -73,11 +65,11 @@ export const DistributionDetailsPresenter: React.FC<
     return (
       <div className="max-w-4xl mx-auto">
         <Card padding="lg">
-          <h1 className={`text-2xl font-bold ${COLORS.text.primary} mb-4`}>
-            Distribution Not Found
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            {APP_TEXT.errors.distributionNotFound}
           </h1>
-          <p className={COLORS.text.secondary}>
-            The requested distribution could not be found.
+          <p className="text-gray-600">
+            {APP_TEXT.errors.distributionNotFoundDescription}
           </p>
         </Card>
       </div>
@@ -87,7 +79,10 @@ export const DistributionDetailsPresenter: React.FC<
   return (
     <div className="max-w-4xl mx-auto">
       <Card padding="lg">
-        <PageHeader title="Aid Distribution Details" icon={headerIcon} />
+        <PageHeader
+          title={APP_TEXT.titles.aidDistributionDetails}
+          icon={headerIcon}
+        />
 
         <DistributionDetailsGrid distribution={distribution} />
 

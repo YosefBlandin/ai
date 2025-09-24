@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Shared types package exports
+ */
+
 // Core domain types - shared between web and mobile
 export interface Beneficiary {
   id: string;
@@ -15,9 +19,17 @@ export interface Distribution {
   beneficiaryList?: Beneficiary[];
 }
 
-export type DistributionStatus = 'Planned' | 'In Progress' | 'Completed' | 'Cancelled';
+export type DistributionStatus =
+  | 'Planned'
+  | 'In Progress'
+  | 'Completed'
+  | 'Cancelled';
 export type AidType = 'Food' | 'Medical' | 'Shelter' | 'Clothing' | 'Education';
-export type DeliveryChannel = 'Direct Distribution' | 'Vouchers' | 'Cash Transfer' | 'Mobile Money';
+export type DeliveryChannel =
+  | 'Direct Distribution'
+  | 'Vouchers'
+  | 'Cash Transfer'
+  | 'Mobile Money';
 
 // API Response types
 export interface DistributionsResponse {
@@ -79,8 +91,10 @@ export type RootStackParamList = {
 // React Navigation types
 export interface NavigationProp {
   navigate: <T extends keyof RootStackParamList>(
-    screen: T, 
-    params?: RootStackParamList[T] extends undefined ? undefined : RootStackParamList[T]
+    screen: T,
+    params?: RootStackParamList[T] extends undefined
+      ? undefined
+      : RootStackParamList[T]
   ) => void;
   goBack: () => void;
 }
@@ -93,7 +107,9 @@ export interface RouteProp {
 
 // API Service interfaces
 export interface ApiService {
-  getDistributions(filters?: DistributionFilters): Promise<DistributionsResponse>;
+  getDistributions(
+    filters?: DistributionFilters
+  ): Promise<DistributionsResponse>;
   getDistributionById(id: string): Promise<DistributionResponse>;
 }
 
@@ -103,8 +119,13 @@ export interface ChartService {
 }
 
 export interface DistributionRepository {
-  getDistributions(filters?: DistributionFilters): Promise<DistributionsResponse>;
+  getDistributions(
+    filters?: DistributionFilters
+  ): Promise<DistributionsResponse>;
   getDistributionById(id: string): Promise<DistributionResponse>;
-  updateDistribution(id: string, data: Partial<Distribution>): Promise<Distribution>;
+  updateDistribution(
+    id: string,
+    data: Partial<Distribution>
+  ): Promise<Distribution>;
   deleteDistribution(id: string): Promise<void>;
 }

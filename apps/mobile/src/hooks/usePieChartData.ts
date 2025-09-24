@@ -9,13 +9,14 @@ import {
   safeParseNumber,
   isValidChartData,
 } from '@/utils/chartUtils';
+import { APP_TEXT } from '@aidonic/shared-utils';
 
 /**
  * Fallback data for when no valid data is available
  */
 const FALLBACK_PIE_DATA = [
   {
-    name: 'No Data',
+    name: APP_TEXT.charts.noData,
     population: 1,
     color: '#6B7280',
     legendFontColor: '#7F7F7F',

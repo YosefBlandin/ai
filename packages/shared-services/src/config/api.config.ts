@@ -1,5 +1,5 @@
 /**
- * API Configuration for different environments
+ * @fileoverview API Configuration for different environments
  * Handles the differences between web and mobile environments
  */
 

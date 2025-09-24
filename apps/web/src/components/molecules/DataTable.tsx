@@ -5,8 +5,12 @@
  */
 
 import React from 'react';
-import { formatNumber } from '@aidonic/shared-utils';
-import { Distribution } from '@aidonic/shared-types';
+import {
+  formatNumber,
+  APP_TEXT,
+  getStatusColorClass,
+} from '@aidonic/shared-utils';
+import { Distribution, DistributionStatus } from '@aidonic/shared-types';
 
 interface DataTableProps {
   data: Distribution[];
@@ -25,19 +29,19 @@ export const DataTable: React.FC<DataTableProps> = React.memo(
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Region
+                  {APP_TEXT.table.region}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Date
+                  {APP_TEXT.table.date}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Status
+                  {APP_TEXT.table.status}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Beneficiaries
+                  {APP_TEXT.table.beneficiaries}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Actions
+                  {APP_TEXT.table.actions}
                 </th>
               </tr>
             </thead>
@@ -51,7 +55,11 @@ export const DataTable: React.FC<DataTableProps> = React.memo(
                     {distribution.date}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {distribution.status}
+                    <span
+                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColorClass(distribution.status as DistributionStatus)}`}
+                    >
+                      {distribution.status}
+                    </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {formatNumber(distribution.beneficiaries)}
@@ -61,7 +69,7 @@ export const DataTable: React.FC<DataTableProps> = React.memo(
                       onClick={() => onViewDetails(distribution.id)}
                       className="text-blue-600 hover:text-blue-800"
                     >
-                      View Details
+                      {APP_TEXT.navigation.viewDetails}
                     </button>
                   </td>
                 </tr>

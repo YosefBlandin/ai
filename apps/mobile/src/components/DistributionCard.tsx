@@ -13,6 +13,7 @@ import {
   formatDate,
   formatNumber,
 } from '@aidonic/shared-utils';
+import { colors } from '@/styles/tokens';
 
 interface DistributionCardProps {
   distribution: Distribution;
@@ -69,12 +70,12 @@ export const DistributionCard: React.FC<DistributionCardProps> = React.memo(
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.primary,
     borderRadius: 8,
     padding: 16,
     marginVertical: 4,
     marginHorizontal: 16,
-    shadowColor: '#000',
+    shadowColor: colors.neutral[900],
     shadowOffset: {
       width: 0,
       height: 1,
@@ -95,12 +96,12 @@ const styles = StyleSheet.create({
   region: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#111827',
+    color: colors.text.primary,
     marginBottom: 2,
   },
   date: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.text.secondary,
   },
   statusBadge: {
     paddingHorizontal: 8,
@@ -121,11 +122,11 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.text.secondary,
   },
   value: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#111827',
+    color: colors.text.primary,
   },
 });

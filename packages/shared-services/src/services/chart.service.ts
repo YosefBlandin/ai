@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Chart service for processing and transforming chart data
+ */
+
 import { Distribution, AidType, AidTypeChartData } from '@aidonic/shared-types';
 import {
   IApiService,

@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Mock API service for development and testing
+ */
+
 import {
   Distribution,
   DistributionFilters,

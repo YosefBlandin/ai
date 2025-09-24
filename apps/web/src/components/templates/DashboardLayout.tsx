@@ -1,3 +1,7 @@
+/**
+ * @fileoverview DashboardLayout template component for consistent page layout
+ */
+
 import React from 'react';
 import { DashboardHeader } from '@/components/organisms/DashboardHeader';
 import { Sidebar } from '@/components/organisms/Sidebar';
@@ -14,7 +18,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
   title,
   subtitle,
-  className
+  className,
 }) => {
   return (
     <div className="min-h-screen bg-gray-50">

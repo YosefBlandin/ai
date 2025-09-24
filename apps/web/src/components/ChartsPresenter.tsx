@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { StatusChartData, TimelineChartData } from '@aidonic/shared-services';
+import { APP_TEXT } from '@aidonic/shared-utils';
 
 interface ChartsPresenterProps {
   statusData: StatusChartData[];
@@ -27,7 +28,7 @@ export const ChartsPresenter: React.FC<ChartsPresenterProps> = ({
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-900">
-            Distribution Analytics
+            {APP_TEXT.titles.distributionAnalytics}
           </h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -53,7 +54,7 @@ export const ChartsPresenter: React.FC<ChartsPresenterProps> = ({
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-900">
-            Distribution Analytics
+            {APP_TEXT.titles.distributionAnalytics}
           </h2>
         </div>
         <div className="bg-white rounded-lg p-6 text-center">
@@ -62,7 +63,7 @@ export const ChartsPresenter: React.FC<ChartsPresenterProps> = ({
             onClick={onRefresh}
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
-            Try Again
+            {APP_TEXT.navigation.tryAgain}
           </button>
         </div>
       </div>

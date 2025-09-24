@@ -1,4 +1,9 @@
+/**
+ * @fileoverview AdvancedFilters component for complex filtering options
+ */
+
 import { DistributionFilters } from '@aidonic/shared-types';
+import { APP_TEXT } from '@aidonic/shared-utils';
 import React from 'react';
 
 interface AdvancedFiltersProps {
@@ -19,23 +24,25 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
       className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}
     >
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Filters</h3>
+        <h3 className="text-lg font-semibold text-gray-900">
+          {APP_TEXT.navigation.filters}
+        </h3>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Region
+            {APP_TEXT.labels.region}
           </label>
           <select className="w-full px-3 py-2 border border-gray-300 rounded-md">
-            <option>All Regions</option>
+            <option>{APP_TEXT.filters.allRegions}</option>
           </select>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Status
+            {APP_TEXT.labels.status}
           </label>
           <select className="w-full px-3 py-2 border border-gray-300 rounded-md">
-            <option>All Statuses</option>
+            <option>{APP_TEXT.filters.allStatuses}</option>
           </select>
         </div>
       </div>

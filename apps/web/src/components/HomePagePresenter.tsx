@@ -3,11 +3,19 @@
  */
 
 import React from 'react';
-import { Distribution, DistributionFilters } from '@aidonic/shared-types';
-import { formatNumber } from '@aidonic/shared-utils';
+import {
+  Distribution,
+  DistributionFilters,
+  DistributionStatus,
+} from '@aidonic/shared-types';
+import {
+  formatNumber,
+  APP_TEXT,
+  getStatusColorClass,
+} from '@aidonic/shared-utils';
 import { FilterSection } from './organisms';
 import { DistributionDetailsPresenter } from './DistributionDetailsPresenter';
-import { COLORS } from '@/utils';
+import { HeaderIcon } from './atoms/HeaderIcon';
 
 interface HomePagePresenterProps {
   distributions: Distribution[];
@@ -54,28 +62,20 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
 }) => {
   if (selectedDistributionId) {
     return (
-      <div className={`min-h-screen ${COLORS.background.secondary}`}>
+      <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-6">
             <button
               onClick={onBackToList}
-              className={`inline-flex items-center text-sm font-medium ${COLORS.text.tertiary} ${COLORS.interactive.hover}`}
+              className="inline-flex items-center text-sm font-medium text-gray-500 hover:bg-gray-100"
             >
-              ← Back to Distributions
+              {APP_TEXT.navigation.backToDistributions}
             </button>
           </div>
           <DistributionDetailsPresenter
             distribution={selectedDistribution}
             loading={distributionLoading}
-            headerIcon={
-              <div
-                className={`w-12 h-12 ${COLORS.background.info} rounded-lg flex items-center justify-center`}
-              >
-                <span className={`text-2xl font-bold ${COLORS.text.info}`}>
-                  A
-                </span>
-              </div>
-            }
+            headerIcon={<HeaderIcon />}
             onRefresh={onRefreshDistribution}
           />
         </div>
@@ -84,10 +84,10 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
   }
 
   return (
-    <div className={`min-h-screen ${COLORS.background.secondary}`}>
+    <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className={`text-3xl font-bold mb-6 ${COLORS.text.primary}`}>
-          Distribution Overview
+        <h1 className="text-3xl font-bold mb-6 text-gray-900">
+          {APP_TEXT.titles.distributionOverview}
         </h1>
 
         <FilterSection
@@ -98,12 +98,14 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
         />
 
         {loading.isLoading && (
-          <div className="text-center py-8">Loading distributions...</div>
+          <div className="text-center py-8">
+            {APP_TEXT.loading.distributions}
+          </div>
         )}
 
         {loading.error && (
-          <div className={`text-center py-8 ${COLORS.text.error}`}>
-            Error: {loading.error}
+          <div className="text-center py-8 text-red-600">
+            {APP_TEXT.errors.generic}: {loading.error}
           </div>
         )}
 
@@ -114,19 +116,19 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Region
+                      {APP_TEXT.table.region}
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Date
+                      {APP_TEXT.table.date}
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Status
+                      {APP_TEXT.table.status}
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Beneficiaries
+                      {APP_TEXT.table.beneficiaries}
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Actions
+                      {APP_TEXT.table.actions}
                     </th>
                   </tr>
                 </thead>
@@ -137,7 +139,7 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
                         colSpan={5}
                         className="text-center py-4 text-gray-500"
                       >
-                        No distributions found.
+                        {APP_TEXT.empty.noDistributions}
                       </td>
                     </tr>
                   ) : (
@@ -151,15 +153,7 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           <span
-                            className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                              distribution.status === 'Completed'
-                                ? 'bg-green-100 text-green-800'
-                                : distribution.status === 'In Progress'
-                                  ? 'bg-yellow-100 text-yellow-800'
-                                  : distribution.status === 'Planned'
-                                    ? 'bg-blue-100 text-blue-800'
-                                    : 'bg-red-100 text-red-800'
-                            }`}
+                            className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColorClass(distribution.status as DistributionStatus)}`}
                           >
                             {distribution.status}
                           </span>
@@ -172,7 +166,7 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
                             onClick={() => onViewDetails(distribution.id)}
                             className="text-blue-600 hover:text-blue-800 font-medium"
                           >
-                            View Details
+                            {APP_TEXT.navigation.viewDetails}
                           </button>
                         </td>
                       </tr>

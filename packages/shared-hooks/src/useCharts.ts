@@ -1,3 +1,7 @@
+/**
+ * @fileoverview useCharts hook for managing chart data
+ */
+
 import { useState, useEffect, useCallback } from 'react';
 import { LoadingState } from '@aidonic/shared-types';
 import {

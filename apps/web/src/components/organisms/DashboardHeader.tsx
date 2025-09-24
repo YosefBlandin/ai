@@ -1,3 +1,7 @@
+/**
+ * @fileoverview DashboardHeader component for page headers and titles
+ */
+
 import React from 'react';
 
 interface DashboardHeaderProps {
@@ -9,7 +13,7 @@ interface DashboardHeaderProps {
 export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   title,
   subtitle,
-  className
+  className,
 }) => {
   return (
     <header className={`bg-white border-b border-gray-200 ${className}`}>

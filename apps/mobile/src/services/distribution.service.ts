@@ -10,7 +10,11 @@ import {
   DistributionStatus,
 } from '@aidonic/shared-types';
 import { distributionService as sharedDistributionService } from '@aidonic/shared-services';
-import { formatDate, formatNumber } from '@aidonic/shared-utils';
+import {
+  formatDate,
+  formatNumber,
+  getAidTypeIcon,
+} from '@aidonic/shared-utils';
 
 export class DistributionService {
   async getDistributions(
@@ -39,18 +43,8 @@ export class DistributionService {
     return response.data;
   }
 
-  // Using centralized color utilities from @aidonic/shared-utils
-
-  getAidTypeIcon(aidType: string): string {
-    const icons = {
-      Food: '🍎',
-      Medical: '🏥',
-      Shelter: '🏠',
-      Clothing: '👕',
-      Education: '📚',
-    };
-    return icons[aidType as keyof typeof icons] || '📦';
-  }
+  // Using centralized utilities from @aidonic/shared-utils
+  getAidTypeIcon: typeof getAidTypeIcon = getAidTypeIcon;
 
   // Using centralized formatting functions
   formatDate: typeof formatDate = formatDate;

@@ -9,6 +9,12 @@ import {
   DistributionFilters as DistributionFiltersType,
   DistributionStatus,
 } from '@aidonic/shared-types';
+import {
+  APP_TEXT,
+  getRegionOptions,
+  getStatusOptions,
+} from '@aidonic/shared-utils';
+import { colors } from '@/styles/tokens';
 
 interface DistributionFiltersProps {
   filters: DistributionFiltersType;
@@ -16,20 +22,13 @@ interface DistributionFiltersProps {
   onClose: () => void;
 }
 
-const regions = [
-  'West Nile',
-  'Eastern Province',
-  'Northern Region',
-  'Central Region',
-  'Western Region',
-];
-
-const statusOptions: DistributionStatus[] = [
-  'Planned',
-  'In Progress',
-  'Completed',
-  'Cancelled',
-];
+// Using centralized options from shared-utils
+const regions = getRegionOptions()
+  .map(option => option.value)
+  .filter(value => value !== 'All');
+const statusOptions = getStatusOptions()
+  .map(option => option.value)
+  .filter(value => value !== 'All') as DistributionStatus[];
 
 // Component for filtering distributions
 export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
@@ -47,15 +46,17 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
     <Modal visible={true} animationType="slide" presentationStyle="pageSheet">
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Filters</Text>
+          <Text style={styles.title}>{APP_TEXT.navigation.filters}</Text>
           <TouchableOpacity onPress={onClose}>
-            <Text style={styles.closeButton}>Done</Text>
+            <Text style={styles.closeButton}>
+              {APP_TEXT.navigation.done || 'Done'}
+            </Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.content}>
           <View style={styles.section}>
-            <Text style={styles.label}>Region</Text>
+            <Text style={styles.label}>{APP_TEXT.labels.region}</Text>
             <View style={styles.pickerContainer}>
               <Picker
                 selectedValue={filters.region || ''}
@@ -64,7 +65,7 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
                 }
                 style={styles.picker}
               >
-                <Picker.Item label="All Regions" value="" />
+                <Picker.Item label={APP_TEXT.filters.allRegions} value="" />
                 {regions.map(region => (
                   <Picker.Item key={region} label={region} value={region} />
                 ))}
@@ -73,7 +74,7 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.label}>Status</Text>
+            <Text style={styles.label}>{APP_TEXT.labels.status}</Text>
             <View style={styles.pickerContainer}>
               <Picker
                 selectedValue={filters.status || ''}
@@ -84,7 +85,7 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
                 }
                 style={styles.picker}
               >
-                <Picker.Item label="All Statuses" value="" />
+                <Picker.Item label={APP_TEXT.filters.allStatuses} value="" />
                 {statusOptions.map(status => (
                   <Picker.Item key={status} label={status} value={status} />
                 ))}
@@ -94,7 +95,9 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
 
           {hasActiveFilters && (
             <TouchableOpacity style={styles.clearButton} onPress={clearFilters}>
-              <Text style={styles.clearButtonText}>Clear Filters</Text>
+              <Text style={styles.clearButtonText}>
+                {APP_TEXT.navigation.clearFilters || 'Clear Filters'}
+              </Text>
             </TouchableOpacity>
           )}
         </View>
@@ -106,7 +109,7 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.primary,
   },
   header: {
     flexDirection: 'row',
@@ -115,16 +118,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: colors.border.light,
   },
   title: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#111827',
+    color: colors.text.primary,
   },
   closeButton: {
     fontSize: 16,
-    color: '#3B82F6',
+    color: colors.primary[500],
     fontWeight: '500',
   },
   content: {
@@ -137,20 +140,20 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#111827',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   pickerContainer: {
     borderWidth: 1,
-    borderColor: '#D1D5DB',
+    borderColor: colors.border.medium,
     borderRadius: 8,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background.secondary,
   },
   picker: {
     height: 50,
   },
   clearButton: {
-    backgroundColor: '#EF4444',
+    backgroundColor: colors.error[500],
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 8,
@@ -158,7 +161,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   clearButtonText: {
-    color: '#ffffff',
+    color: colors.text.inverse,
     fontSize: 16,
     fontWeight: '500',
   },

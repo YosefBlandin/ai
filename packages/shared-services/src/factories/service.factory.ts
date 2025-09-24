@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Service factory for creating service instances
+ */
+
 import { getApiConfig } from '../config/api.config';
 import {
   IApiService,
