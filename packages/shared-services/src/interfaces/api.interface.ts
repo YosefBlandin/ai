@@ -2,6 +2,7 @@ import {
   DistributionFilters,
   DistributionResponse,
   DistributionsResponse,
+  AidTypeChartData,
 } from '@aidonic/shared-types';
 
 /**
@@ -20,6 +21,7 @@ export interface IApiService {
  */
 export interface IChartService {
   getStatusDistribution(): Promise<StatusChartData[]>;
+  getAidTypeDistribution(): Promise<AidTypeChartData[]>;
   getTimelineDistribution(): Promise<TimelineChartData[]>;
 }
 

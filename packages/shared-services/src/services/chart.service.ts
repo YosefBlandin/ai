@@ -1,4 +1,4 @@
-import { Distribution } from '@aidonic/shared-types';
+import { Distribution, AidType, AidTypeChartData } from '@aidonic/shared-types';
 import {
   IApiService,
   IChartService,
@@ -16,17 +16,17 @@ export class ChartService implements IChartService {
     try {
       const response = await this.apiService.getDistributions();
       const distributions = response.data;
-      const aidTypeCounts = this.calculateAidTypeCounts(distributions);
+      const statusCounts = this.calculateStatusCounts(distributions);
       const total = distributions.length;
 
-      return aidTypeCounts.map(({ aidType, count }) => ({
-        status: aidType,
+      return statusCounts.map(({ status, count }) => ({
+        status,
         count,
         percentage: total > 0 ? Math.round((count / total) * 100) : 0,
       }));
     } catch (error) {
       throw new Error(
-        `Failed to get aid type distribution: ${error instanceof Error ? error.message : 'Unknown error'}`
+        `Failed to get status distribution: ${error instanceof Error ? error.message : 'Unknown error'}`
       );
     }
   }
@@ -45,6 +45,41 @@ export class ChartService implements IChartService {
         `Failed to get timeline distribution: ${error instanceof Error ? error.message : 'Unknown error'}`
       );
     }
+  }
+
+  async getAidTypeDistribution(): Promise<AidTypeChartData[]> {
+    try {
+      const response = await this.apiService.getDistributions();
+      const distributions = response.data;
+      const aidTypeCounts = this.calculateAidTypeCounts(distributions);
+      const total = distributions.length;
+
+      return aidTypeCounts.map(({ aidType, count }) => ({
+        aidType: aidType as AidType,
+        count,
+        percentage: total > 0 ? Math.round((count / total) * 100) : 0,
+      }));
+    } catch (error) {
+      throw new Error(
+        `Failed to get aid type distribution: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
+    }
+  }
+
+  private calculateStatusCounts(
+    distributions: Distribution[]
+  ): Array<{ status: string; count: number }> {
+    const statusCounts = new Map<string, number>();
+
+    distributions.forEach(distribution => {
+      const currentCount = statusCounts.get(distribution.status) || 0;
+      statusCounts.set(distribution.status, currentCount + 1);
+    });
+
+    return Array.from(statusCounts.entries()).map(([status, count]) => ({
+      status,
+      count,
+    }));
   }
 
   private calculateAidTypeCounts(
