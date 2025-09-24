@@ -12,5 +12,5 @@ export const cn = (
   return classes.filter(Boolean).join(' ');
 };
 
-// Web-specific status color classes for Tailwind
-// Note: getStatusColorClass is now available from @aidonic/shared-utils
+// Web-specific color utilities
+export * from './colors';

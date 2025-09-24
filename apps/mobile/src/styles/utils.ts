@@ -164,25 +164,5 @@ export const createMobileStyles = {
   }),
 } as const;
 
-// Status color helper - using centralized color utilities
-export const getStatusColor = (status: string) => {
-  const statusMap: Record<string, keyof typeof createMobileStyles.statusBadge> =
-    {
-      Planned: 'planned',
-      'In Progress': 'in-progress',
-      Completed: 'completed',
-      Cancelled: 'cancelled',
-    };
-  return statusMap[status] || 'base';
-};
-
-// Status text color helper - using centralized color utilities
-export const getStatusTextColor = (status: string) => {
-  const statusMap: Record<string, string> = {
-    Planned: getStatusColorSet('Planned').text,
-    'In Progress': getStatusColorSet('In Progress').text,
-    Completed: getStatusColorSet('Completed').text,
-    Cancelled: getStatusColorSet('Cancelled').text,
-  };
-  return statusMap[status] || colors.text.primary;
-};
+// Status color helpers - using centralized color utilities from shared-utils
+export { getStatusColor, getStatusColorSet } from '@aidonic/shared-utils';

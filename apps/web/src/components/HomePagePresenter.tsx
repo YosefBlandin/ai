@@ -7,6 +7,7 @@ import { Distribution, DistributionFilters } from '@aidonic/shared-types';
 import { formatNumber } from '@aidonic/shared-utils';
 import { FilterSection } from './organisms';
 import { DistributionDetailsPresenter } from './DistributionDetailsPresenter';
+import { COLORS } from '@/utils';
 
 interface HomePagePresenterProps {
   distributions: Distribution[];
@@ -53,12 +54,12 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
 }) => {
   if (selectedDistributionId) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className={`min-h-screen ${COLORS.background.secondary}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-6">
             <button
               onClick={onBackToList}
-              className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700"
+              className={`inline-flex items-center text-sm font-medium ${COLORS.text.tertiary} ${COLORS.interactive.hover}`}
             >
               ← Back to Distributions
             </button>
@@ -67,8 +68,12 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
             distribution={selectedDistribution}
             loading={distributionLoading}
             headerIcon={
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <span className="text-2xl font-bold text-blue-600">A</span>
+              <div
+                className={`w-12 h-12 ${COLORS.background.info} rounded-lg flex items-center justify-center`}
+              >
+                <span className={`text-2xl font-bold ${COLORS.text.info}`}>
+                  A
+                </span>
               </div>
             }
             onRefresh={onRefreshDistribution}
@@ -79,9 +84,11 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen ${COLORS.background.secondary}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold mb-6">Distribution Overview</h1>
+        <h1 className={`text-3xl font-bold mb-6 ${COLORS.text.primary}`}>
+          Distribution Overview
+        </h1>
 
         <FilterSection
           regionValue={filters.region || 'All'}
@@ -95,7 +102,7 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
         )}
 
         {loading.error && (
-          <div className="text-center py-8 text-red-500">
+          <div className={`text-center py-8 ${COLORS.text.error}`}>
             Error: {loading.error}
           </div>
         )}
