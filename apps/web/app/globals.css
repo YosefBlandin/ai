@@ -10,15 +10,23 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors;
+    @apply bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition-colors;
   }
   
   .btn-secondary {
-    @apply bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors;
+    @apply bg-secondary-500 text-white px-4 py-2 rounded-md hover:bg-secondary-600 transition-colors;
+  }
+  
+  .btn-outline {
+    @apply border border-border-medium text-text-primary hover:bg-background-secondary focus:ring-primary-500;
+  }
+  
+  .btn-ghost {
+    @apply text-text-primary hover:bg-background-secondary focus:ring-primary-500;
   }
   
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+    @apply bg-background-primary rounded-lg shadow-sm border border-border-light p-6;
   }
   
   .status-badge {
@@ -26,19 +34,62 @@
   }
   
   .status-planned {
-    @apply bg-blue-100 text-blue-800 border-blue-200;
+    @apply bg-primary-100 text-primary-800 border-primary-200;
   }
   
   .status-in-progress {
-    @apply bg-yellow-100 text-yellow-800 border-yellow-200;
+    @apply bg-warning-100 text-warning-800 border-warning-200;
   }
   
   .status-completed {
-    @apply bg-green-100 text-green-800 border-green-200;
+    @apply bg-success-100 text-success-800 border-success-200;
   }
   
   .status-cancelled {
-    @apply bg-red-100 text-red-800 border-red-200;
+    @apply bg-error-100 text-error-800 border-error-200;
+  }
+  
+  /* Semantic background utilities */
+  .bg-primary {
+    @apply bg-background-primary;
+  }
+  
+  .bg-secondary {
+    @apply bg-background-secondary;
+  }
+  
+  .bg-tertiary {
+    @apply bg-background-tertiary;
+  }
+  
+  /* Semantic text utilities */
+  .text-primary {
+    @apply text-text-primary;
+  }
+  
+  .text-secondary {
+    @apply text-text-secondary;
+  }
+  
+  .text-tertiary {
+    @apply text-text-tertiary;
+  }
+  
+  .text-inverse {
+    @apply text-text-inverse;
+  }
+  
+  /* Semantic border utilities */
+  .border-light {
+    @apply border-border-light;
+  }
+  
+  .border-medium {
+    @apply border-border-medium;
+  }
+  
+  .border-dark {
+    @apply border-border-dark;
   }
 }
 

@@ -10,6 +10,7 @@
 export const APP_TEXT = {
   // Application titles and headers
   titles: {
+    dashboard: 'Dashboard',
     distributionOverview: 'Distribution Overview',
     distributionAnalytics: 'Distribution Analytics',
     distributionDetails: 'Distribution Details',
@@ -26,6 +27,14 @@ export const APP_TEXT = {
     done: 'Done',
     clearFilters: 'Clear Filters',
     goBackHome: 'Go back home',
+  },
+
+  // Pagination
+  pagination: {
+    showingPage: 'Showing page',
+    of: 'of',
+    previous: 'Previous',
+    next: 'Next',
   },
 
   // Form labels and fields
@@ -48,6 +57,7 @@ export const APP_TEXT = {
     distributions: 'Loading distributions...',
     distributionDetails: 'Loading distribution details...',
     charts: 'Loading charts...',
+    dashboard: 'Loading dashboard...',
   },
 
   // Error messages
@@ -92,6 +102,8 @@ export const APP_TEXT = {
   filters: {
     allRegions: 'All Regions',
     allStatuses: 'All Statuses',
+    allAidTypes: 'All Aid Types',
+    allDeliveryChannels: 'All Delivery Channels',
   },
 
   // Aid types
@@ -126,6 +138,7 @@ export const APP_TEXT = {
     completed: 'Completed',
     totalBeneficiaries: 'Total Beneficiaries',
     beneficiaries: 'Beneficiaries',
+    activeDistributions: 'Active Distributions',
   },
 
   // App branding

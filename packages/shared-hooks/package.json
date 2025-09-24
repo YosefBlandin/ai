@@ -14,14 +14,10 @@
   "dependencies": {
     "@aidonic/shared-types": "file:../shared-types",
     "@aidonic/shared-services": "file:../shared-services",
-    "react": "^18.3.1"
+    "@aidonic/shared-utils": "file:../shared-utils"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
     "typescript": "^5.0.0"
-  },
-  "peerDependencies": {
-    "react": ">=18.0.0"
   },
   "private": true
 }

@@ -1,5 +1,6 @@
 /**
  * @fileoverview Centralized color utilities for all color mappings
+ * This file provides utilities that map to the shared design tokens
  */
 
 import { DistributionStatus, AidType } from '@aidonic/shared-types';
@@ -7,47 +8,48 @@ import { DistributionStatus, AidType } from '@aidonic/shared-types';
 /**
  * Centralized color utilities to eliminate duplication across components
  * This is the single source of truth for all color mappings in the application
+ * All colors are derived from the shared design tokens
  */
 
-// Status color mappings - comprehensive color definitions
+// Status color mappings using design token values
 export const STATUS_COLORS = {
   Planned: {
-    background: '#eff6ff',
-    text: '#1e40af',
-    border: '#dbeafe',
-    solid: '#3b82f6',
-    tailwind: 'bg-blue-100 text-blue-800 border-blue-200',
+    background: '#eff6ff', // primary.50
+    text: '#1e40af', // primary.800
+    border: '#dbeafe', // primary.100
+    solid: '#3b82f6', // primary.500
+    tailwind: 'bg-primary-100 text-primary-800 border-primary-200',
   },
   'In Progress': {
-    background: '#fffbeb',
-    text: '#92400e',
-    border: '#fef3c7',
-    solid: '#f59e0b',
-    tailwind: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+    background: '#fffbeb', // warning.50
+    text: '#92400e', // warning.800
+    border: '#fef3c7', // warning.100
+    solid: '#f59e0b', // warning.500
+    tailwind: 'bg-warning-100 text-warning-800 border-warning-200',
   },
   Completed: {
-    background: '#f0fdf4',
-    text: '#166534',
-    border: '#dcfce7',
-    solid: '#10b981',
-    tailwind: 'bg-green-100 text-green-800 border-green-200',
+    background: '#f0fdf4', // success.50
+    text: '#166534', // success.800
+    border: '#dcfce7', // success.100
+    solid: '#22c55e', // success.500
+    tailwind: 'bg-success-100 text-success-800 border-success-200',
   },
   Cancelled: {
-    background: '#fef2f2',
-    text: '#991b1b',
-    border: '#fee2e2',
-    solid: '#ef4444',
-    tailwind: 'bg-red-100 text-red-800 border-red-200',
+    background: '#fef2f2', // error.50
+    text: '#991b1b', // error.800
+    border: '#fee2e2', // error.100
+    solid: '#ef4444', // error.500
+    tailwind: 'bg-error-100 text-error-800 border-error-200',
   },
 } as const;
 
-// Aid type color mappings
+// Aid type color mappings using design token values
 export const AID_TYPE_COLORS = {
-  Food: '#3B82F6',
-  Medical: '#10B981',
-  Shelter: '#F59E0B',
-  Clothing: '#EF4444',
-  Education: '#8B5CF6',
+  Food: '#3b82f6', // primary.500
+  Medical: '#22c55e', // success.500
+  Shelter: '#f59e0b', // warning.500
+  Clothing: '#ef4444', // error.500
+  Education: '#8b5cf6', // purple.500 (using closest available)
 } as const;
 
 // Type definitions for better type safety
@@ -107,10 +109,8 @@ export const getAidTypeColor = (aidType: AidType): string => {
  * @returns The Tailwind CSS class string for the status
  */
 export const getStatusColorClass = (status: DistributionStatus): string => {
-  return (
-    STATUS_COLORS[status]?.tailwind ||
-    'bg-gray-100 text-gray-800 border-gray-200'
-  );
+  // Use CSS classes defined in globals.css instead of direct Tailwind utilities
+  return STATUS_COLORS[status]?.tailwind || 'status-badge';
 };
 
 /**

@@ -1,0 +1,18 @@
+{
+  "name": "@aidonic/shared-design-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared design tokens for consistent theming across web and mobile",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  },
+  "files": [
+    "src"
+  ]
+}

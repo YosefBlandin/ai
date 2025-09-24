@@ -8,6 +8,9 @@ export interface BaseComponentProps {
   children?: React.ReactNode;
 }
 
+// Export loading state components
+export * from './LoadingState';
+
 export interface ButtonProps extends BaseComponentProps {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';

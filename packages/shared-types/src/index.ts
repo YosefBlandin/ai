@@ -47,6 +47,8 @@ export interface DistributionResponse {
 export interface DistributionFilters {
   region?: string;
   status?: DistributionStatus;
+  aidType?: AidType;
+  deliveryChannel?: DeliveryChannel;
   page?: number;
   limit?: number;
 }

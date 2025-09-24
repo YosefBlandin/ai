@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { DistributionDetailsContainer } from '@/containers/DistributionDetailsContainer';
+import { DistributionDetailsContainer } from '@/features/distributions';
 import { RouteProp } from '@aidonic/shared-types';
 
 interface DistributionDetailsScreenProps {

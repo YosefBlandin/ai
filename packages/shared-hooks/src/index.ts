@@ -2,7 +2,9 @@
  * @fileoverview Shared hooks package exports
  */
 
-// Export hooks
-export { useCharts } from './useCharts';
-export { useDistribution } from './useDistribution';
-export { useDistributions } from './useDistributions';
+// Export hook factories for platform-agnostic usage
+export {
+  createUseDistributionHook,
+  createUseDistributionsHook,
+  createUseChartsHook,
+} from '@aidonic/shared-utils';

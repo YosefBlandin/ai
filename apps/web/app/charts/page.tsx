@@ -1,11 +1,10 @@
 /**
- * @fileoverview Charts page component for displaying analytics
+ * @fileoverview Charts page
  */
 
-'use client';
-
-import { ChartsPageContainer } from '@/containers/ChartsPageContainer';
+import React from 'react';
+import { AnalyticsContainer } from '@/features/analytics';
 
 export default function ChartsPage() {
-  return <ChartsPageContainer />;
+  return <AnalyticsContainer />;
 }

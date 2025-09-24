@@ -3,11 +3,11 @@
  */
 
 import React from 'react';
-import { ChartsContainer } from '@/containers/ChartsContainer';
+import { AnalyticsContainer } from '@/features/analytics';
 
 /**
  * Charts screen for analytics
  */
 export const ChartsScreen: React.FC = () => {
-  return <ChartsContainer />;
+  return <AnalyticsContainer />;
 };

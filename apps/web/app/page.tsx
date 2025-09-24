@@ -1,11 +1,10 @@
 /**
- * @fileoverview Main page component for web application
+ * @fileoverview Home page
  */
 
-'use client';
+import React from 'react';
+import { HomePageContainer } from '@/features/home';
 
-import { HomePageContainer } from '@/containers/HomePageContainer';
-
-export default function Home() {
+export default function HomePage() {
   return <HomePageContainer />;
 }

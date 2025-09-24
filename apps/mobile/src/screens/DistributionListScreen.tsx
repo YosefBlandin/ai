@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { DistributionListContainer } from '@/containers/DistributionListContainer';
+import { DistributionListContainer } from '@/features/distributions';
 import { NavigationProp } from '@aidonic/shared-types';
 
 interface DistributionListScreenProps {

@@ -17,6 +17,7 @@
     "clean": "rm -rf .next dist node_modules/.cache"
   },
   "dependencies": {
+    "@aidonic/shared-design-tokens": "file:../../packages/shared-design-tokens",
     "@aidonic/shared-services": "file:../../packages/shared-services",
     "@aidonic/shared-types": "file:../../packages/shared-types",
     "@aidonic/shared-utils": "file:../../packages/shared-utils",

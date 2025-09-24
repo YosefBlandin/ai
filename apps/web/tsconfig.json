@@ -19,46 +19,17 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/components/*": [
-        "./src/components/*"
-      ],
-      "@/containers/*": [
-        "./src/containers/*"
-      ],
-      "@/services/*": [
-        "./src/services/*"
-      ],
-      "@/types/*": [
-        "./src/types/*"
-      ],
-      "@/utils/*": [
-        "./src/utils/*"
-      ],
-      "@/hooks/*": [
-        "./src/hooks/*"
-      ],
-      "@/mocks/*": [
-        "./src/mocks/*"
-      ],
-      "@/styles/*": [
-        "./src/styles/*"
-      ],
-      "@/shared/*": [
-        "../../shared/*"
+      "@/*": ["./src/*"],
+      "@aidonic/shared-types": ["../../packages/shared-types/src"],
+      "@aidonic/shared-utils": ["../../packages/shared-utils/src"],
+      "@aidonic/shared-services": ["../../packages/shared-services/src"],
+      "@aidonic/shared-hooks": ["../../packages/shared-hooks/src"],
+      "@aidonic/shared-design-tokens": [
+        "../../packages/shared-design-tokens/src"
       ]
     },
     "target": "ES2017"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

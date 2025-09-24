@@ -5,18 +5,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/containers/*": ["./src/containers/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/services/*": ["./src/services/*"],
-      "@/types/*": ["./src/types/*"],
-      "@/utils/*": ["./src/utils/*"],
-      "@/styles/*": ["./src/styles/*"],
-      "@/design-tokens/*": ["./src/design-tokens/*"],
-      "@/screens/*": ["./src/screens/*"],
       "@aidonic/shared-types": ["../../packages/shared-types/src"],
       "@aidonic/shared-utils": ["../../packages/shared-utils/src"],
-      "@/shared/design-tokens": ["../../shared/design-tokens"]
+      "@aidonic/shared-services": ["../../packages/shared-services/src"],
+      "@aidonic/shared-hooks": ["../../packages/shared-hooks/src"],
+      "@aidonic/shared-design-tokens": [
+        "../../packages/shared-design-tokens/src"
+      ]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
