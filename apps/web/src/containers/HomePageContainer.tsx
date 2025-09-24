@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 import { DistributionFilters, DistributionStatus } from '@aidonic/shared-types';
 import { useDistributions } from '@/hooks/useDistributions';
+import { useDistribution } from '@/hooks/useDistribution';
 import { HomePagePresenter } from '@/components/HomePagePresenter';
 
 // Container for main page - handles data fetching and business logic
@@ -16,6 +17,12 @@ export const HomePageContainer: React.FC = () => {
 
   const { distributions, loading, pagination, updateFilters, changePage } =
     useDistributions(filters);
+
+  const {
+    distribution: selectedDistribution,
+    loading: distributionLoading,
+    refresh: refreshDistribution,
+  } = useDistribution(selectedDistributionId || '');
 
   const handleViewDetails = (id: string) => {
     setSelectedDistributionId(id);
@@ -50,11 +57,14 @@ export const HomePageContainer: React.FC = () => {
       pagination={pagination}
       filters={filters}
       selectedDistributionId={selectedDistributionId}
+      selectedDistribution={selectedDistribution}
+      distributionLoading={distributionLoading}
       onViewDetails={handleViewDetails}
       onBackToList={handleBackToList}
       onRegionFilter={handleRegionFilter}
       onStatusFilter={handleStatusFilter}
       onChangePage={changePage}
+      onRefreshDistribution={refreshDistribution}
     />
   );
 };

@@ -6,7 +6,7 @@ import React from 'react';
 import { Distribution, DistributionFilters } from '@aidonic/shared-types';
 import { formatNumber } from '@aidonic/shared-utils';
 import { FilterSection } from './organisms';
-import { DistributionDetailsContainer } from '../containers/DistributionDetailsContainer';
+import { DistributionDetailsPresenter } from './DistributionDetailsPresenter';
 
 interface HomePagePresenterProps {
   distributions: Distribution[];
@@ -22,11 +22,17 @@ interface HomePagePresenterProps {
   };
   filters: DistributionFilters;
   selectedDistributionId: string | null;
+  selectedDistribution: Distribution | null;
+  distributionLoading: {
+    isLoading: boolean;
+    error?: string;
+  };
   onViewDetails: (id: string) => void;
   onBackToList: () => void;
   onRegionFilter: (region: string) => void;
   onStatusFilter: (status: string) => void;
   onChangePage: (page: number) => void;
+  onRefreshDistribution: () => void;
 }
 
 // Presenter component for main page display
@@ -36,11 +42,14 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
   pagination,
   filters,
   selectedDistributionId,
+  selectedDistribution,
+  distributionLoading,
   onViewDetails,
   onBackToList,
   onRegionFilter,
   onStatusFilter,
   onChangePage,
+  onRefreshDistribution,
 }) => {
   if (selectedDistributionId) {
     return (
@@ -54,8 +63,15 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
               ← Back to Distributions
             </button>
           </div>
-          <DistributionDetailsContainer
-            distributionId={selectedDistributionId}
+          <DistributionDetailsPresenter
+            distribution={selectedDistribution}
+            loading={distributionLoading}
+            headerIcon={
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <span className="text-2xl font-bold text-blue-600">A</span>
+              </div>
+            }
+            onRefresh={onRefreshDistribution}
           />
         </div>
       </div>
