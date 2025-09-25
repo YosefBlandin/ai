@@ -113,6 +113,7 @@ aidonic/
 1. **Monorepo vs Separate Repos**: Chose monorepo for code sharing but added complexity, it could be problematic if too many developers are working on the same project, but it can be solved by using github submodules
 2. **Testing Strategy**: Focused on unit tests over E2E tests for faster development
 3. **Mobile Development**: Used Expo for faster development vs native development
+4. **Compatibility**: Used factory pattern for hooks in order to prevent coupling React versions between platforms. This helps by preventing future issues with the web application due updates to the Expo SDK which are very common.
 
 ### Design Decisions
 
