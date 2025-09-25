@@ -1,3 +1,7 @@
+/**
+ * @fileoverview API service for handling HTTP requests
+ */
+
 import {
   DistributionFilters,
   DistributionResponse,

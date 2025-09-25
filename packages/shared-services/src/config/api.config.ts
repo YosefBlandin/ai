@@ -1,5 +1,5 @@
 /**
- * API Configuration for different environments
+ * @fileoverview API Configuration for different environments
  * Handles the differences between web and mobile environments
  */
 
@@ -33,10 +33,12 @@ export function getApiConfig(): ApiConfig {
   }
 
   if (isWeb) {
-    // For web, localhost works fine
+    // For web, use mock data for consistency with mobile
+    // In production, you would use a real API endpoint
     return {
-      baseUrl: 'http://localhost:3001',
+      baseUrl: 'http://localhost:3001', // Not used when useMockData is true
       timeout: 10000,
+      useMockData: true,
     };
   }
 

@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Shared services package exports
+ */
+
 // Export interfaces
 export * from './interfaces/api.interface';
 

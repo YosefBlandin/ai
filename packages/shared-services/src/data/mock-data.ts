@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Mock data service for development and testing
+ */
+
 import { Distribution } from '@aidonic/shared-types';
 
 /**

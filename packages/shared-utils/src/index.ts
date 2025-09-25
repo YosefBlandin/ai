@@ -1,60 +1,31 @@
-import {
-  AidType,
-  DeliveryChannel,
-  DistributionStatus,
-} from '@aidonic/shared-types';
+/**
+ * @fileoverview Shared utilities package exports
+ */
 
-export const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-};
+import { AidType, DeliveryChannel } from '@aidonic/shared-types';
 
-export const formatDateTime = (dateString: string): string => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-};
+// Re-export utilities
+export * from './colorUtils';
+export * from './semanticColors';
+export * from './formatters';
+export * from './constants';
+export * from './errorHandling';
 
-export const formatNumber = (num: number): string => {
-  return num.toLocaleString();
-};
+// Export new distribution management utilities
+export * from './DistributionManager';
+export * from './ChartManager';
+export * from './hookFactories';
 
-export const formatCurrency = (amount: number, currency = 'USD'): string => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency,
-  }).format(amount);
-};
+// Export chart configuration utilities
+export * from './chartConfig';
 
-export const getStatusColor = (status: DistributionStatus): string => {
-  const statusColors = {
-    Planned: 'blue',
-    'In Progress': 'yellow',
-    Completed: 'green',
-    Cancelled: 'red',
-  };
-  return statusColors[status] || 'gray';
-};
+// Color functions moved to colorUtils.ts
 
-export const getStatusTextColor = (status: DistributionStatus): string => {
-  const textColors = {
-    Planned: '#1d4ed8',
-    'In Progress': '#d97706',
-    Completed: '#16a34a',
-    Cancelled: '#dc2626',
-  };
-  return textColors[status] || '#6b7280';
-};
-
+/**
+ * Get icon name for a given aid type
+ * @param aidType - The aid type to get icon for
+ * @returns Icon name string for the aid type
+ */
 export const getAidTypeIcon = (aidType: AidType): string => {
   const iconMap = {
     Food: 'apple',
@@ -66,6 +37,11 @@ export const getAidTypeIcon = (aidType: AidType): string => {
   return iconMap[aidType] || 'package';
 };
 
+/**
+ * Get icon name for a given delivery channel
+ * @param channel - The delivery channel to get icon for
+ * @returns Icon name string for the delivery channel
+ */
 export const getDeliveryChannelIcon = (channel: DeliveryChannel): string => {
   const iconMap = {
     'Direct Distribution': 'truck',
@@ -76,16 +52,32 @@ export const getDeliveryChannelIcon = (channel: DeliveryChannel): string => {
   return iconMap[channel] || 'package';
 };
 
+/**
+ * Validate email address format
+ * @param email - Email address to validate
+ * @returns True if email format is valid, false otherwise
+ */
 export const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
+/**
+ * Validate phone number format
+ * @param phone - Phone number to validate
+ * @returns True if phone number format is valid, false otherwise
+ */
 export const isValidPhoneNumber = (phone: string): boolean => {
   const phoneRegex = /^\+?[\d\s\-()]+$/;
   return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 10;
 };
 
+/**
+ * Group array items by a specific key
+ * @param array - Array to group
+ * @param key - Key to group by
+ * @returns Object with grouped items
+ */
 export const groupBy = <T, K extends keyof T>(
   array: T[],
   key: K
@@ -101,6 +93,13 @@ export const groupBy = <T, K extends keyof T>(
   );
 };
 
+/**
+ * Sort array by a specific key
+ * @param array - Array to sort
+ * @param key - Key to sort by
+ * @param direction - Sort direction (asc or desc)
+ * @returns Sorted array
+ */
 export const sortBy = <T>(
   array: T[],
   key: keyof T,
@@ -116,26 +115,49 @@ export const sortBy = <T>(
   });
 };
 
+/**
+ * Capitalize the first letter of a string
+ * @param str - String to capitalize
+ * @returns Capitalized string
+ */
 export const capitalize = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
+/**
+ * Truncate string to specified length with ellipsis
+ * @param str - String to truncate
+ * @param length - Maximum length
+ * @returns Truncated string with ellipsis if needed
+ */
 export const truncate = (str: string, length: number): string => {
   if (str.length <= length) return str;
   return `${str.slice(0, length)}...`;
 };
 
+/**
+ * Debounce function execution
+ * @param func - Function to debounce
+ * @param wait - Wait time in milliseconds
+ * @returns Debounced function
+ */
 export const debounce = <T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout;
+  let timeout: ReturnType<typeof setTimeout>;
   return (...args: Parameters<T>) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => func(...args), wait);
   };
 };
 
+/**
+ * Throttle function execution
+ * @param func - Function to throttle
+ * @param limit - Time limit in milliseconds
+ * @returns Throttled function
+ */
 export const throttle = <T extends (...args: unknown[]) => unknown>(
   func: T,
   limit: number

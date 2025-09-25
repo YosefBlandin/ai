@@ -1,10 +1,16 @@
+/**
+ * @fileoverview Main app
+ */
+
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TouchableOpacity, Text } from 'react-native';
-import { RootStackParamList } from '@/types';
+import { APP_TEXT } from '@aidonic/shared-utils';
+import { colors } from '@aidonic/shared-design-tokens';
+import { RootStackParamList } from '@aidonic/shared-types';
 import { DistributionListScreen } from '@/screens/DistributionListScreen';
 import { DistributionDetailsScreen } from '@/screens/DistributionDetailsScreen';
 import { ChartsScreen } from '@/screens/ChartsScreen';
@@ -20,9 +26,9 @@ export default function App() {
           initialRouteName="DistributionList"
           screenOptions={{
             headerStyle: {
-              backgroundColor: '#ffffff',
+              backgroundColor: colors.background.primary,
             },
-            headerTintColor: '#111827',
+            headerTintColor: colors.text.primary,
             headerTitleStyle: {
               fontWeight: '600',
             },
@@ -32,14 +38,16 @@ export default function App() {
             name="DistributionList"
             component={DistributionListScreen}
             options={({ navigation }) => ({
-              title: 'Aid Distributions',
+              title: APP_TEXT.titles.distributions,
               headerRight: () => (
                 <TouchableOpacity
                   style={{ marginRight: 16 }}
                   onPress={() => navigation.navigate('Charts')}
                 >
-                  <Text style={{ color: '#3B82F6', fontWeight: '500' }}>
-                    Charts
+                  <Text
+                    style={{ color: colors.primary[500], fontWeight: '500' }}
+                  >
+                    {APP_TEXT.navigation.charts}
                   </Text>
                 </TouchableOpacity>
               ),
@@ -49,14 +57,14 @@ export default function App() {
             name="DistributionDetails"
             component={DistributionDetailsScreen}
             options={{
-              title: 'Distribution Details',
+              title: APP_TEXT.titles.distributionDetails,
             }}
           />
           <Stack.Screen
             name="Charts"
             component={ChartsScreen}
             options={{
-              title: 'Analytics',
+              title: APP_TEXT.titles.analytics,
             }}
           />
         </Stack.Navigator>
