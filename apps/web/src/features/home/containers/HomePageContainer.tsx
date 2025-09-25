@@ -4,14 +4,13 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import { useRouter } from 'next/navigation';
 import { useDistributions } from '@/features/distributions/hooks/useDistributions';
 import { HomePagePresenter } from '../components/HomePagePresenter';
 
 export const HomePageContainer: React.FC = () => {
-  const [selectedDistributionId, setSelectedDistributionId] = useState<
-    string | null
-  >(null);
+  const router = useRouter();
 
   const {
     distributions,
@@ -23,11 +22,7 @@ export const HomePageContainer: React.FC = () => {
   } = useDistributions({});
 
   const handleViewDetails = (id: string) => {
-    setSelectedDistributionId(id);
-  };
-
-  const handleBackToList = () => {
-    setSelectedDistributionId(null);
+    router.push(`/distributions/${id}`);
   };
 
   return (
@@ -36,9 +31,7 @@ export const HomePageContainer: React.FC = () => {
       loading={loading}
       pagination={pagination}
       filters={filters}
-      selectedDistributionId={selectedDistributionId}
       onViewDetails={handleViewDetails}
-      onBackToList={handleBackToList}
       onFiltersChange={updateFilters}
       onPageChange={changePage}
     />

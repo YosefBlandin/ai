@@ -20,7 +20,6 @@ export const useDistributions = (initialFilters: DistributionFilters = {}) => {
     itemsPerPage: 12,
   });
 
-  // Use ref to avoid circular dependency
   const updateTotalItemsRef = useRef(updateTotalItems);
   updateTotalItemsRef.current = updateTotalItems;
 
@@ -34,7 +33,6 @@ export const useDistributions = (initialFilters: DistributionFilters = {}) => {
       );
 
       setDistributions(data.distributions);
-      // Update total items without causing re-render
       if (data.pagination.totalItems !== pagination.totalItems) {
         updateTotalItemsRef.current(data.pagination.totalItems);
       }

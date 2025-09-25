@@ -2,7 +2,6 @@
  * @fileoverview Analytics feature exports
  */
 
-// Components
 export { AnalyticsPresenter } from './components/AnalyticsPresenter';
 export { PieChartDisplay } from './components/PieChartDisplay';
 export { LineChartDisplay } from './components/LineChartDisplay';

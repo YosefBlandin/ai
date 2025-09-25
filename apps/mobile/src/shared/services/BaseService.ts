@@ -7,8 +7,6 @@ export abstract class BaseService {
    * Handle API errors consistently
    */
   protected handleError(error: unknown, context: string): never {
-    // Error logging can be implemented here
-    // console.error(`Error in ${context}:`, error);
     throw new Error(
       error instanceof Error
         ? error.message

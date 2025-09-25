@@ -2,7 +2,6 @@
  * @fileoverview Distributions feature exports for mobile
  */
 
-// Components
 export { DistributionListPresenter } from './components/DistributionListPresenter';
 export { DistributionDetailsPresenter } from './components/DistributionDetailsPresenter';
 export { DistributionCard } from './components/DistributionCard';

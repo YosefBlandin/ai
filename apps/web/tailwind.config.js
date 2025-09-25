@@ -94,7 +94,6 @@ module.exports = {
           900: '#171717',
         },
 
-        // Semantic colors for consistent usage
         background: {
           primary: '#ffffff',
           secondary: '#f9fafb',

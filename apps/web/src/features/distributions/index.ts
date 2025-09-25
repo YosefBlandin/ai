@@ -2,7 +2,6 @@
  * @fileoverview Distributions feature exports
  */
 
-// Components
 export { DistributionListPresenter } from './components/DistributionListPresenter';
 export { DistributionDetailsPresenter } from './components/DistributionDetailsPresenter';
 export { DistributionDetailsGrid } from './components/DistributionDetailsGrid';

@@ -6,13 +6,14 @@ import React from 'react';
 import { DistributionDetailsContainer } from '@/features/distributions';
 
 interface DistributionDetailsPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function DistributionDetailsPage({
+export default async function DistributionDetailsPage({
   params,
 }: DistributionDetailsPageProps) {
-  return <DistributionDetailsContainer distributionId={params.id} />;
+  const { id } = await params;
+  return <DistributionDetailsContainer distributionId={id} />;
 }

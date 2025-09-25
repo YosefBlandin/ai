@@ -3,6 +3,7 @@
  */
 
 import { distributionService } from '@aidonic/shared-services';
+import { APP_TEXT } from '@aidonic/shared-utils';
 import { BaseService } from '@/shared/services/BaseService';
 import { DashboardStats } from '../types/dashboard.types';
 
@@ -14,7 +15,7 @@ export class DashboardService extends BaseService {
     return this.executeApiCall(async () => {
       const response = await distributionService.getDistributions({
         page: 1,
-        limit: 1000, // Get all for stats calculation
+        limit: 1000,
       });
 
       return this.transformData(response.data, distributions => ({
@@ -24,10 +25,12 @@ export class DashboardService extends BaseService {
           0
         ),
         activeDistributions: distributions.filter(
-          dist => dist.status === 'In Progress' || dist.status === 'Planned'
+          dist =>
+            dist.status === APP_TEXT.statusValues.inProgress ||
+            dist.status === APP_TEXT.statusValues.planned
         ).length,
         completedDistributions: distributions.filter(
-          dist => dist.status === 'Completed'
+          dist => dist.status === APP_TEXT.statusValues.completed
         ).length,
       }));
     }, 'fetch dashboard stats');

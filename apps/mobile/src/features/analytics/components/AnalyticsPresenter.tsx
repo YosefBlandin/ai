@@ -42,7 +42,6 @@ export const AnalyticsPresenter: React.FC<AnalyticsPresenterProps> = ({
     return <ErrorState error={error} onRefresh={refresh} />;
   }
 
-  // Check if we have valid data
   const hasValidStatusData = statusData && statusData.length > 0;
   const hasValidTimelineData = timelineData && timelineData.length > 0;
 

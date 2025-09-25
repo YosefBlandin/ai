@@ -6,7 +6,6 @@
 
 import React, { Component, ReactNode } from 'react';
 import { APP_TEXT } from '@aidonic/shared-utils';
-// Error fallback
 const ErrorFallback: React.FC<{ error?: Error; onRetry?: () => void }> = ({
   error,
   onRetry,
@@ -37,7 +36,6 @@ interface State {
   error?: Error;
 }
 
-// Error boundary
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -48,10 +46,7 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidCatch(_error: Error, _errorInfo: React.ErrorInfo) {
-    // Error logging can be implemented here if needed
-    // console.error('ErrorBoundary caught an error:', error, errorInfo);
-  }
+  componentDidCatch(_error: Error, _errorInfo: React.ErrorInfo) {}
 
   render() {
     if (this.state.hasError) {

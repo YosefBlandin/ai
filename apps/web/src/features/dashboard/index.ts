@@ -2,7 +2,6 @@
  * @fileoverview Dashboard feature exports
  */
 
-// Components
 export { DashboardPresenter } from './components/DashboardPresenter';
 export { StatsOverview } from './components/StatsOverview';
 export { DashboardHeader } from './components/DashboardHeader';

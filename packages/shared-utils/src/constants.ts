@@ -11,6 +11,9 @@ export const APP_TEXT = {
   // Application titles and headers
   titles: {
     dashboard: 'Dashboard',
+    distributions: 'Aid Distributions',
+    analytics: 'Analytics',
+    charts: 'Charts',
     distributionOverview: 'Distribution Overview',
     distributionAnalytics: 'Distribution Analytics',
     distributionDetails: 'Distribution Details',
@@ -27,6 +30,7 @@ export const APP_TEXT = {
     done: 'Done',
     clearFilters: 'Clear Filters',
     goBackHome: 'Go back home',
+    charts: 'Charts',
   },
 
   // Pagination
@@ -87,6 +91,14 @@ export const APP_TEXT = {
     cancelled: 'Cancelled',
   },
 
+  // Status values (for option values)
+  statusValues: {
+    planned: 'Planned',
+    inProgress: 'In Progress',
+    completed: 'Completed',
+    cancelled: 'Cancelled',
+  },
+
   // Region values
   regions: {
     all: 'All',
@@ -125,7 +137,7 @@ export const APP_TEXT = {
 
   // Chart labels
   charts: {
-    statusDistribution: 'Status Distribution',
+    statusDistribution: 'Charts',
     timelineTrends: 'Timeline Trends',
     noData: 'No Data',
     aidTypeDistribution: 'Aid Type Distribution',

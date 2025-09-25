@@ -114,11 +114,21 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
             className="w-full px-3 py-2 border border-border-light rounded-md bg-background-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           >
             <option value="">{APP_TEXT.filters.allAidTypes}</option>
-            <option value="Food">{APP_TEXT.aidTypes.food}</option>
-            <option value="Medical">{APP_TEXT.aidTypes.medical}</option>
-            <option value="Shelter">{APP_TEXT.aidTypes.shelter}</option>
-            <option value="Clothing">{APP_TEXT.aidTypes.clothing}</option>
-            <option value="Education">{APP_TEXT.aidTypes.education}</option>
+            <option value={APP_TEXT.aidTypes.food}>
+              {APP_TEXT.aidTypes.food}
+            </option>
+            <option value={APP_TEXT.aidTypes.medical}>
+              {APP_TEXT.aidTypes.medical}
+            </option>
+            <option value={APP_TEXT.aidTypes.shelter}>
+              {APP_TEXT.aidTypes.shelter}
+            </option>
+            <option value={APP_TEXT.aidTypes.clothing}>
+              {APP_TEXT.aidTypes.clothing}
+            </option>
+            <option value={APP_TEXT.aidTypes.education}>
+              {APP_TEXT.aidTypes.education}
+            </option>
           </select>
         </div>
 
@@ -138,16 +148,16 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
             className="w-full px-3 py-2 border border-border-light rounded-md bg-background-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           >
             <option value="">{APP_TEXT.filters.allDeliveryChannels}</option>
-            <option value="Direct Distribution">
+            <option value={APP_TEXT.deliveryChannels.directDistribution}>
               {APP_TEXT.deliveryChannels.directDistribution}
             </option>
-            <option value="Vouchers">
+            <option value={APP_TEXT.deliveryChannels.vouchers}>
               {APP_TEXT.deliveryChannels.vouchers}
             </option>
-            <option value="Cash Transfer">
+            <option value={APP_TEXT.deliveryChannels.cashTransfer}>
               {APP_TEXT.deliveryChannels.cashTransfer}
             </option>
-            <option value="Mobile Money">
+            <option value={APP_TEXT.deliveryChannels.mobileMoney}>
               {APP_TEXT.deliveryChannels.mobileMoney}
             </option>
           </select>

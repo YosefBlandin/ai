@@ -20,7 +20,6 @@ export const LineChartDisplay: React.FC<LineChartDisplayProps> = ({
 }) => {
   const chartConfig = ChartConfigFactory.createWebConfig(LIGHT_THEME);
 
-  // Validate and clean data
   const cleanData = data.filter(
     item =>
       item &&
@@ -41,14 +40,19 @@ export const LineChartDisplay: React.FC<LineChartDisplayProps> = ({
     );
   }
 
-  // Calculate chart dimensions and scaling to match design (0-100 scale)
   const maxValue = Math.max(...cleanData.map(item => item.beneficiaries));
   const chartHeight = 200;
   const chartWidth = 400;
   const padding = 40;
 
-  // Y-axis ticks to match design (0, 25, 50, 75, 100)
-  const yTicks = [0, 25, 50, 75, 100];
+  // Y-axis ticks based on actual data range
+  const yTicks = [
+    0,
+    Math.round(maxValue * 0.25),
+    Math.round(maxValue * 0.5),
+    Math.round(maxValue * 0.75),
+    maxValue,
+  ];
 
   return (
     <div className="bg-background-primary rounded-xl border border-border-light p-6">
@@ -137,11 +141,8 @@ export const LineChartDisplay: React.FC<LineChartDisplayProps> = ({
                 const x =
                   padding +
                   (index * (chartWidth - 2 * padding)) / (cleanData.length - 1);
-                // Scale to 0-100 range to match design
-                const scaledValue = Math.min(
-                  100,
-                  Math.max(0, (item.beneficiaries / maxValue) * 100)
-                );
+                // Scale to actual data range
+                const scaledValue = (item.beneficiaries / maxValue) * 100;
                 const y =
                   chartHeight -
                   padding -
@@ -192,10 +193,7 @@ export const LineChartDisplay: React.FC<LineChartDisplayProps> = ({
                       padding +
                       (index * (chartWidth - 2 * padding)) /
                         (cleanData.length - 1);
-                    const scaledValue = Math.min(
-                      100,
-                      Math.max(0, (item.beneficiaries / maxValue) * 100)
-                    );
+                    const scaledValue = (item.beneficiaries / maxValue) * 100;
                     const y =
                       chartHeight -
                       padding -

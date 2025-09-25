@@ -11,7 +11,6 @@ interface LoadingSpinnerProps {
   message?: string;
 }
 
-// Loading spinner
 export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'large',
   message,

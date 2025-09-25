@@ -23,8 +23,6 @@ interface DistributionCardProps {
 // Distribution card
 export const DistributionCard: React.FC<DistributionCardProps> = React.memo(
   ({ distribution, onPress }) => {
-    // Using centralized utilities
-
     return (
       <TouchableOpacity
         style={styles.card}

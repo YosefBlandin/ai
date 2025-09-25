@@ -20,7 +20,6 @@ export const PieChartDisplay: React.FC<PieChartDisplayProps> = ({
 }) => {
   const chartConfig = ChartConfigFactory.createMobileConfig();
 
-  // Validate and clean data before creating chart data
   const cleanData = data.filter(
     item =>
       item &&

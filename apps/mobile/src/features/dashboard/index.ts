@@ -2,7 +2,6 @@
  * @fileoverview Dashboard feature exports for mobile
  */
 
-// Components
 export { DashboardPresenter } from './components/DashboardPresenter';
 
 // Containers

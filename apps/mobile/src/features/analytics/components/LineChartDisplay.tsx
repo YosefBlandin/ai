@@ -20,7 +20,6 @@ export const LineChartDisplay: React.FC<LineChartDisplayProps> = ({
 }) => {
   const chartConfig = ChartConfigFactory.createMobileConfig();
 
-  // Validate and clean data before creating chart data
   const cleanData = data.filter(
     item =>
       item &&
@@ -36,7 +35,7 @@ export const LineChartDisplay: React.FC<LineChartDisplayProps> = ({
       {
         data: cleanData.map(item => item.beneficiaries),
         strokeWidth: 2,
-        color: (opacity = 1) => `rgba(59, 130, 246, ${opacity})`,
+        color: (opacity = 1) => `rgba(59, 130, 246, ${opacity})`, // Using design token color
       },
     ],
   };

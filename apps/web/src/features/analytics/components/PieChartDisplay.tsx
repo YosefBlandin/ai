@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { APP_TEXT } from '@aidonic/shared-utils';
+import { colors } from '@aidonic/shared-design-tokens';
 
 interface PieChartDisplayProps {
   data: { name: string; value: number }[];
@@ -14,7 +15,6 @@ export const PieChartDisplay: React.FC<PieChartDisplayProps> = ({
   data,
   title,
 }) => {
-  // Validate and clean data
   const cleanData = data.filter(
     item =>
       item &&
@@ -35,15 +35,13 @@ export const PieChartDisplay: React.FC<PieChartDisplayProps> = ({
     );
   }
 
-  // Calculate total for percentages
   const total = cleanData.reduce((sum, item) => sum + item.value, 0);
 
-  // Create pie chart data with percentages and specific colors to match design
   const pieColors = [
-    '#3b82f6', // Medium-dark blue (Food)
-    '#1e40af', // Darker blue (Medical)
-    '#60a5fa', // Light blue (Vouchers)
-    '#dbeafe', // Very light blue (Other)
+    colors.primary[500], // Medium-dark blue (Food)
+    colors.primary[800], // Darker blue (Medical)
+    colors.primary[400], // Light blue (Vouchers)
+    colors.primary[100], // Very light blue (Other)
   ];
 
   const pieData = cleanData.map((item, index) => ({
@@ -115,12 +113,17 @@ export const PieChartDisplay: React.FC<PieChartDisplayProps> = ({
           {/* Legend - Two column layout to match design */}
           <div className="grid grid-cols-2 gap-4">
             {pieData.map((item, index) => (
-              <div key={index} className="flex items-center">
-                <div
-                  className="w-3 h-3 rounded-full mr-2"
-                  style={{ backgroundColor: item.color }}
-                />
-                <span className="text-text-primary text-sm">{item.name}</span>
+              <div key={index} className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <div
+                    className="w-3 h-3 rounded-full mr-2"
+                    style={{ backgroundColor: item.color }}
+                  />
+                  <span className="text-text-primary text-sm">{item.name}</span>
+                </div>
+                <span className="text-text-primary text-sm font-medium">
+                  {item.value}
+                </span>
               </div>
             ))}
           </div>

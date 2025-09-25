@@ -30,7 +30,6 @@ const statusOptions = getStatusOptions()
   .map(option => option.value)
   .filter(value => value !== 'All') as DistributionStatus[];
 
-// Distribution filters
 export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
   filters,
   onFiltersChange,
@@ -48,9 +47,7 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
         <View style={styles.header}>
           <Text style={styles.title}>{APP_TEXT.navigation.filters}</Text>
           <TouchableOpacity onPress={onClose}>
-            <Text style={styles.closeButton}>
-              {APP_TEXT.navigation.done || 'Done'}
-            </Text>
+            <Text style={styles.closeButton}>{APP_TEXT.navigation.done}</Text>
           </TouchableOpacity>
         </View>
 
@@ -96,7 +93,7 @@ export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
           {hasActiveFilters && (
             <TouchableOpacity style={styles.clearButton} onPress={clearFilters}>
               <Text style={styles.clearButtonText}>
-                {APP_TEXT.navigation.clearFilters || 'Clear Filters'}
+                {APP_TEXT.navigation.clearFilters}
               </Text>
             </TouchableOpacity>
           )}

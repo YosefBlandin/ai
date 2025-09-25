@@ -15,16 +15,16 @@ export const CHART_COLORS = {
   error: colors.error[500],
   info: colors.primary[400],
 
-  // Extended palette for multiple data series
+  // Extended palette for multiple data series - Blue theme to match web
   palette: [
-    colors.primary[500], // Blue
-    colors.success[500], // Green
-    colors.warning[500], // Orange
-    colors.error[500], // Red
-    colors.secondary[500], // Gray
-    colors.primary[400], // Light Blue
-    colors.success[400], // Light Green
-    colors.warning[400], // Light Orange
+    colors.primary[500], // Medium-dark blue (Food)
+    colors.primary[800], // Darker blue (Medical)
+    colors.primary[400], // Light blue (Vouchers)
+    colors.primary[100], // Very light blue (Other)
+    colors.primary[600], // Additional blue shade
+    colors.primary[300], // Additional light blue
+    colors.primary[700], // Additional dark blue
+    colors.primary[200], // Additional very light blue
   ],
 } as const;
 
