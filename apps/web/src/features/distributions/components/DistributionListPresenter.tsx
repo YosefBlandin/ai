@@ -1,5 +1,5 @@
 /**
- * @fileoverview Distribution list presenter component for displaying distribution list UI
+ * @fileoverview Distribution list presenter
  */
 
 import React from 'react';

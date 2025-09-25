@@ -1,5 +1,5 @@
 /**
- * @fileoverview Pie chart component for displaying distribution data
+ * @fileoverview Pie chart display
  */
 
 import React from 'react';

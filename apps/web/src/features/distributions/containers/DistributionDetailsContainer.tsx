@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * @fileoverview Distribution details container for managing single distribution business logic
+ * @fileoverview Distribution details container
  */
 
 import React from 'react';

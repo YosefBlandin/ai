@@ -1,5 +1,5 @@
 /**
- * @fileoverview Home page presenter component for displaying distribution list with filters
+ * @fileoverview Home page presenter
  */
 
 import React from 'react';
@@ -29,8 +29,7 @@ interface HomePagePresenterProps {
   selectedDistributionId: string | null;
   onViewDetails: (id: string) => void;
   onBackToList: () => void;
-  onRegionFilter: (region: string) => void;
-  onStatusFilter: (status: string) => void;
+  onFiltersChange: (filters: Partial<DistributionFilters>) => void;
   onPageChange: (page: number) => void;
 }
 
@@ -42,8 +41,7 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
   selectedDistributionId,
   onViewDetails,
   onBackToList,
-  onRegionFilter,
-  onStatusFilter,
+  onFiltersChange,
   onPageChange,
 }) => {
   // If viewing distribution details
@@ -83,7 +81,11 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
           </label>
           <select
             value={filters.region || 'All'}
-            onChange={e => onRegionFilter(e.target.value)}
+            onChange={e => {
+              const region =
+                e.target.value === 'All' ? undefined : e.target.value;
+              onFiltersChange({ region });
+            }}
             className="w-full px-3 py-2 border border-border-light rounded-md bg-background-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           >
             <option value="All">{APP_TEXT.filters.allRegions}</option>
@@ -112,7 +114,13 @@ export const HomePagePresenter: React.FC<HomePagePresenterProps> = ({
           </label>
           <select
             value={filters.status || 'All'}
-            onChange={e => onStatusFilter(e.target.value)}
+            onChange={e => {
+              const status =
+                e.target.value === 'All'
+                  ? undefined
+                  : (e.target.value as DistributionStatus);
+              onFiltersChange({ status });
+            }}
             className="w-full px-3 py-2 border border-border-light rounded-md bg-background-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           >
             <option value="All">{APP_TEXT.filters.allStatuses}</option>

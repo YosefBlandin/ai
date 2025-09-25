@@ -1,5 +1,5 @@
 /**
- * @fileoverview Dashboard presenter for mobile
+ * @fileoverview Dashboard presenter
  */
 
 import React from 'react';

@@ -1,5 +1,5 @@
 /**
- * @fileoverview BeneficiariesList component for displaying beneficiaries
+ * @fileoverview Beneficiaries list
  */
 
 import React from 'react';

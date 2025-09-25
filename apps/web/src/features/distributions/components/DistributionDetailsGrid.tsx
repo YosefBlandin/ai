@@ -1,5 +1,5 @@
 /**
- * @fileoverview DistributionDetailsGrid component for displaying distribution information
+ * @fileoverview Distribution details grid
  */
 
 import React from 'react';

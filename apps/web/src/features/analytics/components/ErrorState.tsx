@@ -1,5 +1,5 @@
 /**
- * @fileoverview Error state component for charts page
+ * @fileoverview Error state
  */
 
 import React from 'react';

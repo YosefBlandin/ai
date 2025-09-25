@@ -1,5 +1,5 @@
 /**
- * @fileoverview Main App component for React Native mobile application
+ * @fileoverview Main app
  */
 
 import React from 'react';

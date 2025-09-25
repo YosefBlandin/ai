@@ -1,5 +1,5 @@
 /**
- * @fileoverview Sidebar component for navigation and branding
+ * @fileoverview Sidebar
  */
 
 import React from 'react';

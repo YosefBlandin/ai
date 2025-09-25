@@ -1,5 +1,5 @@
 /**
- * @fileoverview Analytics container for mobile
+ * @fileoverview Analytics container
  */
 
 import React from 'react';

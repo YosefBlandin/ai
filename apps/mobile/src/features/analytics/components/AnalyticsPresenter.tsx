@@ -1,5 +1,5 @@
 /**
- * @fileoverview Analytics presenter for mobile
+ * @fileoverview Analytics presenter
  */
 
 import React from 'react';

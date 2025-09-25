@@ -1,5 +1,5 @@
 /**
- * @fileoverview Analytics presenter component for displaying analytics UI
+ * @fileoverview Analytics presenter
  */
 
 import React from 'react';

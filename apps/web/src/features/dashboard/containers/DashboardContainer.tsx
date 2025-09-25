@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * @fileoverview Dashboard container for managing dashboard business logic
+ * @fileoverview Dashboard container
  */
 
 import React from 'react';

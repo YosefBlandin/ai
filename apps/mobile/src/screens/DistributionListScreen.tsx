@@ -1,5 +1,5 @@
 /**
- * @fileoverview DistributionListScreen component for displaying the list of distributions
+ * @fileoverview Distribution list screen
  */
 
 import React from 'react';
@@ -11,7 +11,7 @@ interface DistributionListScreenProps {
 }
 
 /**
- * Screen component for displaying the list of distributions
+ * Distribution list screen
  */
 export const DistributionListScreen: React.FC<DistributionListScreenProps> = ({
   navigation,

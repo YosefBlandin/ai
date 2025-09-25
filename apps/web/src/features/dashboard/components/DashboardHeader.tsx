@@ -1,5 +1,5 @@
 /**
- * @fileoverview DashboardHeader component for page headers and titles
+ * @fileoverview Dashboard header
  */
 
 import React from 'react';

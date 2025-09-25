@@ -1,5 +1,5 @@
 /**
- * @fileoverview DistributionFilters component for filtering distributions
+ * @fileoverview Distribution filters
  */
 
 import React from 'react';
@@ -30,7 +30,7 @@ const statusOptions = getStatusOptions()
   .map(option => option.value)
   .filter(value => value !== 'All') as DistributionStatus[];
 
-// Component for filtering distributions
+// Distribution filters
 export const DistributionFilters: React.FC<DistributionFiltersProps> = ({
   filters,
   onFiltersChange,

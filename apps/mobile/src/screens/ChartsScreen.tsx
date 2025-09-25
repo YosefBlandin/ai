@@ -1,5 +1,5 @@
 /**
- * @fileoverview ChartsScreen component for displaying charts
+ * @fileoverview Charts screen
  */
 
 import React from 'react';

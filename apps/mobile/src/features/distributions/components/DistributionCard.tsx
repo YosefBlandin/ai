@@ -1,5 +1,5 @@
 /**
- * @fileoverview DistributionCard component for displaying distribution information
+ * @fileoverview Distribution card
  * @author Aidonic Team
  * @created 2024
  */
@@ -20,7 +20,7 @@ interface DistributionCardProps {
   onPress: (id: string) => void;
 }
 
-// Component for displaying distribution information
+// Distribution card
 export const DistributionCard: React.FC<DistributionCardProps> = React.memo(
   ({ distribution, onPress }) => {
     // Using centralized utilities

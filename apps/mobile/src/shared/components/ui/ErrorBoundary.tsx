@@ -1,5 +1,5 @@
 /**
- * @fileoverview ErrorBoundary component for handling React errors
+ * @fileoverview Error boundary
  */
 
 import React, { Component, ReactNode } from 'react';
@@ -15,7 +15,7 @@ interface State {
   error?: Error;
 }
 
-// Error boundary component for handling React errors
+// Error boundary
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);

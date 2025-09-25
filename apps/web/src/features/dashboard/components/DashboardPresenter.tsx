@@ -1,5 +1,5 @@
 /**
- * @fileoverview Dashboard presenter component for displaying dashboard UI
+ * @fileoverview Dashboard presenter
  */
 
 import React from 'react';

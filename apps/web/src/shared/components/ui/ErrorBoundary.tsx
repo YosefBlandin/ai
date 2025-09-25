@@ -1,12 +1,12 @@
 'use client';
 
 /**
- * @fileoverview ErrorBoundary component for handling React errors
+ * @fileoverview Error boundary
  */
 
 import React, { Component, ReactNode } from 'react';
 import { APP_TEXT } from '@aidonic/shared-utils';
-// Simple error fallback component for web
+// Error fallback
 const ErrorFallback: React.FC<{ error?: Error; onRetry?: () => void }> = ({
   error,
   onRetry,
@@ -37,7 +37,7 @@ interface State {
   error?: Error;
 }
 
-// Error boundary component for handling React errors
+// Error boundary
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);

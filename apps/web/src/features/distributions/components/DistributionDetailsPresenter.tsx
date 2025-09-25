@@ -1,5 +1,5 @@
 /**
- * @fileoverview DistributionDetailsPresenter component for displaying distribution details UI
+ * @fileoverview Distribution details presenter
  */
 
 import React from 'react';
@@ -14,7 +14,7 @@ interface DistributionDetailsPresenterProps {
   onRefresh?: () => void;
 }
 
-// Presenter component for distribution details display
+// Distribution details presenter
 export const DistributionDetailsPresenter: React.FC<
   DistributionDetailsPresenterProps
 > = ({ distribution, loading, onRefresh }) => {

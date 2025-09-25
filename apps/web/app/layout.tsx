@@ -1,5 +1,5 @@
 /**
- * @fileoverview Root layout component for web application
+ * @fileoverview Root layout
  */
 
 import type { Metadata } from 'next';

@@ -1,5 +1,5 @@
 /**
- * @fileoverview DistributionDetailsScreen component for displaying distribution details
+ * @fileoverview Distribution details screen
  */
 
 import React from 'react';
@@ -11,7 +11,7 @@ interface DistributionDetailsScreenProps {
 }
 
 /**
- * Screen component for displaying distribution details
+ * Distribution details screen
  */
 export const DistributionDetailsScreen: React.FC<
   DistributionDetailsScreenProps

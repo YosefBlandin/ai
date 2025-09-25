@@ -1,5 +1,5 @@
 /**
- * @fileoverview StatsOverview component for displaying key statistics
+ * @fileoverview Stats overview
  */
 
 import React from 'react';

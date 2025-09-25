@@ -1,5 +1,5 @@
 /**
- * @fileoverview ErrorFallback component for displaying error states
+ * @fileoverview Error fallback
  */
 
 import React from 'react';
@@ -13,7 +13,7 @@ interface ErrorFallbackProps {
 }
 
 /**
- * Error fallback component for displaying error states
+ * Error fallback
  */
 export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
   error,

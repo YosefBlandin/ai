@@ -1,5 +1,5 @@
 /**
- * @fileoverview Distribution filters component for web
+ * @fileoverview Distribution filters
  */
 
 import React from 'react';

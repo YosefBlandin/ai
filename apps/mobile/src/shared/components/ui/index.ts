@@ -1,5 +1,5 @@
 /**
- * @fileoverview Shared UI components exports for mobile
+ * @fileoverview Shared UI components
  */
 
 export { LoadingSpinner } from './LoadingSpinner';

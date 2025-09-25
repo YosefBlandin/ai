@@ -1,5 +1,5 @@
 /**
- * @fileoverview Loading state component for charts page
+ * @fileoverview Loading state
  */
 
 import React from 'react';

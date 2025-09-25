@@ -1,5 +1,5 @@
 /**
- * @fileoverview Distribution details container for mobile
+ * @fileoverview Distribution details container
  */
 
 import React from 'react';

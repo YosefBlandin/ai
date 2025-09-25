@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * @fileoverview Analytics container for managing analytics business logic
+ * @fileoverview Analytics container
  */
 
 import React from 'react';

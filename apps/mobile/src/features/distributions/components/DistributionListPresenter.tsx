@@ -1,5 +1,5 @@
 /**
- * @fileoverview DistributionListPresenter component for displaying distribution list UI
+ * @fileoverview Distribution list presenter
  */
 
 import React, { useState } from 'react';
@@ -34,7 +34,7 @@ interface DistributionListPresenterProps {
   onViewDetails: (id: string) => void;
 }
 
-// Presenter component for distribution list display
+// Distribution list presenter
 export const DistributionListPresenter: React.FC<
   DistributionListPresenterProps
 > = ({

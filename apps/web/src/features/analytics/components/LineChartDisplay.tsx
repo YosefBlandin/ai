@@ -1,5 +1,5 @@
 /**
- * @fileoverview Line chart component for displaying timeline data
+ * @fileoverview Line chart display
  */
 
 import React from 'react';

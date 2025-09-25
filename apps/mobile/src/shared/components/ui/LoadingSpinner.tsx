@@ -1,5 +1,5 @@
 /**
- * @fileoverview LoadingSpinner component for displaying loading state
+ * @fileoverview Loading spinner
  */
 
 import React from 'react';
@@ -11,7 +11,7 @@ interface LoadingSpinnerProps {
   message?: string;
 }
 
-// Component for displaying loading state
+// Loading spinner
 export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'large',
   message,
